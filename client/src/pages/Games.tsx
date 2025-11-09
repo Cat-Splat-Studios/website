@@ -170,7 +170,7 @@ export default function Games() {
                       </div>
                       <h3 className="text-xl font-bold mb-2 text-center">{project.title}</h3>
                       <div className="inline-block w-full text-center mb-3">
-                        <span className="text-xs font-semibold text-secondary uppercase tracking-wider px-3 py-1 bg-secondary/10 rounded-full">
+                        <span className="text-xs font-semibold text-secondary-foreground uppercase tracking-wider px-3 py-1 bg-secondary/80 rounded-full">
                           {project.status}
                         </span>
                       </div>
