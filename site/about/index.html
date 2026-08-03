@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>About · Cat Splat Studios</title>
+    <meta
+      name="description"
+      content="Cat Splat Studios is an independent game studio in Toronto, founded in 2015. Meet the team behind Sentinels of Gleamwood." />
+    <link rel="canonical" href="https://catsplatstudios.com/about/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cat Splat Studios" />
+    <meta property="og:title" content="About · Cat Splat Studios" />
+    <meta
+      property="og:description"
+      content="An independent game studio in Toronto. Two developers and one very important cat." />
+    <meta property="og:url" content="https://catsplatstudios.com/about/" />
+    <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sentinels of Gleamwood, a controller-first 2D action roguelite from Cat Splat Studios" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#100d14" />
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/img/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" />
+
+    <link rel="preload" href="../assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="../assets/css/site.css" />
+
+    <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
+         until site.js marks it in view. Drop no-js here rather than in site.js:
+         site.js is deferred, so doing it there lets above-the-fold content paint
+         visible, snap to invisible, then fade back in. The timeout puts the
+         class back if site.js never runs at all, because content must never be
+         permanently invisible just because a script failed to load. -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      window.__csFailsafe = setTimeout(function () {
+        if (!window.__csReady) document.documentElement.classList.add("no-js");
+      }, 2500);
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="../index.html" aria-label="Cat Splat Studios, home">
+          <img src="../assets/img/cat-logo-small.webp" alt="Cat Splat Studios" width="954" height="130" />
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <a href="../games/index.html">Games</a>
+          <a href="../services/index.html">Services</a>
+          <a href="../about/index.html" aria-current="page">About</a>
+        </nav>
+
+        <a class="btn btn-primary nav-cta" href="../services/index.html">Work with us</a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Primary">
+        <div>
+          <ul role="list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../games/index.html">Games</a></li>
+            <li><a href="../services/index.html">Services</a></li>
+            <li><a href="../about/index.html" aria-current="page">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- ===================== HERO ===================== -->
+      <section class="hero hero-sub">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+        <div class="shell">
+          <div class="hero-inner">
+            <!-- The stacked logo ships as black ink on transparent, which is
+                 invisible here. Masking it with an ember gradient fixes that
+                 without needing a re-exported asset. -->
+            <div class="logo-mark" role="img" aria-label="Cat Splat Studios"></div>
+
+            <p class="eyebrow">The studio</p>
+            <h1>Our Team</h1>
+            <p class="lede">
+              Meet the passionate individuals behind Cat Splat Studios. We're a small but dedicated
+              team of game developers, designers, and one very important cat, all working together
+              to create amazing gaming experiences.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== TEAM ===================== -->
+      <section class="section section-sunk" aria-labelledby="team-heading">
+        <div class="shell">
+          <h2 id="team-heading" class="sr-only">The team</h2>
+          <div class="grid grid-3">
+            <article class="panel panel-hover member reveal">
+              <div class="sigil" aria-hidden="true"><span>HA</span></div>
+              <h3 class="panel-title">Hisham Ata</h3>
+              <p class="member-role">Founder / Technical Director</p>
+              <p>
+                Hisham founded Cat Splat Studios in 2015. His background is in programming, IT and
+                project management. In his free time, he loves playing fighting games, being a
+                competitor and a commentator for the Canadian fighting game community.
+              </p>
+            </article>
+
+            <article class="panel panel-hover member reveal" style="--reveal-delay: 80ms">
+              <div class="sigil" aria-hidden="true"><span>KS</span></div>
+              <h3 class="panel-title">Kyle Skidmore</h3>
+              <p class="member-role">Project Manager / Game Designer</p>
+              <p>
+                Kyle is a designer and art director who also takes the project management role at
+                Cat Splat. He's loved video games since he could hold a controller. His passion for
+                games and the systems behind them makes him the de facto Dungeon Master of the
+                team, as well.
+              </p>
+            </article>
+
+            <article class="panel panel-hover member reveal" style="--reveal-delay: 160ms">
+              <img
+                class="avatar"
+                src="../assets/img/vader-cat.jpeg"
+                alt="Vader, a fluffy long-haired black cat with golden eyes, lying on a red blanket."
+                width="1080" height="1080" loading="lazy" decoding="async" />
+              <h3 class="panel-title">Vader</h3>
+              <p class="member-role">Team Mascot</p>
+              <p>
+                Vader is an adventurous fluffy cat who continues to motivate us with his enthusiasm
+                and attention to detail when reviewing our work. His furrvourite games involved the
+                kitty post and laser (pointer) tag!
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== BEHIND THE SCENES ===================== -->
+      <section class="section">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Behind the scenes</p>
+            <h2>Out in the world</h2>
+          </div>
+
+          <figure class="reveal photo-figure">
+            <img
+              class="framed"
+              src="../assets/img/team-photo.jpeg"
+              alt="Three members of Cat Splat Studios at a convention booth in black studio shirts, with laptops running Codename: Shifter, an Xbox controller, and a Rocket Recover poster."
+              width="1080" height="1080" loading="lazy" decoding="async" />
+            <figcaption>
+              Cat Splat at a show, running Codename: Shifter off two laptops and a tablet.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ===================== MISSION ===================== -->
+      <section class="section section-sunk">
+        <div class="shell shell-narrow">
+          <div class="reveal">
+            <p class="eyebrow">Our mission</p>
+            <p class="mission">
+              At Cat Splat Studios, we're committed to creating innovative and engaging gaming
+              experiences that bring joy to players around the world. Based in Toronto, we combine
+              technical expertise with creative passion to develop games that stand out in the
+              indie gaming scene.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== WHAT WE'RE ON ===================== -->
+      <section class="section">
+        <div class="shell">
+          <div class="split">
+            <div class="reveal">
+              <p class="eyebrow">Right now</p>
+              <h2>What we're working on</h2>
+              <p class="stack">
+                Sentinels of Gleamwood has the studio's full attention. It's a 2D action roguelite
+                for Windows, headed to Steam, unreleased. The run loop, the saves, the economy, the
+                modding system and the entire front end are already playable. Ten bosses and
+                per-biome art are what's left.
+              </p>
+              <p class="dim">
+                Alongside it we take contract work in Unity, on the same pipeline. If that's why
+                you're here, the services page has the detail.
+              </p>
+              <div class="btn-row" style="margin-top: 2rem">
+                <a class="btn btn-ghost" href="../games/index.html#gleamwood">Sentinels of Gleamwood</a>
+                <a class="btn btn-ghost" href="../services/index.html">Work with us</a>
+              </div>
+            </div>
+
+            <div class="reveal" style="--reveal-delay: 120ms">
+              <div class="stat-stack">
+                <div class="stat"><span class="stat-num">2015</span><span class="stat-label">Founded in Toronto</span></div>
+                <div class="stat"><span class="stat-num">3</span><span class="stat-label">People, one of them a cat</span></div>
+                <div class="stat"><span class="stat-num">1</span><span class="stat-label">Game in active development</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CONTACT ===================== -->
+      <section class="section section-cta">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+        <div class="shell shell-narrow center">
+          <h2 class="reveal">Get in touch</h2>
+          <p class="lede reveal">
+            Press, partnerships, contract work, or a question about the game. One address, and a
+            person reads it.
+          </p>
+          <div class="btn-row reveal">
+            <a class="btn btn-primary btn-lg" href="mailto:info@catsplatstudios.com">info@catsplatstudios.com</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-head">Cat Splat Studios</p>
+            <p class="dim" style="font-size: var(--step--1)">
+              An independent game studio in Toronto, making games since 2015.
+            </p>
+          </div>
+
+          <nav aria-label="Footer">
+            <p class="footer-head">Explore</p>
+            <a href="../games/index.html">Games</a>
+            <a href="../services/index.html">Services</a>
+            <a href="../about/index.html">About</a>
+            <a href="https://store.steampowered.com/app/2953370/" target="_blank" rel="noopener">Gleamwood on Steam</a>
+          </nav>
+
+          <div>
+            <p class="footer-head">Contact</p>
+            <a href="mailto:info@catsplatstudios.com">info@catsplatstudios.com</a>
+            <a href="https://github.com/Cat-Splat-Studios" target="_blank" rel="noopener">github.com/Cat-Splat-Studios</a>
+          </div>
+
+          <div>
+            <p class="footer-head">Find us</p>
+            <div class="social-row">
+              <a href="https://facebook.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+              </a>
+              <a href="https://instagram.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://twitter.com/catsplatstudios" target="_blank" rel="noopener" aria-label="X, formerly Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2H21l-6.4 7.3L22 22h-5.9l-4.6-6-5.3 6H3.4l6.9-7.8L2.3 2h6l4.2 5.5L18.2 2Zm-1 18h1.6L7.9 3.7H6.2L17.2 20Z"/></svg>
+              </a>
+              <a href="mailto:info@catsplatstudios.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-base">
+          <p>&copy; 2015&ndash;<span data-year>2026</span> Cat Splat Studios Inc.</p>
+          <p class="dim">Built as flat files. No frameworks were harmed.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/site.js" defer></script>
+  </body>
+</html>

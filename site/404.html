@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+
+    <title>Page not found · Cat Splat Studios</title>
+    <meta name="description" content="That path doesn't lead anywhere." />
+
+    <meta name="theme-color" content="#100d14" />
+    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/img/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+
+    <link rel="preload" href="/assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+
+    <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
+         until site.js marks it in view. Drop no-js here rather than in site.js:
+         site.js is deferred, so doing it there lets above-the-fold content paint
+         visible, snap to invisible, then fade back in. The timeout puts the
+         class back if site.js never runs at all, because content must never be
+         permanently invisible just because a script failed to load. -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      window.__csFailsafe = setTimeout(function () {
+        if (!window.__csReady) document.documentElement.classList.add("no-js");
+      }, 2500);
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="/index.html" aria-label="Cat Splat Studios, home">
+          <img src="/assets/img/cat-logo-small.webp" alt="Cat Splat Studios" width="954" height="130" />
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="/index.html">Home</a>
+          <a href="/games/index.html">Games</a>
+          <a href="/services/index.html">Services</a>
+          <a href="/about/index.html">About</a>
+        </nav>
+
+        <a class="btn btn-primary nav-cta" href="/services/index.html">Work with us</a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Primary">
+        <div>
+          <ul role="list">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/games/index.html">Games</a></li>
+            <li><a href="/services/index.html">Services</a></li>
+            <li><a href="/about/index.html">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="hero">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="ember-bed" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+
+        <div class="shell center">
+          <div class="notfound">
+            <p class="code-404 ember-text">404</p>
+            <h1>This path doesn't lead anywhere</h1>
+            <p class="lede">
+              Our level generator refuses to build a room the player can't reach. The website is
+              apparently less careful. Nothing's here, but the light is back the way you came.
+            </p>
+            <div class="btn-row">
+              <a class="btn btn-primary btn-lg" href="/index.html">Go home</a>
+              <a class="btn btn-ghost btn-lg" href="/games/index.html">Browse the games</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-base footer-base-bare">
+          <p>&copy; 2015&ndash;<span data-year>2026</span> Cat Splat Studios Inc.</p>
+          <p class="dim"><a href="mailto:info@catsplatstudios.com">info@catsplatstudios.com</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/site.js" defer></script>
+  </body>
+</html>

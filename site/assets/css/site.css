@@ -1,0 +1,2593 @@
+/* ==========================================================================
+   Cat Splat Studios site stylesheet
+   Zero dependencies. Hand-written. No build step.
+
+   The palette and fonts are lifted directly from Sentinels of Gleamwood's
+   in-game UI theme (Assets/_Game/UI/Theme/GleamwoodTheme.tss) so the site and
+   the game read as one thing.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fonts (self-hosted; both OFL-licensed)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("../fonts/PixelifySans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("../fonts/SpaceMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Operator Mono";
+  src: url("../fonts/PixelOperatorMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Gleamwood canon */
+  --bg: #100d14;
+  --ember: #ff6a2a;
+  --ember-hot: #ffae3a;
+  --ember-deep: #cf5a2a;
+  --burn: #ff8a3a;
+  --juggle: #86b4ff;
+  --perfect: #7ec88a;
+  --text: #cfc6dc;
+  --text-dim: #8a8397;
+  --rule: #2a2533;
+
+  /* Site-only extensions of the canon */
+  --bg-sunk: #0a080d;
+  --bg-raise: #171320;
+  --bg-raise-2: #1e1929;
+  --text-bright: #efe9f5;
+
+  --ember-glow: rgb(255 106 42 / 0.35);
+  --ember-veil: rgb(255 106 42 / 0.08);
+
+  /* Type */
+  --font-display: "Pixelify Sans", "Trebuchet MS", sans-serif;
+  --font-body: "Space Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+  --font-numeric: "Pixel Operator Mono", "Space Mono", monospace;
+
+  /* Fluid scale, via clamp(min, preferred, max) */
+  --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.86rem);
+  --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1.05rem);
+  --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.45rem, 1.25rem + 1vw, 2rem);
+  --step-3: clamp(1.9rem, 1.5rem + 2vw, 3rem);
+  --step-4: clamp(2.4rem, 1.7rem + 3.4vw, 4.5rem);
+  --step-5: clamp(3rem, 1.8rem + 6vw, 7rem);
+
+  /* Rhythm */
+  --gutter: clamp(1.15rem, 0.8rem + 1.8vw, 2.5rem);
+  --section-y: clamp(4rem, 2.5rem + 7vw, 9rem);
+  --measure: 66ch;
+  --shell: 1240px;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   3. Reset / base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ember-hot);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--ember);
+  color: var(--bg);
+}
+
+/* --------------------------------------------------------------------------
+   4. Typography
+   -------------------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: var(--text-bright);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-4);
+}
+h2 {
+  font-size: var(--step-3);
+}
+h3 {
+  font-size: var(--step-2);
+}
+h4 {
+  font-size: var(--step-1);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+strong {
+  color: var(--text-bright);
+}
+
+code {
+  font-family: var(--font-body);
+  font-size: 0.9em;
+  color: var(--ember-hot);
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.65;
+  color: var(--text);
+  max-width: var(--measure);
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+/* Ember-gradient display text */
+.ember-text {
+  background: linear-gradient(
+    100deg,
+    var(--ember-hot) 0%,
+    var(--ember) 45%,
+    var(--ember-deep) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Fallback for the rare engine that ignores background-clip */
+  -webkit-text-fill-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   5. Layout primitives
+   -------------------------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.shell-narrow {
+  max-width: 860px;
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+.section-sunk {
+  background: var(--bg-sunk);
+  border-block: 1px solid var(--rule);
+}
+
+.stack > * + * {
+  margin-top: var(--stack-gap, 1.25rem);
+}
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, 1.5rem);
+}
+
+/* Explicit column counts rather than auto-fit: auto-fit happily turns a
+   four-card grid into 3 + 1 orphan at intermediate widths. */
+@media (min-width: 46rem) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.split {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* Grid items default to min-width:auto, i.e. min-content. One long line in a
+   <pre> therefore widens its whole track past the viewport even though the
+   <pre> itself is set to scroll. Opting out is what makes overflow-x work. */
+.grid > *,
+.split > * {
+  min-width: 0;
+}
+
+@media (min-width: 62rem) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+  .split-wide-left {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .split-wide-right {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.center .lede,
+.center .measure {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   6. Section headers
+   -------------------------------------------------------------------------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 1.1rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember));
+  flex: none;
+}
+
+.center .eyebrow::after {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--ember), transparent);
+  flex: none;
+}
+
+.section-head {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* --------------------------------------------------------------------------
+   7. Ember field. The signature motif, mirroring the game's UIEmbers
+   -------------------------------------------------------------------------- */
+
+.embers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, transparent, #000 15%, #000 70%, transparent);
+}
+
+.embers canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Static CSS ember bed. Always present, so the page still feels alive with
+   JS disabled or motion reduced. */
+.ember-bed {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 78%, var(--ember-hot), transparent),
+    radial-gradient(1.5px 1.5px at 28% 92%, var(--ember), transparent),
+    radial-gradient(1px 1px at 44% 66%, var(--burn), transparent),
+    radial-gradient(2px 2px at 61% 88%, var(--ember), transparent),
+    radial-gradient(1px 1px at 77% 71%, var(--ember-hot), transparent),
+    radial-gradient(1.5px 1.5px at 89% 94%, var(--ember-deep), transparent),
+    radial-gradient(1px 1px at 6% 55%, var(--ember), transparent),
+    radial-gradient(1px 1px at 52% 44%, var(--burn), transparent);
+  opacity: 0.55;
+  filter: blur(0.3px);
+}
+
+/* Warm floor-glow, as if something is burning just off-screen */
+.hearth {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 70% at 50% 118%, rgb(255 106 42 / 0.22) 0%, transparent 62%),
+    radial-gradient(80% 55% at 15% 100%, rgb(255 174 58 / 0.1) 0%, transparent 60%),
+    radial-gradient(90% 60% at 85% 105%, rgb(207 90 42 / 0.12) 0%, transparent 60%);
+}
+
+.section > .shell,
+.hero > .shell {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   8. Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--text-bright);
+  --btn-bd: var(--rule);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.85em 1.6em;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bd);
+  border-radius: var(--radius);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  --btn-bg: var(--ember);
+  --btn-fg: #14100c;
+  --btn-bd: var(--ember);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  --btn-bg: var(--ember-hot);
+  --btn-bd: var(--ember-hot);
+  box-shadow:
+    0 0 0 1px var(--ember-hot),
+    0 10px 34px -8px var(--ember-glow);
+}
+
+.btn-ghost:hover {
+  --btn-bd: var(--ember);
+  --btn-fg: var(--ember-hot);
+  background: var(--ember-veil);
+}
+
+.btn-lg {
+  padding: 1em 2em;
+  font-size: var(--step-0);
+}
+
+.btn .icon {
+  transition: transform 0.25s var(--ease);
+}
+
+.btn:hover .icon {
+  transform: translateX(3px);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.center .btn-row {
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   9. Cards & panels
+   -------------------------------------------------------------------------- */
+
+.panel {
+  position: relative;
+  background: var(--bg-raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  transition:
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.panel-hover:hover {
+  border-color: color-mix(in srgb, var(--ember) 45%, var(--rule));
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px -22px rgb(0 0 0 / 0.9);
+}
+
+/* Thin ember hairline that wipes across the top edge on hover */
+.panel-hover::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember), transparent);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.panel-hover:hover::before {
+  opacity: 1;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--text-bright);
+  margin-bottom: 0.7rem;
+}
+
+.panel p {
+  color: var(--text-dim);
+  font-size: var(--step--1);
+  line-height: 1.8;
+}
+
+/* Numbered / iconed marker used on feature and service cards */
+.marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--ember) 40%, transparent);
+  border-radius: var(--radius);
+  background: var(--ember-veil);
+  color: var(--ember);
+  font-family: var(--font-numeric);
+  font-size: 1rem;
+  flex: none;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.panel-hover:hover .marker {
+  background: color-mix(in srgb, var(--ember) 22%, transparent);
+  border-color: var(--ember);
+  color: var(--ember-hot);
+}
+
+.marker svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. Badges & tags
+   -------------------------------------------------------------------------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35em 0.85em;
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--ember) 40%, transparent);
+  border-radius: 100px;
+  background: var(--ember-veil);
+  color: var(--ember-hot);
+  white-space: nowrap;
+}
+
+.badge-dim {
+  border-color: var(--rule);
+  background: transparent;
+  color: var(--text-dim);
+}
+
+.badge-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ember);
+  box-shadow: 0 0 0 0 var(--ember-glow);
+  animation: pulse 2.4s var(--ease) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 106 42 / 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgb(255 106 42 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 106 42 / 0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Stat tiles
+   -------------------------------------------------------------------------- */
+
+.stat {
+  border-left: 2px solid color-mix(in srgb, var(--ember) 50%, transparent);
+  padding-left: 1.1rem;
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--font-numeric);
+  font-size: var(--step-3);
+  line-height: 1;
+  color: var(--ember-hot);
+  letter-spacing: 0.02em;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   12. Header / nav
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    backdrop-filter 0.3s var(--ease);
+}
+
+.site-header.is-stuck {
+  background: rgb(16 13 20 / 0.82);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom-color: var(--rule);
+}
+
+.site-header .shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 0.4rem + 1.6vw, 1.5rem);
+  height: 4.75rem;
+}
+
+/* The wordmark is a 7.3:1 lockup, so at 2.5rem tall it is ~294px wide,
+   which is more than a 375px viewport can spare next to a menu button. It shrinks first. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+/* Scale with the viewport rather than stepping at one breakpoint. At a fixed
+   2rem tall the 7.34:1 wordmark is 235px, which plus the 44px button and the
+   gap overflows a 320px screen by ~33px. That went unnoticed because body has
+   overflow-x: hidden to clip it. */
+.brand img {
+  height: clamp(1.5rem, 1rem + 2.2vw, 2.5rem);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+  transition: transform 0.3s var(--ease);
+}
+
+.brand:hover img {
+  transform: scale(1.06);
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: clamp(1.2rem, 2.5vw, 2.25rem);
+}
+
+@media (min-width: 52rem) {
+  .nav {
+    display: flex;
+  }
+}
+
+.nav a {
+  position: relative;
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-block: 0.4rem;
+  transition: color 0.25s var(--ease);
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--ember);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+
+.nav a:hover {
+  color: var(--text-bright);
+}
+
+.nav a:hover::after,
+.nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.nav a[aria-current="page"] {
+  color: var(--ember);
+}
+
+.nav-cta {
+  display: none;
+}
+
+@media (min-width: 68rem) {
+  .nav-cta {
+    display: inline-flex;
+  }
+}
+
+/* Mobile menu */
+/* flex:none is load-bearing. Without it the flex row shrinks the button to
+   ~18px wide, well under the 44px minimum touch target. */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--text-bright);
+  transition:
+    border-color 0.25s var(--ease),
+    background-color 0.25s var(--ease);
+}
+
+.menu-toggle:hover {
+  border-color: var(--ember);
+  background: var(--ember-veil);
+}
+
+@media (min-width: 52rem) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+.menu-toggle svg {
+  flex: none;
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.menu-toggle .icon-close {
+  display: none;
+}
+
+.menu-toggle[aria-expanded="true"] .icon-open {
+  display: none;
+}
+
+.menu-toggle[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+.mobile-nav {
+  /* grid + grid-template-rows 0fr->1fr animates open/closed without JS having
+     to measure heights. The inner div needs min-height:0 for it to collapse. */
+  display: grid;
+  grid-template-rows: 0fr;
+  background: rgb(10 8 13 / 0.97);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+  transition: grid-template-rows 0.35s var(--ease);
+}
+
+.mobile-nav[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+/* A 0fr row still contains focusable links. Without visibility:hidden the
+   closed menu stays in the tab order and in the accessibility tree, so a
+   keyboard user tabs into four invisible links. The delayed transition lets
+   the close animation finish before it is pulled from the tree. */
+.mobile-nav > div {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear 0.35s;
+}
+
+.mobile-nav[data-open="true"] > div {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Without JS the toggle cannot do anything, so show the menu open instead of
+   leaving small screens with no navigation at all. */
+.no-js .mobile-nav {
+  grid-template-rows: 1fr;
+}
+
+.no-js .mobile-nav > div {
+  visibility: visible;
+}
+
+.no-js .menu-toggle {
+  display: none;
+}
+
+.mobile-nav ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem var(--gutter) 1.5rem;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 0.9rem 0;
+  font-size: var(--step-0);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.25s var(--ease);
+}
+
+.mobile-nav a:hover,
+.mobile-nav a[aria-current="page"] {
+  color: var(--ember);
+}
+
+@media (min-width: 52rem) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+/* Skip link */
+.skip {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -120%;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--ember);
+  color: #14100c;
+  font-size: var(--step--1);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 0 0 var(--radius) var(--radius);
+  transition: translate 0.2s var(--ease);
+}
+
+/* :focus, not :focus-visible. A skip link must appear for any focus, and
+   some browsers do not treat a programmatic tab into it as "visible". */
+.skip:focus {
+  translate: -50% 0;
+}
+
+/* Visually hidden, still announced. Used to disambiguate repeated link text. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   13. Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(92svh, 54rem);
+  padding-block: clamp(7rem, 14vh, 11rem) var(--section-y);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-sub {
+  min-height: auto;
+  padding-block: clamp(8rem, 18vh, 12rem) var(--section-y);
+}
+
+/* Vignette so the ember field never fights the text */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    75% 60% at 50% 45%,
+    transparent 0%,
+    rgb(16 13 20 / 0.55) 78%,
+    var(--bg) 100%
+  );
+}
+
+.hero > .shell {
+  z-index: 2;
+}
+
+/* Layered treeline silhouette, purely decorative */
+.grove {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  height: clamp(9rem, 26vh, 17rem);
+  pointer-events: none;
+}
+
+.grove svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Three depths. Each is only a few points lighter than the one behind it.
+   The silhouette should read as distance, not as three grey bands. */
+.grove-far {
+  fill: #17121f;
+}
+
+.grove-mid {
+  fill: #0d0a13;
+}
+
+.grove-near {
+  fill: #050409;
+}
+
+/* Hero title lockup */
+.hero-inner {
+  max-width: 46rem;
+}
+
+.hero-inner h1 {
+  margin-bottom: 1.5rem;
+}
+
+.hero-inner p + p {
+  margin-top: 0.9rem;
+}
+
+.hero-inner .btn-row {
+  margin-top: 2.25rem;
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title-sm {
+  font-size: var(--step-1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.35em;
+}
+
+.hero-title-lg {
+  font-size: var(--step-5);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  /* The ember gradient can't carry a glow, so paint one behind the glyphs. */
+  filter: drop-shadow(0 0 28px rgb(255 106 42 / 0.28));
+}
+
+.hero-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 2rem;
+  font-size: var(--step--1);
+}
+
+/* Run-web figure */
+.webfig {
+  margin: 0;
+}
+
+.webfig svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.web-edges path {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1.5;
+}
+
+.web-nodes circle {
+  fill: var(--bg-raise-2);
+  stroke: var(--text-dim);
+  stroke-width: 1.5;
+}
+
+.web-nodes .n-entry {
+  fill: var(--ember);
+  stroke: var(--ember-hot);
+}
+
+.web-nodes .n-final {
+  fill: var(--bg);
+  stroke: var(--ember);
+  stroke-width: 2.5;
+}
+
+.web-label {
+  fill: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.webfig figcaption {
+  margin-top: 1.25rem;
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* Three edge kinds, told apart by dash pattern rather than by colour alone,
+   so the distinction survives a greyscale print and colour blindness. */
+.web-edges .e-descent {
+  stroke-dasharray: none;
+}
+
+.web-edges .e-lateral {
+  stroke-dasharray: 6 5;
+}
+
+.web-edges .e-bypass {
+  stroke-dasharray: 1.5 5;
+  stroke-linecap: round;
+}
+
+.web-node {
+  cursor: pointer;
+}
+
+.web-node circle {
+  transition:
+    fill 0.2s var(--ease),
+    stroke 0.2s var(--ease);
+}
+
+.web-node.is-lit circle {
+  fill: var(--ember);
+  stroke: var(--ember-hot);
+}
+
+.web-node.is-lit .web-label {
+  fill: var(--ember-hot);
+}
+
+.web-edges path.is-lit {
+  stroke: var(--ember);
+  stroke-width: 2.5;
+}
+
+.web-readout {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.web-count {
+  font-size: var(--step--1);
+  color: var(--text-bright);
+}
+
+.web-dist {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.web-dist div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.web-dist dt {
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+.web-dist dd {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.distbar {
+  height: 6px;
+  width: var(--pct, 0%);
+  min-width: 2px;
+  border-radius: 3px;
+  background: var(--ember-deep);
+}
+
+.web-dist b {
+  font-family: var(--font-numeric);
+  font-size: var(--step-0);
+  color: var(--ember-hot);
+  font-weight: 400;
+}
+
+.web-trace {
+  justify-self: start;
+}
+
+.hang-replay {
+  flex: none;
+}
+
+/* Stat rows */
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+/* Closing CTA band */
+.section-cta {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--rule);
+  background: var(--bg-sunk);
+}
+
+.section-cta .btn-row {
+  margin-top: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. Scroll reveal
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* If JS never runs, nothing should stay invisible. */
+.no-js .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   14b. Page components
+   -------------------------------------------------------------------------- */
+
+/* Big game-title lockup */
+.title-lockup {
+  font-size: var(--step-4);
+  line-height: 1;
+  filter: drop-shadow(0 0 24px rgb(255 106 42 / 0.22));
+}
+
+/* A game's own title art, used in place of a text heading. The alt text carries
+   the heading for assistive tech and search. */
+/* No font-size:0 here. If the image fails to load, the alt text is the
+   heading, and it has to be readable. Images are display:block in the reset,
+   so there is no inline whitespace gap to suppress. */
+.lockup-img img {
+  width: min(28rem, 100%);
+  height: auto;
+}
+
+/* Studio mark. The source art is black ink on transparency, which is invisible
+   on this background, so use its alpha as a mask and paint ember through it. */
+.logo-mark {
+  width: min(13rem, 40vw);
+  aspect-ratio: 900 / 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(150deg, var(--ember-hot), var(--ember) 55%, var(--ember-deep));
+  -webkit-mask: url("../img/cat-splat-logo.webp") center / contain no-repeat;
+  mask: url("../img/cat-splat-logo.webp") center / contain no-repeat;
+  filter: drop-shadow(0 0 22px rgb(255 106 42 / 0.25));
+}
+
+/* Biome index */
+.biome-list {
+  display: grid;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+@media (min-width: 46rem) {
+  .biome-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.biome-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.95rem 1.35rem;
+  background: var(--bg-raise);
+  transition: background-color 0.25s var(--ease);
+}
+
+.biome-list li:hover {
+  background: var(--bg-raise-2);
+}
+
+.biome-list li::before {
+  content: "";
+  flex: none;
+  width: 5px;
+  height: 5px;
+  margin-top: 0.7em;
+  border-radius: 50%;
+  background: var(--ember);
+}
+
+.biome-name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--text-bright);
+}
+
+.biome-note {
+  margin-left: auto;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ember);
+  white-space: nowrap;
+}
+
+/* Framed imagery */
+.framed {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: var(--bg-sunk);
+}
+
+.photo-figure {
+  margin: 0;
+  max-width: 46rem;
+}
+
+.photo-figure figcaption {
+  margin-top: 1rem;
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+/* Inline outbound link */
+.link-out {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ember);
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+}
+
+.link-out:hover {
+  color: var(--ember-hot);
+  border-bottom-color: currentColor;
+}
+
+/* Vertical stat column */
+.stat-stack {
+  display: grid;
+  gap: 1.75rem;
+}
+
+/* Code figure */
+.codefig {
+  margin: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: var(--bg-sunk);
+  overflow: hidden;
+}
+
+.codefig figcaption {
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-raise);
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+.codefig pre {
+  margin: 0;
+  padding: 1.35rem;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.c-sec {
+  color: var(--ember-hot);
+}
+.c-key {
+  color: var(--juggle);
+}
+.c-cm {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Proof strip */
+.proof-strip {
+  --grid-gap: 2rem;
+}
+
+/* Capability cards */
+.cap-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 62rem) {
+  .cap-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cap p {
+  color: var(--text);
+  font-size: var(--step-0);
+}
+
+.proof {
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1) !important;
+  color: var(--text-dim) !important;
+  line-height: 1.8;
+}
+
+.proof-tag {
+  display: inline-block;
+  margin-right: 0.6rem;
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember);
+}
+
+/* Backend seam diagram */
+.seamfig {
+  margin: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raise);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.seam-row {
+  display: grid;
+  align-items: center;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+
+@media (min-width: 46rem) {
+  .seam-row {
+    grid-template-columns: 1fr auto 1fr;
+    text-align: left;
+  }
+}
+
+.seam-row:last-of-type {
+  border-bottom: 0;
+}
+
+.seam-side {
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+.seam-bar {
+  padding: 0.5em 1.1em;
+  border: 1px solid var(--ember);
+  border-radius: var(--radius);
+  background: var(--ember-veil);
+  color: var(--ember-hot);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.seam-impl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+@media (min-width: 46rem) {
+  .seam-impl {
+    justify-content: flex-end;
+  }
+}
+
+.seam-impl span {
+  padding: 0.25em 0.7em;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg-sunk);
+  color: var(--text);
+  font-size: var(--step--1);
+}
+
+.seamfig figcaption {
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+/* Yes / no ledgers */
+.ledger-list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.ledger-list li {
+  position: relative;
+  padding-left: 1.9rem;
+  font-size: var(--step--1);
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+.ledger-list li::before {
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-family: var(--font-body);
+}
+
+.ledger-yes li::before {
+  content: "+";
+  color: var(--perfect);
+}
+
+.ledger-no li::before {
+  content: "\2212";
+  color: var(--ember-deep);
+}
+
+.ledger-list strong {
+  color: var(--text-bright);
+}
+
+/* Honesty cards */
+.claim {
+  border-left: 2px solid var(--ember-deep);
+}
+
+/* --------------------------------------------------------------------------
+   Engine roadmap
+
+   Deliberately quieter than the "working today" ledger above it. Unbuilt work
+   should never out-shout shipped work on a page a client is buying from, so
+   this reads as a dim track with ember markers rather than as feature cards.
+   -------------------------------------------------------------------------- */
+
+.roadmap-head {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  margin-bottom: 2rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.roadmap-head h3 {
+  margin-bottom: 0.75rem;
+}
+
+.roadmap {
+  display: grid;
+  gap: 0;
+  position: relative;
+}
+
+.roadmap-item {
+  position: relative;
+  padding: 1.75rem 0 1.75rem 2.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.roadmap-item:last-child {
+  border-bottom: 0;
+}
+
+/* The connecting track, drawn behind the markers. */
+.roadmap-item::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule);
+}
+
+.roadmap-item:first-child::before {
+  top: 1.75rem;
+}
+
+.roadmap-item:last-child::before {
+  bottom: calc(100% - 2.5rem);
+}
+
+/* Hollow marker, because none of these is done. A filled one would read as
+   shipped next to the solid dots used elsewhere on the site. */
+.roadmap-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2.05rem;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--ember-deep);
+  border-radius: 50%;
+  background: var(--bg-sunk);
+}
+
+.roadmap-status {
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ember-deep);
+  margin-bottom: 0.5rem;
+}
+
+.roadmap-item h4 {
+  color: var(--text-bright);
+  margin-bottom: 0.7rem;
+}
+
+.roadmap-item > p:not(.roadmap-status):not(.roadmap-why) {
+  color: var(--text-dim);
+  font-size: var(--step--1);
+  line-height: 1.8;
+  max-width: var(--measure);
+}
+
+.roadmap-why {
+  margin-top: 1rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid color-mix(in srgb, var(--juggle) 45%, transparent);
+  font-size: var(--step--1);
+  line-height: 1.75;
+  color: var(--text-dim);
+  max-width: var(--measure);
+}
+
+.roadmap-why-tag {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--juggle);
+}
+
+/* Team members */
+/* Avatar, name and role centre; the bio stays left-aligned because centred
+   multi-line body copy is genuinely harder to read. */
+.member {
+  text-align: center;
+}
+
+.member > p:not(.member-role) {
+  text-align: left;
+}
+
+.member-role {
+  margin-top: -0.3rem;
+  margin-bottom: 1rem;
+  font-size: var(--step--1) !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ember) !important;
+}
+
+.avatar,
+.sigil {
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 1.25rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--ember) 40%, var(--rule));
+  object-fit: cover;
+}
+
+.sigil {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 120%, rgb(255 106 42 / 0.28), transparent 70%),
+    var(--bg-sunk);
+}
+
+.sigil span {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: var(--ember-hot);
+}
+
+/* Mission statement */
+.mission {
+  font-size: var(--step-2);
+  line-height: 1.55;
+  font-family: var(--font-display);
+  color: var(--text-bright);
+}
+
+/* 404 */
+.notfound {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.code-404 {
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  line-height: 1;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 28px rgb(255 106 42 / 0.3));
+}
+
+/* --------------------------------------------------------------------------
+   14c. Manual chrome
+
+   The site reads as a numbered manual rather than a brochure. Ordinals, figure
+   frames with captions, and a rail that tracks where you are. Four accents
+   carry fixed meanings and there is no fifth: --ember for the run and the
+   build, --ember-hot for authored text and config, --juggle for tools and the
+   airborne state, --perfect for validators and anything that passes.
+   -------------------------------------------------------------------------- */
+
+.section-head.is-numbered {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sec-num {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-numeric);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  color: var(--ember);
+}
+
+.sec-num::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--ember), transparent);
+}
+
+/* Figures. Generalises the existing .codefig and .seamfig so there is one
+   border, one caption bar and one print rule for every figure on the site. */
+.figframe {
+  margin: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raise);
+  overflow: hidden;
+}
+
+.figframe > figcaption {
+  padding: 0.9rem 1.15rem;
+  border-top: 1px solid var(--rule);
+  background: var(--bg-sunk);
+  font-size: var(--step--1);
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.fig-num {
+  color: var(--ember);
+  margin-right: 0.4rem;
+}
+
+/* Wide content scrolls inside its own box so the page never does. */
+.scrollx {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hero contents plate */
+.manifest {
+  display: grid;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: rgb(23 19 32 / 0.6);
+  overflow: hidden;
+}
+
+.manifest li + li {
+  border-top: 1px solid var(--rule);
+}
+
+.manifest a {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr auto;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.8rem 1.1rem;
+  transition: background-color 0.25s var(--ease);
+}
+
+.manifest a:hover {
+  background: var(--ember-veil);
+}
+
+.manifest-ord {
+  font-family: var(--font-numeric);
+  font-size: var(--step--1);
+  color: var(--ember-deep);
+}
+
+.manifest-label {
+  font-size: var(--step--1);
+  color: var(--text);
+}
+
+.manifest a:hover .manifest-label {
+  color: var(--text-bright);
+}
+
+.manifest-num {
+  font-family: var(--font-numeric);
+  font-size: var(--step-1);
+  line-height: 1;
+  color: var(--ember-hot);
+}
+
+/* Fact plate: a two column definition list of hard specs. */
+.specplate {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+@media (min-width: 40rem) {
+  .specplate {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2.5rem;
+  }
+}
+
+.specplate div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.specplate dt {
+  flex: none;
+  min-width: 8rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.specplate dd {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--text-bright);
+}
+
+/* State chips, layered over the existing .badge */
+.chip-shipped {
+  border-color: color-mix(in srgb, var(--perfect) 45%, transparent);
+  background: rgb(126 200 138 / 0.08);
+  color: var(--perfect);
+}
+
+.chip-greybox {
+  border-color: color-mix(in srgb, var(--juggle) 45%, transparent);
+  background: rgb(134 180 255 / 0.08);
+  color: var(--juggle);
+}
+
+.chip-empty {
+  border-style: dashed;
+  border-color: var(--rule);
+  background: transparent;
+  color: var(--text-dim);
+}
+
+/* Roster tables */
+.rost {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  text-align: left;
+}
+
+.rost caption {
+  padding: 0.9rem 1.15rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-sunk);
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ember);
+  text-align: left;
+}
+
+.rost th,
+.rost td {
+  padding: 0.7rem 1.15rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.rost thead th {
+  font-weight: 400;
+  font-size: 0.86em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.rost tbody th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-0);
+  color: var(--text-bright);
+  white-space: nowrap;
+}
+
+.rost td {
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+.rost tbody tr:last-child th,
+.rost tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* A row for content that is deliberately not authored yet. */
+.rost .row-empty th,
+.rost .row-empty td {
+  color: var(--text-dim);
+}
+
+.rost .row-empty th {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+/* Hero splits once there is room for the contents plate beside the lockup. */
+.hero-grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 68rem) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  }
+}
+
+.manifest-wrap {
+  align-self: center;
+}
+
+.manifest-cap {
+  margin-top: 0.9rem;
+  font-size: var(--step--1);
+}
+
+/* The hang. The band is the only place airborne state is coloured, per the
+   accent rule, and its width on screen is real time rather than an easing. */
+.hang-body {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.hang-ticks {
+  position: relative;
+  height: 2.4rem;
+  /* Ticks are placed by their --at time against the 2.0s the track spans. */
+  --span: 2s;
+}
+
+.hang-tick {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--at) / var(--span) * 100%);
+  translate: -50% 0;
+  padding-bottom: 0.5rem;
+  font-size: var(--step--1);
+  color: var(--juggle);
+  white-space: nowrap;
+}
+
+.hang-tick::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: 0.4rem;
+  background: var(--juggle);
+}
+
+.hang-track {
+  position: relative;
+  height: 2.6rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg-sunk);
+  overflow: hidden;
+}
+
+.hang-band {
+  position: absolute;
+  /* 0.8s of a 2s span, starting at 0.8s. */
+  left: 40%;
+  width: 40%;
+  top: 0;
+  bottom: 0;
+  opacity: 1;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgb(134 180 255 / 0.16) 0 6px,
+    transparent 6px 12px
+  );
+  border-inline: 1px solid color-mix(in srgb, var(--juggle) 55%, transparent);
+  transition: opacity 0.12s linear;
+}
+
+.hang-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(90deg, var(--ember-deep), var(--ember));
+  opacity: 0.85;
+}
+
+.hangfig[data-phase="hang"] .hang-fill,
+.hangfig[data-phase="fall"] .hang-fill {
+  background: linear-gradient(90deg, var(--ember-deep), var(--juggle));
+}
+
+.hang-mark {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  translate: 0 -50%;
+  font-family: var(--font-numeric);
+  font-size: 0.72rem;
+  color: var(--text-bright);
+}
+
+.hang-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.1rem;
+}
+
+.hang-state {
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  /* Reserve the line so the label changing does not reflow the figure. */
+  min-height: 1.75em;
+}
+
+.hangfig[data-phase="hang"] .hang-state {
+  color: var(--juggle);
+}
+
+/* Content pipeline: text in, validated definitions out. */
+.pipefig {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  min-width: 46rem;
+}
+
+.pf-box {
+  flex: 1 1 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg-sunk);
+}
+
+.pf-title {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  color: var(--text-bright);
+}
+
+.pf-sub {
+  margin-top: 0.35rem;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+/* Four accents, fixed meanings. Config is authored text, tools are tooling,
+   gates are validators, and the output is the build. */
+.pf-config {
+  border-color: color-mix(in srgb, var(--ember-hot) 50%, transparent);
+}
+.pf-config .pf-title {
+  color: var(--ember-hot);
+}
+
+.pf-tool {
+  border-color: color-mix(in srgb, var(--juggle) 50%, transparent);
+}
+.pf-tool .pf-title {
+  color: var(--juggle);
+}
+
+.pf-gate {
+  border-color: color-mix(in srgb, var(--perfect) 50%, transparent);
+}
+.pf-gate .pf-title {
+  color: var(--perfect);
+}
+
+.pf-out {
+  border-color: color-mix(in srgb, var(--ember) 50%, transparent);
+}
+.pf-out .pf-title {
+  color: var(--ember);
+}
+
+.pf-arrow {
+  flex: none;
+  align-self: center;
+  width: 2rem;
+  height: 1px;
+  background: var(--rule);
+  position: relative;
+}
+
+.pf-arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  border-left: 5px solid var(--rule);
+  border-block: 4px solid transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Hit resolver
+
+   Three states only. is-run is full strength, is-skip means the step was
+   evaluated and did nothing, is-off means the hit never got that far. No
+   animation anywhere, so prefers-reduced-motion needs no branch here.
+   -------------------------------------------------------------------------- */
+
+.resolver-body {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.presets .btn {
+  padding: 0.6em 1em;
+}
+
+.toggles {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (min-width: 46rem) {
+  .toggles .toggle-set {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Without JS the switches cannot do anything, so hide them and leave the
+   eleven steps as a plain, complete ordered list. */
+.no-js .toggles {
+  display: none;
+}
+
+.toggle-set {
+  display: grid;
+  gap: 0.6rem;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.toggle-set legend {
+  padding: 0;
+  margin-bottom: 0.7rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ember);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.toggle input {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--ember);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--text-bright);
+}
+
+/* The spine */
+.steps {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.steps::before {
+  content: "";
+  position: absolute;
+  left: 0.87rem;
+  top: 1rem;
+  bottom: 1rem;
+  width: 2px;
+  background: var(--rule);
+}
+
+.steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  align-items: start;
+  gap: 0.9rem;
+  padding: 0.45rem 0;
+  transition: opacity 0.2s var(--ease);
+}
+
+.steps li p {
+  font-size: var(--step--1);
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.step-n {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--bg-raise);
+  font-family: var(--font-numeric);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+/* Only meaningful once JS is driving the states. */
+.resolver.is-live .steps li.is-run .step-n {
+  border-color: var(--ember);
+  background: var(--ember);
+  color: #14100c;
+}
+
+.resolver.is-live .steps li.is-run p {
+  color: var(--text-bright);
+}
+
+.resolver.is-live .steps li.is-half .step-n {
+  border-color: var(--ember);
+  color: var(--ember);
+}
+
+.resolver.is-live .steps li.is-half p {
+  color: var(--text);
+}
+
+.resolver.is-live .steps li.is-skip {
+  opacity: 0.45;
+}
+
+.resolver.is-live .steps li.is-off {
+  opacity: 0.2;
+}
+
+.outcome {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.outcome-val {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ember-hot);
+  display: block;
+  margin-top: 0.35rem;
+}
+
+/* Section rail. Fixed rather than a page-level grid, so it needs no change to
+   any section's markup and cannot disturb the layout when it is hidden. */
+.railnav {
+  display: none;
+}
+
+@media (min-width: 86rem) {
+  .railnav {
+    display: block;
+    position: fixed;
+    left: max(1.25rem, calc((100vw - var(--shell)) / 2 - 8.5rem));
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 40;
+  }
+
+  .railnav ol {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .railnav a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-numeric);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+    opacity: 0.55;
+    transition:
+      opacity 0.25s var(--ease),
+      color 0.25s var(--ease);
+  }
+
+  .railnav a::before {
+    content: "";
+    width: 14px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.25s var(--ease);
+  }
+
+  .railnav a:hover,
+  .railnav a.is-current {
+    opacity: 1;
+    color: var(--ember);
+  }
+
+  .railnav a.is-current::before {
+    width: 26px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  background: var(--bg-sunk);
+  padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  margin-bottom: 3rem;
+}
+
+.footer-head {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  color: var(--text-bright);
+  margin-bottom: 1.1rem;
+}
+
+.footer-grid a {
+  display: block;
+  padding-block: 0.3rem;
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  transition: color 0.25s var(--ease);
+}
+
+.footer-grid a:hover {
+  color: var(--ember);
+}
+
+.social-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-row a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  transition:
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    background-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.social-row a:hover {
+  color: var(--ember-hot);
+  border-color: var(--ember);
+  background: var(--ember-veil);
+  transform: translateY(-2px);
+}
+
+.social-row svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.footer-base {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+/* 404 carries a stripped footer with no columns above it, so there is nothing
+   for the rule to divide. */
+.footer-base-bare {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.footer-base a:hover {
+  color: var(--ember);
+}
+
+/* --------------------------------------------------------------------------
+   16. Motion & print
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .embers,
+  .ember-bed,
+  .hearth,
+  .grove,
+  .menu-toggle,
+  .skip {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  /* Recolouring body alone is not enough. Headings carry an explicit light
+     colour, and .ember-text paints its glyphs transparent so they would print
+     as nothing at all. */
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  li,
+  strong,
+  .dim,
+  .lede,
+  .panel p,
+  .eyebrow,
+  .stat-num,
+  .stat-label {
+    color: #000 !important;
+  }
+
+  .ember-text {
+    background: none;
+    -webkit-text-fill-color: #000;
+    color: #000;
+    filter: none;
+  }
+
+  .panel,
+  .biome-list,
+  .codefig,
+  .seamfig,
+  .framed {
+    border-color: #999;
+    background: transparent;
+  }
+
+  /* A URL the reader cannot see is not much of a link on paper. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+}

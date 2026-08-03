@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Game development services · Cat Splat Studios</title>
+    <meta
+      name="description"
+      content="Contract Unity game development from Cat Splat Studios, Toronto. Gameplay systems, procedural generation, designer tooling and Steam release engineering." />
+    <link rel="canonical" href="https://catsplatstudios.com/services/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cat Splat Studios" />
+    <meta property="og:title" content="Game development services · Cat Splat Studios" />
+    <meta
+      property="og:description"
+      content="We build our own game properly. We'll build yours the same way." />
+    <meta property="og:url" content="https://catsplatstudios.com/services/" />
+    <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sentinels of Gleamwood, a controller-first 2D action roguelite from Cat Splat Studios" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#100d14" />
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/img/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" />
+
+    <link rel="preload" href="../assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="../assets/css/site.css" />
+
+    <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
+         until site.js marks it in view. Drop no-js here rather than in site.js:
+         site.js is deferred, so doing it there lets above-the-fold content paint
+         visible, snap to invisible, then fade back in. The timeout puts the
+         class back if site.js never runs at all, because content must never be
+         permanently invisible just because a script failed to load. -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      window.__csFailsafe = setTimeout(function () {
+        if (!window.__csReady) document.documentElement.classList.add("no-js");
+      }, 2500);
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="../index.html" aria-label="Cat Splat Studios, home">
+          <img src="../assets/img/cat-logo-small.webp" alt="Cat Splat Studios" width="954" height="130" />
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <a href="../games/index.html">Games</a>
+          <a href="../services/index.html" aria-current="page">Services</a>
+          <a href="../about/index.html">About</a>
+        </nav>
+
+        <a class="btn btn-primary nav-cta" href="#contact">Start a conversation</a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Primary">
+        <div>
+          <ul role="list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../games/index.html">Games</a></li>
+            <li><a href="../services/index.html" aria-current="page">Services</a></li>
+            <li><a href="../about/index.html">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- ===================== HERO ===================== -->
+      <section class="hero hero-sub">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+        <div class="shell">
+          <div class="hero-inner">
+            <p class="eyebrow">Game development services</p>
+            <h1>We build our own game properly.<br />We'll build yours the same way.</h1>
+            <p class="lede">
+              Cat Splat Studios is a game studio in Toronto. Our flagship is Sentinels of
+              Gleamwood, a Unity 6 action roguelite heading to Steam. It runs on data-driven state
+              machines, a level generator that proves its own levels are walkable, 657 automated
+              tests, and content validators wired in as build gates.
+            </p>
+            <p class="lede dim">All of that is running today, and we are happy to walk you through any part of it.</p>
+
+            <div class="btn-row">
+              <a class="btn btn-primary btn-lg" href="#contact">
+                Start a conversation
+                <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a class="btn btn-ghost btn-lg" href="../games/index.html#gleamwood">See the game</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== PROOF STRIP ===================== -->
+      <section class="section section-sunk">
+        <div class="shell">
+          <p class="eyebrow reveal">By the numbers</p>
+          <div class="grid grid-3 proof-strip reveal">
+            <div class="stat"><span class="stat-num">72k</span><span class="stat-label">Lines of C# across 408 files</span></div>
+            <div class="stat"><span class="stat-num">657</span><span class="stat-label">Play-mode tests passing, zero failing</span></div>
+            <div class="stat"><span class="stat-num">31</span><span class="stat-label">Enumerated routes across 10 biomes</span></div>
+            <div class="stat"><span class="stat-num">21</span><span class="stat-label">Versioned builds through the Steam pipeline</span></div>
+            <div class="stat"><span class="stat-num">5</span><span class="stat-label">Modding tiers, plain text, no compiler</span></div>
+            <div class="stat"><span class="stat-num">2</span><span class="stat-label">Validators, one of which fails the build</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== WHAT WE DO ===================== -->
+      <section class="section">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">What we do</p>
+            <h2>The work we take on</h2>
+            <p class="lede">
+              Each of these is backed by something you can open and read in a working codebase, and
+              we are happy to walk you through any of it.
+            </p>
+          </div>
+
+          <div class="cap-list">
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Unity 2D action-game engineering</h3>
+              <p>
+                We build the parts of an action game that are painful to retrofit: a character
+                controller with the feel already in it, combat with real hit windows and hitstop,
+                enemies with readable tells, and a front end that works on a controller from the
+                title screen down.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                Sentinels of Gleamwood, built in Unity 6 on 2D URP. A hand-rolled raycast character
+                controller with one-way platform masks and an explicit commanded-versus-actual
+                velocity contract, a custom URP sprite shader with flash and slice effects, a
+                custom PlayerLoop tick system, and nine data-authored enemies.
+              </p>
+            </article>
+
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Unreal Engine C++ gameplay and AI</h3>
+              <p>
+                The same work in the other engine. Player pawns and controllers, enemy AI that
+                reads clearly to the player, and the director-level systems that decide what shows
+                up and when.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                Codename: Shifter, Unreal Engine 4.27. Our own contributions there are the player
+                pawn and its controller, a custom AI movement component, the AI controller on top
+                of it, a combat director, and the encounter subsystem with its spawn points.
+                Behaviour trees drive the enemies, with custom tasks, services and decorators, plus
+                weight-based swarm evaluation and a shared target distributor. Shifter was built by
+                a team, so this is the part of it we wrote.
+              </p>
+            </article>
+
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Procedural generation you can prove is playable</h3>
+              <p>
+                The hard part is not generating a level. It is generating one that never strands a
+                player behind a jump they cannot make. We build generators as pure functions of a seed so
+                bugs reproduce, then verify the output against the real movement numbers instead
+                of hoping.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                A level's layout is a pure function of seed and node, so a suspended run
+                regenerates rather than serialising geometry, and the generator unit-tests with no
+                scene loaded. The reachability auditor floods a state space of position,
+                vertical velocity and dash cooldown, sweeping the shipped collider box and reading
+                every constant from the live player settings asset rather than from code defaults.
+                Two separate gates: every shipped room is proved traversable under that model, and
+                a 200-seed sweep over a four-path layout built from the shipped room pool returns
+                four distinct paths every seed, zero overlapping rooms, and a room count inside the
+                designed 28&ndash;41 band on better than nine seeds in ten.
+              </p>
+            </article>
+
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Systems your designers can tune without a programmer</h3>
+              <p>
+                If every balance change needs a build, your designers are queuing behind your
+                engineers. We author behaviour as data and generate the editing surface from that
+                data, so tuning is a slider or a text edit rather than a ticket.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                Every enemy is a state machine authored as ScriptableObject sub-assets. Six of
+                nine shipped enemies needed no new code at all. The run web, all ten biomes and
+                every boss live in one text file that imports with validation. A typo raises an error
+                and leaves the field on the value it already had. Scene-view hitbox
+                handles are drawn through the exact method the combat code scans with, so the
+                preview cannot drift from the game.
+              </p>
+            </article>
+
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Modding and player-authored content</h3>
+              <p>
+                Community content is a retention feature and a support liability at the same time.
+                The difference between the two is whether the safety was engineered or hoped for.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                Five override tiers as plain text beside the executable. Levels authored as ASCII
+                room files, with the engine deriving footprint, door sockets and reachability from
+                the drawing, then auditing it on the player's machine where no editor exists.
+                Clone-never-mutate at two levels. Save slots bound to a campaign at creation, so
+                cross-campaign corruption is impossible rather than unlikely.
+              </p>
+            </article>
+
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Steam release engineering and build automation</h3>
+              <p>
+                The last ten percent of shipping is depots, launch options, and being able to say
+                which commit a build came from. We have that wired, and we've run it twenty-one
+                times.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                A real SteamPipe pipeline: templated VDF and a PowerShell upload driver with a
+                preview dry run. The build description is stamped
+                with the git SHA so any upload traces back to a commit, and the executable name is
+                pinned so a marketing rename can't break the launch option. In-editor build manager
+                with semver bumping, git capture and build info baked into the player.
+              </p>
+            </article>
+
+            <article class="panel cap reveal">
+              <h3 class="panel-title">Tests, validators, and a handover you can use</h3>
+              <p>
+                We write tests for the parts that are expensive to be wrong about, and we make the
+                build refuse to compile when the content is broken. When the contract ends you get
+                documentation written for whoever arrives after us.
+              </p>
+              <p class="proof">
+                <span class="proof-tag">Proof</span>
+                58 play-mode test files on their own assembly definition, covering the hard parts:
+                state-machine golden sequences, kinematic physics, generator determinism,
+                reachability, save isolation and mod loading. Two content validators, one of which
+                throws a build exception, so an unreachable room or a broken run web cannot be
+                built. Plus a multi-page wiki whose tool screenshots regenerate from the real
+                editor.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== THE ENGINE ===================== -->
+      <section class="section section-sunk">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Cat Splat Engine</p>
+            <h2>We wrote our own engine, and we use it</h2>
+            <p class="lede">
+              Cat Splat Engine is a C++17 runtime on OpenGL 3.3, a dockable editor, a standalone
+              player and a headless asset cooker. All four build from one CMake tree and share one
+              output directory, so a scene saved in the editor runs in the player with no copy step.
+            </p>
+            <p class="lede dim">
+              It exists because some problems are much easier to understand once you have had to
+              solve them yourself.
+            </p>
+          </div>
+
+          <div class="grid grid-4 reveal" style="margin-bottom: 3rem">
+            <div class="stat"><span class="stat-num">742</span><span class="stat-label">GoogleTest cases</span></div>
+            <div class="stat"><span class="stat-num">11</span><span class="stat-label">Render passes</span></div>
+            <div class="stat"><span class="stat-num">7</span><span class="stat-label">Backends behind 3 interfaces</span></div>
+            <div class="stat"><span class="stat-num">50k</span><span class="stat-label">Lines of C++</span></div>
+          </div>
+
+          <!-- The seam diagram: the engine's actual architectural centrepiece -->
+          <figure class="seamfig reveal">
+            <div class="seam-row">
+              <span class="seam-side">Engine call sites</span>
+              <span class="seam-bar">IPhysicsBackend</span>
+              <span class="seam-side seam-impl"><span>Jolt</span><span>PhysX</span><span>Simple</span></span>
+            </div>
+            <div class="seam-row">
+              <span class="seam-side">Engine call sites</span>
+              <span class="seam-bar">IScriptBackend</span>
+              <span class="seam-side seam-impl"><span>Lua</span><span>Null</span></span>
+            </div>
+            <div class="seam-row">
+              <span class="seam-side">Engine call sites</span>
+              <span class="seam-bar">IAudioBackend</span>
+              <span class="seam-side seam-impl"><span>miniaudio</span><span>Null</span></span>
+            </div>
+            <figcaption>
+              No library type crosses that line. Not one Jolt, PhysX, Lua or miniaudio type appears
+              in an engine header, and the isolation is enforced at the CMake level with private
+              static library links rather than by convention. A scene authored against Jolt loads
+              under PhysX unchanged. This pattern is the reason the roadmap below is realistic.
+            </figcaption>
+          </figure>
+
+          <div class="split" style="margin-top: 3.5rem">
+            <div class="reveal">
+              <h3>Working today</h3>
+              <ul class="ledger-list ledger-yes" role="list">
+                <li>Cascaded shadow maps, four cascades at 2048, texel snapped so they hold still as the camera turns, with far cascades updated on a movement budget rather than every frame</li>
+                <li>Cook-Torrance PBR with split-sum image based lighting, baked from an HDR file or from a procedural sky</li>
+                <li>An eleven pass pipeline: shadows, forward opaque, skybox, sorted transparency, bloom, ACES tonemap, ink outline, colour grade, vignette, FXAA, UI</li>
+                <li>Up to 16 point and spot lights, selected by influence so an overflowing scene drops the least important light instead of an arbitrary one</li>
+                <li>EnTT ECS with 17 component types, versioned JSON scene serialization, play in editor with snapshot and restore, and undo and redo across play sessions</li>
+                <li>Physics, scripting and audio behind three interfaces carrying seven backends, selected by name at runtime</li>
+                <li>A game UI system with its own markup and stylesheet format, real CSS style specificity and combinators, two way data binding, and hot reload</li>
+                <li>A job system behind async asset loading, and a headless cooker that validates a project without opening a window</li>
+              </ul>
+            </div>
+
+            <div class="reveal" style="--reveal-delay: 100ms">
+              <h3>Not built yet</h3>
+              <ul class="ledger-list ledger-no" role="list">
+                <li>No skeletal or skinned animation. The renderer draws static meshes, and the vertex format has no bone data at all</li>
+                <li>No networking of any kind</li>
+                <li>Point and spot lights cast no shadows. Only the sun does</li>
+                <li>The asset cooker validates a project, it does not bake a binary format</li>
+                <li>No texture compression and no anisotropic filtering. Everything is RGBA8</li>
+                <li>Anti-aliasing is FXAA only. There is no MSAA and no TAA</li>
+                <li>Windows is the supported platform. The Linux tree compiles under gcc and clang, but runtime deployment is unfinished and has not been validated on real hardware</li>
+                <li><strong>No game has shipped on it.</strong> It is a working engine with a working toolchain, and that is the entire claim</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ===================== ENGINE ROADMAP ===================== -->
+          <div class="roadmap-head reveal">
+            <h3>Where it goes next</h3>
+            <p class="dim measure">
+              None of the four below is built. They are the direction the engine is being taken in,
+              and they are listed here because each one has a concrete reason to be achievable
+              rather than being a wish. If you are hiring us for work today, hire us for the list
+              above.
+            </p>
+          </div>
+
+          <ol class="roadmap reveal" role="list">
+            <li class="roadmap-item">
+              <p class="roadmap-status">Planned</p>
+              <h4>A modern renderer, with OpenGL kept as the fallback</h4>
+              <p>
+                Vulkan first, behind a render interface in the same shape as the physics, scripting
+                and audio seams. The graphics API currently reaches 26 of the engine's 155 source
+                files, so the surface a second backend has to cover is already known and bounded.
+                OpenGL 3.3 stays in the tree as the compatibility path for older hardware rather
+                than being ripped out.
+              </p>
+              <p class="roadmap-why">
+                <span class="roadmap-why-tag">Why it is realistic</span>
+                Three subsystems already sit behind interfaces with zero library types in engine
+                headers. The renderer is the next one to go behind a seam, not the first.
+              </p>
+            </li>
+
+            <li class="roadmap-item">
+              <p class="roadmap-status">Planned, after Vulkan</p>
+              <h4>Ray traced lighting</h4>
+              <p>
+                Hardware ray tracing needs the newer API underneath it, so this follows the Vulkan
+                backend rather than running alongside it. Shadows and reflections are the first
+                targets, since those are where the current pipeline works hardest: cascaded shadow
+                maps and a screen space post stack both exist to approximate what tracing does
+                directly.
+              </p>
+              <p class="roadmap-why">
+                <span class="roadmap-why-tag">Why it is realistic</span>
+                The pipeline is already a list of passes with a shared context, so a traced pass
+                slots into the same structure the existing eleven use.
+              </p>
+            </li>
+
+            <li class="roadmap-item">
+              <p class="roadmap-status">Planned</p>
+              <h4>Wider platform support, including mobile</h4>
+              <p>
+                Linux is partly there. The whole tree compiles under gcc and clang with Jolt and
+                the built in physics backend, and what remains is runtime linking and a validated
+                end to end build. Mobile is a larger job: it needs a windowing and input layer
+                beyond GLFW, a GLES or Vulkan path, and packaging after that. The aim is to cover
+                as many targets as the codebase can honestly carry.
+              </p>
+              <p class="roadmap-why">
+                <span class="roadmap-why-tag">Why it is realistic</span>
+                Platform specific dependencies are already isolated. PhysX is declared Windows only
+                in the package manifest and simply drops out of a Linux build without touching
+                engine code.
+              </p>
+            </li>
+
+            <li class="roadmap-item">
+              <p class="roadmap-status">Planned</p>
+              <h4>Peer to peer rollback netcode</h4>
+              <p>
+                Rollback needs a simulation that produces the same result twice from the same
+                inputs, which is a property you either design for early or retrofit painfully. One
+                fixed step accumulator already drives gameplay and physics together in the main
+                loop, so the two can never disagree about how many steps have elapsed. Jolt is the
+                deterministic simulation the rollback would re-run against.
+              </p>
+              <p class="roadmap-why">
+                <span class="roadmap-why-tag">Why it is realistic</span>
+                The hard precondition is in place already. There is currently no networking code at
+                all, so this is greenfield on top of a fixed step loop rather than surgery on a
+                variable one.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ===================== HOW WE WORK ===================== -->
+      <section class="section">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">How we work</p>
+            <h2>Four shapes, all fixed-scope</h2>
+            <p class="lede">Every one ends with something you can run, plus the source.</p>
+          </div>
+
+          <div class="grid grid-2">
+            <article class="panel panel-hover reveal">
+              <span class="marker" aria-hidden="true">01</span>
+              <h3 class="panel-title">Prototype or vertical slice</h3>
+              <p>
+                Four to ten weeks, one fixed goal, a playable build at the end. Good when you need
+                to know whether the idea is fun before you fund it.
+              </p>
+            </article>
+
+            <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
+              <span class="marker" aria-hidden="true">02</span>
+              <h3 class="panel-title">A named system</h3>
+              <p>
+                Combat, movement, procedural generation, saves, modding, front end, input. We take
+                one subsystem, build it data-driven and tested, and hand it over documented. Good
+                when your team is strong but short a specialist.
+              </p>
+            </article>
+
+            <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
+              <span class="marker" aria-hidden="true">03</span>
+              <h3 class="panel-title">Tools and pipeline</h3>
+              <p>
+                Editor tooling your designers will actually open, runtime tuning panels that
+                survive into builds, release automation, and a test harness for whatever keeps
+                breaking. Good when the game is fine and the making of it isn't.
+              </p>
+            </article>
+
+            <article class="panel panel-hover reveal" style="--reveal-delay: 240ms">
+              <span class="marker" aria-hidden="true">04</span>
+              <h3 class="panel-title">Audit and rescue</h3>
+              <p>
+                One week reading your codebase, then a written report covering what is load-bearing,
+                what is going to hurt, and what to do first. Fixed price. Good when you have
+                inherited something and need to know what you are holding.
+              </p>
+            </article>
+          </div>
+
+          <p class="dim measure" style="margin-top: 2.5rem">
+            We work in English on Toronto hours, and we're comfortable either being the only
+            engineers on a small project or a specialist pair of hands inside a bigger team.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===================== HONESTY LEDGER ===================== -->
+      <section class="section section-sunk">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Straight answers</p>
+            <h2>What we won't claim</h2>
+            <p class="lede">Studios our size tend to round up. Here's where we round down.</p>
+          </div>
+
+          <div class="grid grid-2">
+            <article class="panel claim reveal">
+              <h3 class="panel-title">Nothing of ours is out on Steam yet</h3>
+              <p>
+                The app, the depot and the upload pipeline are real and exercised, and twenty-one
+                versioned builds have gone through them. The game has not launched. Our one previously
+                published title is a mobile game, Rocket Recover, and it's archived.
+              </p>
+            </article>
+
+            <article class="panel claim reveal" style="--reveal-delay: 60ms">
+              <h3 class="panel-title">Our tests aren't on CI</h3>
+              <p>
+                657 play-mode tests pass and the validators run as a build gate, but the suite runs
+                locally and on demand. If you need a green badge on every pull request, that's
+                something we'd build with you rather than bring.
+              </p>
+            </article>
+
+            <article class="panel claim reveal" style="--reveal-delay: 180ms">
+              <h3 class="panel-title">The game you're looking at is greybox</h3>
+              <p>
+                The enemy art is finished and the level art is still greybox. We do systems, tools and
+                engineering, so if the project needs art you will want to bring an artist
+                alongside us.
+              </p>
+            </article>
+
+            <article class="panel claim reveal" style="--reveal-delay: 240ms">
+              <h3 class="panel-title">We are three people</h3>
+              <p>
+                Two developers and Vader, who is a cat. That is worth knowing before you scope
+                anything large with us, and it is also why we are careful about what we take on.
+              </p>
+            </article>
+
+            <article class="panel claim reveal" style="--reveal-delay: 300ms">
+              <h3 class="panel-title">Our engine has never shipped a game</h3>
+              <p>
+                Cat Splat Engine is real, tested and actively developed, and it is not a product. It is
+                there to show that low-level work does not scare us.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CONTACT ===================== -->
+      <section class="section section-cta" id="contact">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+        <div class="shell shell-narrow center">
+          <h2 class="reveal">Tell us what you're building</h2>
+          <p class="lede reveal">
+            Send a paragraph about the project, what stage it's at, and what's currently in your
+            way. If it isn't a fit we'll say so in the reply, and if we know someone better suited
+            we'll name them.
+          </p>
+          <div class="btn-row reveal">
+            <a class="btn btn-primary btn-lg" href="mailto:info@catsplatstudios.com?subject=Project%20enquiry">
+              info@catsplatstudios.com
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <p class="dim reveal" style="margin-top: 1.5rem; font-size: var(--step--1)">
+            Toronto, Ontario. A person reads every one of these.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-head">Cat Splat Studios</p>
+            <p class="dim" style="font-size: var(--step--1)">
+              An independent game studio in Toronto, making games since 2015.
+            </p>
+          </div>
+
+          <nav aria-label="Footer">
+            <p class="footer-head">Explore</p>
+            <a href="../games/index.html">Games</a>
+            <a href="../services/index.html">Services</a>
+            <a href="../about/index.html">About</a>
+            <a href="https://store.steampowered.com/app/2953370/" target="_blank" rel="noopener">Gleamwood on Steam</a>
+          </nav>
+
+          <div>
+            <p class="footer-head">Contact</p>
+            <a href="mailto:info@catsplatstudios.com">info@catsplatstudios.com</a>
+            <a href="https://github.com/Cat-Splat-Studios" target="_blank" rel="noopener">github.com/Cat-Splat-Studios</a>
+          </div>
+
+          <div>
+            <p class="footer-head">Find us</p>
+            <div class="social-row">
+              <a href="https://facebook.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+              </a>
+              <a href="https://instagram.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://twitter.com/catsplatstudios" target="_blank" rel="noopener" aria-label="X, formerly Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2H21l-6.4 7.3L22 22h-5.9l-4.6-6-5.3 6H3.4l6.9-7.8L2.3 2h6l4.2 5.5L18.2 2Zm-1 18h1.6L7.9 3.7H6.2L17.2 20Z"/></svg>
+              </a>
+              <a href="mailto:info@catsplatstudios.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-base">
+          <p>&copy; 2015&ndash;<span data-year>2026</span> Cat Splat Studios Inc.</p>
+          <p class="dim">Built as flat files. No frameworks were harmed.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/site.js" defer></script>
+  </body>
+</html>
