@@ -1,4 +1,25 @@
+/* ==========================================================================
+   Cat Splat Studios site stylesheet
+   Zero dependencies. Hand-written. No build step.
 
+   Three of the four faces come straight from Sentinels of Gleamwood's in-game
+   UI theme, so the site and the game read as one brand. They carry the display
+   type, the interface chrome and the numerals. Long-form body copy uses the
+   reader's own system font, because Space Mono at paragraph length is handsome
+   and genuinely tiring to read.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fonts (self-hosted, all three OFL-licensed)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("../fonts/PixelifySans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "Space Mono";
@@ -43,9 +64,15 @@
   --ember-veil: rgb(255 106 42 / 0.08);
 
   /* Type */
+  /* Display and headings: the game's own face. */
   --font-display: "Pixelify Sans", "Trebuchet MS", sans-serif;
-  --font-body: "Space Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+  /* Interface chrome: eyebrows, labels, buttons, code. Short strings only. */
+  --font-mono: "Space Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+  /* Numerals, where unambiguous digits matter. */
   --font-numeric: "Pixel Operator Mono", "Space Mono", monospace;
+  /* Running prose. No download, and it is what the reader already reads in. */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
 
   /* Fluid scale, via clamp(min, preferred, max) */
   --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.86rem);
@@ -97,7 +124,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  line-height: 1.75;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -183,7 +210,7 @@ strong {
 }
 
 code {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 0.9em;
   color: var(--ember-hot);
 }
@@ -315,7 +342,7 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: var(--step--1);
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -404,6 +431,7 @@ code {
    -------------------------------------------------------------------------- */
 
 .btn {
+  font-family: var(--font-mono);
   --btn-bg: transparent;
   --btn-fg: var(--text-bright);
   --btn-bd: var(--rule);
@@ -572,6 +600,7 @@ code {
    -------------------------------------------------------------------------- */
 
 .badge {
+  font-family: var(--font-mono);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -633,6 +662,7 @@ code {
 }
 
 .stat-label {
+  font-family: var(--font-mono);
   display: block;
   margin-top: 0.5rem;
   font-size: var(--step--1);
@@ -711,6 +741,7 @@ code {
 }
 
 .nav a {
+  font-family: var(--font-mono);
   position: relative;
   font-size: var(--step--1);
   letter-spacing: 0.18em;
@@ -856,6 +887,7 @@ code {
 }
 
 .mobile-nav a {
+  font-family: var(--font-mono);
   display: block;
   padding: 0.9rem 0;
   font-size: var(--step-0);
@@ -879,6 +911,7 @@ code {
 
 /* Skip link */
 .skip {
+  font-family: var(--font-mono);
   position: absolute;
   left: 50%;
   top: 0;
@@ -1179,6 +1212,7 @@ code {
 }
 
 .proof-tag {
+  font-family: var(--font-mono);
   display: inline-block;
   margin-right: 0.6rem;
   font-size: 0.72em;
@@ -1223,6 +1257,7 @@ code {
 }
 
 .seam-bar {
+  font-family: var(--font-mono);
   padding: 0.5em 1.1em;
   border: 1px solid var(--ember);
   border-radius: var(--radius);
@@ -1283,7 +1318,7 @@ code {
   position: absolute;
   left: 0;
   top: 0.1em;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
 }
 
 .ledger-yes li::before {
@@ -1374,6 +1409,7 @@ code {
 }
 
 .roadmap-status {
+  font-family: var(--font-mono);
   font-size: var(--step--1);
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1404,6 +1440,7 @@ code {
 }
 
 .roadmap-why-tag {
+  font-family: var(--font-mono);
   display: block;
   margin-bottom: 0.25rem;
   font-size: 0.78em;
@@ -1424,6 +1461,7 @@ code {
 }
 
 .member-role {
+  font-family: var(--font-mono);
   margin-top: -0.3rem;
   margin-bottom: 1rem;
   font-size: var(--step--1) !important;
@@ -1585,6 +1623,7 @@ code {
 }
 
 .footer-base {
+  font-family: var(--font-mono);
   display: flex;
   flex-wrap: wrap;
   gap: 1rem 2rem;
