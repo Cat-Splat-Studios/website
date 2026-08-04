@@ -318,55 +318,6 @@ for path in [SITE / "assets" / "css" / "site.css", SITE / "assets" / "js" / "sit
         fail(f"{rel(path)}:{line}: em dash")
 
 # --------------------------------------------------------------------------
-# 3g. The run web in site.js must still enumerate to the numbers the pages
-#     print. A hand-maintained roster fails silently, so re-derive rather than
-#     trusting the copy.
-# --------------------------------------------------------------------------
-
-js_path = SITE / "assets" / "js" / "site.js"
-js = js_path.read_text(encoding="utf-8")
-
-m = re.search(r"const WEB = \{(.*?)\n  \};", js, re.S)
-if not m:
-    fail(f"{rel(js_path)}: could not find the run web adjacency literal")
-else:
-    web: dict[str, list[str]] = {}
-    for line in m.group(1).splitlines():
-        entry = re.match(r'\s*"?([\w-]+)"?:\s*\[(.*?)\],?\s*$', line)
-        if entry:
-            web[entry.group(1)] = re.findall(r'"([\w-]+)"', entry.group(2))
-
-    routes: list[list[str]] = []
-
-    def walk(node: str, path: list[str]) -> None:
-        here = path + [node]
-        if node == "finale":
-            routes.append(here)
-            return
-        for nxt in web.get(node, []):
-            walk(nxt, here)
-
-    if "start" in web:
-        walk("start", [])
-
-    lengths = {n: sum(1 for r in routes if len(r) == n) for n in (5, 6, 7)}
-    edges = sum(len(v) for v in web.values())
-
-    for label, got, want in [
-        ("route total", len(routes), 31),
-        ("routes of five levels", lengths[5], 12),
-        ("routes of six levels", lengths[6], 13),
-        ("routes of seven levels", lengths[7], 6),
-        ("edge count", edges, 20),
-        ("node count", len(web), 10),
-    ]:
-        if got != want:
-            fail(f"{rel(js_path)}: run web {label} is {got}, the site claims {want}")
-
-    if len({tuple(r) for r in routes}) != len(routes):
-        fail(f"{rel(js_path)}: run web produces duplicate routes")
-
-# --------------------------------------------------------------------------
 # 3h. Figures the pages state as fact. If the game changes, these fail loudly
 #     rather than the site quietly going stale.
 # --------------------------------------------------------------------------
@@ -375,7 +326,6 @@ CLAIMS = [
     ("657", "play-mode tests"),
     ("408", "C# files"),
     ("21", "versioned Steam builds"),
-    ("31", "enumerated routes"),
     ("742", "GoogleTest cases"),
     ("11", "render passes"),
     ("7", "engine backends"),

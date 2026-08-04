@@ -82,18 +82,6 @@
       </nav>
     </header>
 
-    <!-- Section rail. Hidden below 86rem, and duplicated from the hero manifest
-         rather than replacing it, so the contents are reachable at every width. -->
-    <nav class="railnav" aria-label="Sections">
-      <ol role="list">
-        <li><a href="#s01">01</a></li>
-        <li><a href="#s02">02</a></li>
-        <li><a href="#s03">03</a></li>
-        <li><a href="#s04">04</a></li>
-        <li><a href="#s05">05</a></li>
-      </ol>
-    </nav>
-
     <main id="main" tabindex="-1">
       <!-- ===================== HERO ===================== -->
       <section class="hero">
@@ -154,338 +142,74 @@
             </p>
           </div>
 
-          <nav class="manifest-wrap" aria-label="Page contents">
-            <ol class="manifest" role="list">
-              <li><a href="#s01"><span class="manifest-ord">01</span><span class="manifest-label">What it is</span><span class="manifest-num">2</span></a></li>
-              <li><a href="#s02"><span class="manifest-ord">02</span><span class="manifest-label">The hang</span><span class="manifest-num">0.8</span></a></li>
-              <li><a href="#s03"><span class="manifest-ord">03</span><span class="manifest-label">The run</span><span class="manifest-num">31</span></a></li>
-              <li><a href="#s04"><span class="manifest-ord">04</span><span class="manifest-label">Built to be authored</span><span class="manifest-num">0</span></a></li>
-              <li><a href="#s05"><span class="manifest-ord">05</span><span class="manifest-label">The same standard, for hire</span><span class="manifest-num">657</span></a></li>
-            </ol>
-            <p class="manifest-cap dim">Five sections, five numbers you can check.</p>
-          </nav>
           </div>
         </div>
       </section>
 
-      <!-- ===================== 01 WHAT IT IS ===================== -->
-      <section class="section" id="s01">
+      <!-- ===================== THE GAME ===================== -->
+      <section class="section" id="game">
         <div class="shell">
-          <div class="section-head is-numbered reveal">
-            <p class="sec-num">01</p>
-            <h2>What it is</h2>
+          <div class="section-head reveal">
+            <p class="eyebrow">The game</p>
+            <h2>A roguelite about the air, and the way out</h2>
+            <p class="lede">
+              Sentinels of Gleamwood is a 2D action roguelite for a controller. It is about getting
+              enemies off the ground and finishing them before they land, and about deciding for
+              yourself how a run goes.
+            </p>
           </div>
 
-          <dl class="specplate reveal">
-            <div><dt>Genre</dt><dd>2D action roguelite</dd></div>
-            <div><dt>Engine</dt><dd>Unity 6</dd></div>
-            <div><dt>Platform</dt><dd>Windows, via Steam</dd></div>
-            <div><dt>Steam</dt><dd>App 2953370, store page not yet public</dd></div>
-            <div><dt>Build state</dt><dd>In development, no announced date</dd></div>
-            <div><dt>Art</dt><dd>Placeholder throughout, in progress</dd></div>
-          </dl>
-
-          <p class="lede reveal" style="margin-top: 2.5rem">
-            The kit you carry is two slots wide, one blade and one bow. Everything below describes
-            how those two slots behave at the level of seconds and thresholds, because that is the
-            level at which this game is actually different from the ones next to it on the shelf.
-          </p>
-
-          <div class="grid grid-2" style="margin-top: 2.5rem">
+          <div class="grid grid-2">
             <article class="panel panel-hover reveal">
-              <h3 class="panel-title">The blade and the meter</h3>
+              <h3 class="panel-title">Fight upward</h3>
               <p>
-                Grounded hits build juggle points. At 60 the enemy launches and hangs at the top of
-                the arc for eight tenths of a second. That hang is the whole air combo window, and
-                it is the same 0.8 seconds every time, so you can learn it.
+                Hits on a grounded enemy build toward a launch. Once it is airborne you have a
+                short window to do something with it, and the game is built so that window is
+                always the same length. Learning what fits inside it is most of the skill.
               </p>
             </article>
 
             <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
-              <h3 class="panel-title">Executions run on their own clock</h3>
+              <h3 class="panel-title">Finishers you set up</h3>
               <p>
-                The execution meter is read before the current hit's points land, which means the
-                finisher is the swing after the one that fills the meter. Each enemy can be
-                executed once.
+                Executions are not a button you press when a bar is full. Each one asks for a
+                particular kind of hit against a particular state, so the loadout you carry decides
+                which ones are even available to you.
               </p>
             </article>
 
             <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
-              <h3 class="panel-title">The bow is an instant lane cast</h3>
+              <h3 class="panel-title">Pick your way out</h3>
               <p>
-                There is no arrow to lead. The shot resolves along the lane the moment you release,
-                and a clean release inside the perfect window is worth one and a half times damage,
-                read off a charge ring drawn around the player.
+                Levels branch, and every exit is a door you walk up to and read before you take it.
+                One of them leads to the boss. Another skips the fight, the reward and the rest that
+                follows, and you carry on with the health you have.
               </p>
             </article>
 
             <article class="panel panel-hover reveal" style="--reveal-delay: 240ms">
-              <h3 class="panel-title">You buy your movement</h3>
+              <h3 class="panel-title">Movement you earn</h3>
               <p>
-                The wall jump and the dash cost 200 Gleam each at the hub. The generator knows
-                which of the two you own and only builds rooms you can clear with them, so buying
-                one visibly widens the game.
+                The dash and the wall jump are bought, not given. The game knows what you own and
+                only builds levels you can actually clear, so buying one visibly opens the game up.
               </p>
             </article>
           </div>
-        </div>
-      </section>
 
-      <!-- ===================== 02 THE HANG ===================== -->
-      <section class="section" id="s02">
-        <div class="shell">
-          <div class="section-head is-numbered reveal">
-            <p class="sec-num">02</p>
-            <h2>The hang</h2>
-          </div>
-
-          <p class="lede reveal">
-            Here is the same eight tenths of a second the game gives you, laid out end to end.
-            Grounded hits fill the juggle meter, and at 60 points the enemy launches. The shaded
-            band is the hang at the top of the arc.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            The two marks above the bar are the execution contract. The first swing fills the
-            execution meter and the second one is the finisher, because readiness is checked before
-            the current hit's points land. Stop hitting and the juggle meter drains, so a combo you
-            abandon does not sit and wait for you.
-          </p>
-
-          <figure class="figframe hangfig reveal" style="margin-top: 2.5rem">
-            <div class="hang-body">
-              <div class="hang-ticks">
-                <span class="hang-tick" style="--at: 1.00s">fills the meter</span>
-                <span class="hang-tick" style="--at: 1.30s">the finisher</span>
-              </div>
-
-              <div class="hang-track" role="img"
-                   aria-label="A juggle meter fills to 60 over three grounded hits, the enemy launches and hangs for eight tenths of a second, and two swings land during the hang: the one that fills the execution meter and the finisher after it.">
-                <div class="hang-band"></div>
-                <div class="hang-fill"></div>
-                <span class="hang-mark">60</span>
-              </div>
-
-              <div class="hang-foot">
-                <p class="hang-state">Executed</p>
-                <button type="button" class="btn btn-ghost hang-replay">Replay</button>
-              </div>
-            </div>
-
-            <figcaption>
-              <span class="fig-num">Figure 2.1.</span> The shaded band is eight tenths of a second
-              of real time, measured against the clock rather than eased. The 60 point threshold,
-              the 0.8 second hang and the 0.1 second hitstop at launch are the authored values. The
-              spacing of the three grounded hits is a drawing choice.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- ===================== 03 THE RUN ===================== -->
-      <section class="section section-sunk" id="s03">
-        <div class="shell">
-          <div class="split split-wide-right">
-            <div class="reveal">
-              <p class="sec-num">03</p>
-              <h2>The run</h2>
-              <p class="stack">
-                A run is five to seven levels long. The first level and the last one never change,
-                and everything between them is a web you route through yourself. Each level names
-                its own ways out, as labelled doors you press, with the rest between biomes as the
-                fallback. One of those doors is the slip-away, which skips the boss and the boss
-                reward together.
-              </p>
-              <p class="dim">
-                Layouts are a pure function of the seed, so the same run rebuilds itself
-                identically every time. That is how a suspended run resumes without ever
-                serialising a single tile of geometry.
-              </p>
-              <div class="stat-row">
-                <div class="stat"><span class="stat-num">10</span><span class="stat-label">Biomes</span></div>
-                <div class="stat"><span class="stat-num">31</span><span class="stat-label">Routes</span></div>
-                <div class="stat"><span class="stat-num">5&ndash;7</span><span class="stat-label">Levels per run</span></div>
-              </div>
-            </div>
-
-            <div class="reveal" style="--reveal-delay: 120ms">
-              <figure class="webfig">
-                <div class="scrollx">
-                <svg viewBox="0 0 720 320" role="img" aria-labelledby="webtitle webdesc" style="min-width: 34rem">
-                  <title id="webtitle">The shipped run web</title>
-                  <desc id="webdesc">
-                    A directed graph on four tiers. One entry node on the left leads to three tier
-                    two nodes, which lead to three tier three nodes, which lead to two tier four
-                    nodes, which lead to one finale node on the right. Some edges cross sideways to
-                    a sibling in the same tier, which lengthens the run. Two edges are bypasses that
-                    skip a boss.
-                  </desc>
-
-                  <g class="web-edges">
-                    <path class="e-descent" id="e-start--t2-a" d="M50 160L210 60"/>
-                    <path class="e-descent" id="e-start--t2-b" d="M50 160L210 160"/>
-                    <path class="e-descent" id="e-start--t2-c" d="M50 160L210 260"/>
-                    <path class="e-descent" id="e-t2-a--t3-a" d="M210 60L390 60"/>
-                    <path class="e-descent" id="e-t2-a--t3-b" d="M210 60L390 160"/>
-                    <path class="e-descent" id="e-t2-b--t3-b" d="M210 160L390 160"/>
-                    <path class="e-descent" id="e-t2-b--t3-c" d="M210 160L390 260"/>
-                    <path class="e-bypass" id="e-t2-b--t3-a" d="M210 160L390 60"/>
-                    <path class="e-descent" id="e-t2-c--t3-c" d="M210 260L390 260"/>
-                    <path class="e-descent" id="e-t2-c--t3-a" d="M210 260L390 60"/>
-                    <path class="e-lateral" id="e-t3-a--t3-b" d="M390 60L390 160"/>
-                    <path class="e-descent" id="e-t3-a--t4-a" d="M390 60L560 110"/>
-                    <path class="e-bypass" id="e-t3-a--t4-b" d="M390 60L560 210"/>
-                    <path class="e-lateral" id="e-t3-b--t3-c" d="M390 160L390 260"/>
-                    <path class="e-descent" id="e-t3-b--t4-a" d="M390 160L560 110"/>
-                    <path class="e-descent" id="e-t3-b--t4-b" d="M390 160L560 210"/>
-                    <path class="e-descent" id="e-t3-c--t4-b" d="M390 260L560 210"/>
-                    <path class="e-lateral" id="e-t4-a--t4-b" d="M560 110L560 210"/>
-                    <path class="e-descent" id="e-t4-a--finale" d="M560 110L680 160"/>
-                    <path class="e-descent" id="e-t4-b--finale" d="M560 210L680 160"/>
-                  </g>
-
-                  <g class="web-nodes" role="list">
-                    <g class="web-node" data-node="start" tabindex="0" role="listitem">
-                      <title>Emberfall</title>
-                      <circle class="n-entry" cx="50" cy="160" r="9"/>
-                      <text class="web-label" x="50" y="186" text-anchor="middle">Emberfall</text>
-                    </g>
-                    <g class="web-node" data-node="t2-a" tabindex="0" role="listitem">
-                      <title>t2-a</title>
-                      <circle class="" cx="210" cy="60" r="7"/>
-                      <text class="web-label" x="210" y="82" text-anchor="middle">t2-a</text>
-                    </g>
-                    <g class="web-node" data-node="t2-b" tabindex="0" role="listitem">
-                      <title>t2-b</title>
-                      <circle class="" cx="210" cy="160" r="7"/>
-                      <text class="web-label" x="210" y="182" text-anchor="middle">t2-b</text>
-                    </g>
-                    <g class="web-node" data-node="t2-c" tabindex="0" role="listitem">
-                      <title>t2-c</title>
-                      <circle class="" cx="210" cy="260" r="7"/>
-                      <text class="web-label" x="210" y="282" text-anchor="middle">t2-c</text>
-                    </g>
-                    <g class="web-node" data-node="t3-a" tabindex="0" role="listitem">
-                      <title>t3-a</title>
-                      <circle class="" cx="390" cy="60" r="7"/>
-                      <text class="web-label" x="390" y="82" text-anchor="middle">t3-a</text>
-                    </g>
-                    <g class="web-node" data-node="t3-b" tabindex="0" role="listitem">
-                      <title>t3-b</title>
-                      <circle class="" cx="390" cy="160" r="7"/>
-                      <text class="web-label" x="390" y="182" text-anchor="middle">t3-b</text>
-                    </g>
-                    <g class="web-node" data-node="t3-c" tabindex="0" role="listitem">
-                      <title>t3-c</title>
-                      <circle class="" cx="390" cy="260" r="7"/>
-                      <text class="web-label" x="390" y="282" text-anchor="middle">t3-c</text>
-                    </g>
-                    <g class="web-node" data-node="t4-a" tabindex="0" role="listitem">
-                      <title>t4-a</title>
-                      <circle class="" cx="560" cy="110" r="7"/>
-                      <text class="web-label" x="560" y="132" text-anchor="middle">t4-a</text>
-                    </g>
-                    <g class="web-node" data-node="t4-b" tabindex="0" role="listitem">
-                      <title>t4-b</title>
-                      <circle class="" cx="560" cy="210" r="7"/>
-                      <text class="web-label" x="560" y="232" text-anchor="middle">t4-b</text>
-                    </g>
-                    <g class="web-node" data-node="finale" tabindex="0" role="listitem">
-                      <title>Demon King</title>
-                      <circle class="n-final" cx="680" cy="160" r="9"/>
-                      <text class="web-label" x="680" y="186" text-anchor="middle">Demon King</text>
-                    </g>
-                  </g>
-                </svg>
-                </div>
-
-                <div class="web-readout">
-                  <p class="web-count">31 routes, enumerated in your browser from the shipped adjacency.</p>
-                  <dl class="web-dist">
-                    <div><dt>Five levels</dt><dd><span class="distbar" style="--pct: 39%"></span><b>12</b></dd></div>
-                    <div><dt>Six levels</dt><dd><span class="distbar" style="--pct: 42%"></span><b>13</b></dd></div>
-                    <div><dt>Seven levels</dt><dd><span class="distbar" style="--pct: 19%"></span><b>6</b></dd></div>
-                  </dl>
-                  <button type="button" class="btn btn-ghost web-trace">Trace a route</button>
-                </div>
-
-                <figcaption>
-                  <span class="fig-num">Figure 3.1.</span> Solid edges descend a tier. Dashed edges
-                  cross to a sibling, which adds a level to the run. Dotted edges are bypasses that
-                  skip a boss and its reward. Hover or focus a node to light every route through it.
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== 04 BUILT TO BE AUTHORED ===================== -->
-      <section class="section" id="s04">
-        <div class="shell">
-          <div class="section-head is-numbered reveal">
-            <p class="sec-num">04</p>
-            <h2>Built to be authored</h2>
-          </div>
-
-          <p class="lede reveal">
-            Dialogue, boss conversations and the story panels are content, not code. A writer opens
-            a text file or the in-editor authoring tool, fills in the lines, and the game reads
-            them on the next launch. No programmer sits in that loop and no rebuild happens.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            The writing for this game has not been done yet. What you can see below is the surface
-            it will arrive through, with the fields left empty, and the pipeline that carries a
-            line of text from a file into the build.
-          </p>
-
-          <figure class="figframe scrollx reveal" style="margin-top: 2.5rem">
-            <div class="pipefig">
-              <div class="pf-box pf-config">
-                <p class="pf-title">Text a writer edits</p>
-                <p class="pf-sub">GameContent.ini, dialogue files, .room drawings</p>
-              </div>
-              <div class="pf-arrow" aria-hidden="true"></div>
-              <div class="pf-box pf-tool">
-                <p class="pf-title">Editor import</p>
-                <p class="pf-sub">One menu item, validating as it reads</p>
-              </div>
-              <div class="pf-arrow" aria-hidden="true"></div>
-              <div class="pf-box">
-                <p class="pf-title">Definitions</p>
-                <p class="pf-sub">Enemies, weapons, biomes, conversations</p>
-              </div>
-              <div class="pf-arrow" aria-hidden="true"></div>
-              <div class="pf-box pf-gate">
-                <p class="pf-title">Validators</p>
-                <p class="pf-sub">Two of them. One fails the build</p>
-              </div>
-              <div class="pf-arrow" aria-hidden="true"></div>
-              <div class="pf-box pf-out">
-                <p class="pf-title">The running game</p>
-                <p class="pf-sub">And the shipped mod templates</p>
-              </div>
-            </div>
-            <figcaption>
-              <span class="fig-num">Figure 4.1.</span> The same path carries a boss conversation, an
-              enemy's behaviour graph and a level drawing. A typo raises an error and leaves the
-              existing value alone rather than quietly writing an empty one.
-            </figcaption>
-          </figure>
-
-          <div class="center" style="margin-top: 2.5rem">
-            <a class="btn btn-ghost reveal" href="games/index.html#s04">
-              See the whole authoring surface
+          <div class="center" style="margin-top: 2.75rem">
+            <a class="btn btn-ghost btn-lg reveal" href="games/index.html">
+              More about the game
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </div>
         </div>
       </section>
 
-      <!-- ===================== 05 THE SAME STANDARD, FOR HIRE ===================== -->
-      <section class="section section-sunk" id="s05">
+      <!-- ===================== THE SAME STANDARD, FOR HIRE ===================== -->
+      <section class="section section-sunk" id="services">
         <div class="shell">
-          <div class="section-head is-numbered reveal">
-            <p class="sec-num">05</p>
+          <div class="section-head reveal">
+            <p class="eyebrow">Work with us</p>
             <h2>The same standard, for hire</h2>
             <p class="lede">
               Everything above is one codebase with 657 play-mode tests passing and zero failing,

@@ -116,356 +116,100 @@
 
           <div class="grid grid-2 reveal">
             <article class="panel">
-              <span class="marker" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14.5 3.5 20 9l-9.5 9.5L5 13z"/><path d="m4 20 3-3"/></svg>
-              </span>
-              <h3 class="panel-title">A blade, a bow, and a meter</h3>
+              <h3 class="panel-title">A blade and a bow</h3>
               <p>
-                Your kit is two slots wide. Grounded hits build juggle points; at sixty the enemy
-                launches and hangs at the apex for eight tenths of a second, which is exactly as
-                long as your air combo gets. Executions run on a separate meter and land on the
-                swing <em>after</em> the one that fills it. Each enemy can be executed once.
+                You carry two weapons at a time and they do different jobs. The blade opens enemies
+                up and puts them in the air. The bow is instant, so it is about timing a clean
+                release rather than leading a shot.
               </p>
             </article>
 
             <article class="panel">
-              <span class="marker" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
-              </span>
-              <h3 class="panel-title">Statuses are keys</h3>
+              <h3 class="panel-title">The air is the point</h3>
               <p>
-                Ignite and Sticky Arrows do damage over time, and they also unlock finishers. Three
-                arrow stacks then a dash gets you an Explosion. Set something alight and follow
-                with steel for a Firestorm. Pierce an airborne enemy and it leaves through the side
-                of the screen.
+                Grounded hits build toward a launch, and once an enemy is up you have a fixed window
+                to work with. The window never changes length, so the game rewards knowing exactly
+                what you can fit inside it.
               </p>
             </article>
 
             <article class="panel">
-              <span class="marker" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-              </span>
-              <h3 class="panel-title">Movement you have to buy</h3>
+              <h3 class="panel-title">Finishers you have to set up</h3>
               <p>
-                The wall jump and the dash cost 200 Gleam each at the hub. The generator knows what you own and refuses to build rooms you can't clear,
-                so buying one visibly widens the game.
+                Every execution asks for a specific kind of hit against a specific state. Which ones
+                you can reach depends on the two weapons you happen to be carrying, so a loadout is
+                a set of options rather than a stat line.
               </p>
             </article>
 
             <article class="panel">
-              <span class="marker" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 6h6l2 3h8v9H4z"/><path d="M9 12h6"/></svg>
-              </span>
-              <h3 class="panel-title">You keep your Gleam when you die</h3>
+              <h3 class="panel-title">Runs that carry forward</h3>
               <p>
-                Gleam comes home whether you clear the run or die in the second biome. Spend it at
-                the hub Shopkeeper on Vigor, Might, Honed Edge, movement, and permanent weapon
-                unlocks. Weapon upgrades inside a run are run-scoped and never touch the shared
-                definition.
+                Dying ends the run but not the progress. You bank currency either way and spend it
+                on movement and permanent upgrades, and the game builds levels around what you have
+                bought.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ===================== THE HIT RESOLVER ===================== -->
-      <section class="section" id="s02">
-        <div class="shell">
-          <div class="section-head is-numbered reveal">
-            <p class="sec-num">02</p>
-            <h2>What one hit actually does</h2>
-            <p class="lede">
-              Every hit in the game walks the same eleven steps in the same order. Describe a hit
-              with the switches and the spine below shows which steps it runs, which it skips, and
-              which it never reaches.
-            </p>
-          </div>
-
-          <figure class="figframe resolver reveal" id="resolver">
-            <div class="resolver-body">
-              <div class="toggles" role="group" aria-label="Describe the hit">
-                <div class="presets">
-                  <button type="button" class="btn btn-ghost" data-preset='{"state":"grounded","meterFull":true}'>Fill the meter</button>
-                  <button type="button" class="btn btn-ghost" data-preset='{"state":"juggled","meterFull":true}'>Air hit resets it</button>
-                  <button type="button" class="btn btn-ghost" data-preset='{"state":"airborne","ready":true}'>Execution</button>
-                  <button type="button" class="btn btn-ghost" data-preset='{"state":"grounded","armor":true}'>Armor absorbs</button>
-                </div>
-
-                <fieldset class="toggle-set">
-                  <legend>Enemy state</legend>
-                  <label class="toggle"><input type="radio" name="state" value="grounded" checked /> Grounded</label>
-                  <label class="toggle"><input type="radio" name="state" value="airborne" /> Airborne</label>
-                  <label class="toggle"><input type="radio" name="state" value="juggled" /> Airborne, already juggled</label>
-                </fieldset>
-
-                <fieldset class="toggle-set">
-                  <legend>This hit</legend>
-                  <label class="toggle"><input type="checkbox" data-k="meterFull" /> Juggle meter stands at 60</label>
-                  <label class="toggle"><input type="checkbox" data-k="ready" /> Execution meter was already full</label>
-                  <label class="toggle"><input type="checkbox" data-k="armor" /> Enemy has super armor</label>
-                  <label class="toggle"><input type="checkbox" data-k="lethal" /> Takes health to zero</label>
-                </fieldset>
-              </div>
-
-              <ol class="steps" role="list">
-                <li data-step="1" class="is-run"><span class="step-n">01</span><p>A dead enemy ignores the hit. The hit is timestamped.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="2" class="is-run"><span class="step-n">02</span><p>Execution readiness is captured now, before this hit's points are added.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="3" class="is-run"><span class="step-n">03</span><p>Meters accrue. Juggle points only while the enemy is grounded. Execution points always.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="4" class="is-run"><span class="step-n">04</span><p>On-hit statuses apply.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="5" class="is-run"><span class="step-n">05</span><p>Feedback fires: hitstop, hit flash, the prefab's hurt sound.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="6" class="is-run"><span class="step-n">06</span><p>Damage applies, and only when MaxHealth is above zero.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="7" class="is-run"><span class="step-n">07</span><p>If readiness was captured true, the execution fires.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="8" class="is-run"><span class="step-n">08</span><p>At zero health the enemy dies. Death wins over juggle, armor and hitstun.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="9" class="is-run"><span class="step-n">09</span><p>An air hit on an already juggled enemy resets its juggle points. This is the anti-infinite rule.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="10" class="is-run"><span class="step-n">10</span><p>A full juggle meter launches the enemy from any state, armor or not.</p><span class="sr-only" data-verdict>applied</span></li>
-                <li data-step="11" class="is-run"><span class="step-n">11</span><p>Super armor is consulted last and suppresses the hitstun only. Otherwise the enemy enters hitstun.</p><span class="sr-only" data-verdict>applied</span></li>
-              </ol>
-
-              <p class="outcome" aria-live="polite">
-                Outcome: <b class="outcome-val">Set the switches above to resolve a hit.</b>
-              </p>
-            </div>
-
-            <figcaption>
-              <span class="fig-num">Figure 2.1.</span> The order is the point. Readiness is captured
-              at step 02 but spent at step 07, which is why the finisher lands on the swing after
-              the one that fills the meter rather than on the swing that fills it.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- ===================== BIOMES ===================== -->
+      <!-- ===================== THE RUN ===================== -->
       <section class="section">
-        <div class="shell">
+        <div class="shell shell-narrow">
           <div class="section-head reveal">
-            <p class="eyebrow">The world</p>
-            <h2>Ten biomes. You'll see five to seven.</h2>
-            <p class="lede">
-              The Emberfall Clearing is always first and the Demon King is always last. What comes
-              between is a branching web, and you choose the route at every rest.
-            </p>
+            <p class="eyebrow">The run</p>
+            <h2>Ten biomes, and you will not see them all</h2>
           </div>
-
-          <ul class="biome-list reveal" role="list">
-            <li><span class="biome-name">The Emberfall Clearing</span><span class="badge chip-greybox">Greybox</span><span class="biome-note">Always first</span></li>
-            <li><span class="biome-name">Emberfall Depths</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Cinderway</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Ashen Vaults</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Pyre Crown</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Sunken Mire</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Splintered Spire</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Hollow Deep</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">Galewatch</span><span class="badge chip-greybox">Greybox</span></li>
-            <li><span class="biome-name">The Demon King</span><span class="badge chip-greybox">Greybox</span><span class="biome-note">Always last</span></li>
-          </ul>
-
-          <p class="dim measure" style="margin-top: 2rem">
-            Level art is still greybox. The biomes already differ in size, branching and enemy
-            roster. They do not yet differ in appearance. That, and the remaining bosses, are
-            what we are building now.
+          <p class="lede reveal">
+            A run is a handful of levels long. The first and the last never change, and everything
+            between them is a web you route through yourself, picking a destination each time you
+            leave a level.
+          </p>
+          <p class="dim measure reveal" style="margin-top: 1rem">
+            One of the ways out skips the boss, its reward and the rest that follows, all at once.
+            It is a trade rather than a shortcut, and it is usually the decision that shapes how a
+            run ends.
           </p>
         </div>
       </section>
 
       <!-- ===================== BOSSES ===================== -->
       <section class="section section-sunk">
-        <div class="shell">
+        <div class="shell shell-narrow">
           <div class="section-head reveal">
             <p class="eyebrow">Bosses</p>
-            <h2>Three authored, seven slots open</h2>
-            <p class="lede">
-              Every biome has a boss arena and every arena generates. Three of them have a fight
-              authored in. The other seven still build the corridor, seal the doors and spawn the
-              adds, and then stop, because the fight itself is data that has not been written yet.
-            </p>
+            <h2>Three of them exist so far</h2>
           </div>
-
-          <figure class="figframe scrollx reveal">
-            <table class="rost">
-              <caption>Boss roster, by state</caption>
-              <thead>
-                <tr><th scope="col">Slot</th><th scope="col">Kit</th><th scope="col">State</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Krag</th>
-                  <td>Lunges and slams, and turns over into a second phase at half health.</td>
-                  <td><span class="badge chip-shipped">Authored</span></td>
-                </tr>
-                <tr>
-                  <th scope="row">The Cinder Shepherd</th>
-                  <td>Relocates between perches and calls waves of adds. Reaching him means going through them.</td>
-                  <td><span class="badge chip-shipped">Authored</span></td>
-                </tr>
-                <tr>
-                  <th scope="row">The Pyre Regent</th>
-                  <td>A straight sword fight until half health, when the arena's fire columns light.</td>
-                  <td><span class="badge chip-shipped">Authored</span></td>
-                </tr>
-                <tr class="row-empty">
-                  <th scope="row">Seven further slots</th>
-                  <td>Arena, corridor, sealed doors and staggered adds all generate. No boss definition.</td>
-                  <td><span class="badge chip-empty">Not authored</span></td>
-                </tr>
-              </tbody>
-            </table>
-            <figcaption>
-              <span class="fig-num">Figure 7.1.</span> A boss is a definition, not a special case in
-              the code, which is why an empty slot degrades to an arena full of adds rather than to a
-              crash. Conversations rotate per encounter and the count persists in your save.
-            </figcaption>
-          </figure>
+          <p class="lede reveal">
+            Every biome ends in an arena and every arena is built, but only three of the fights are
+            written. The rest are the next content job, along with the art.
+          </p>
+          <p class="dim measure reveal" style="margin-top: 1rem">
+            The ones that do exist each teach something different: reading a wind-up, dealing with a
+            room that keeps refilling, and a straight duel that changes its terms halfway through.
+          </p>
         </div>
       </section>
 
       <!-- ===================== THE AUTHORING ===================== -->
-      <section class="section" id="s04">
-        <div class="shell">
+      <section class="section" id="authoring">
+        <div class="shell shell-narrow">
           <div class="section-head reveal">
-            <p class="eyebrow">The authoring</p>
-            <h2>Where the writing will go</h2>
+            <p class="eyebrow">The writing</p>
+            <h2>The story is not written yet</h2>
           </div>
-
-          <div class="split split-wide-left">
-            <div class="stack reveal">
-              <p>
-                Dialogue, boss conversations and the story panels are content. A writer opens a
-                text file, or the authoring tool inside the editor, types the lines, and the game
-                reads them on the next launch. There is no programmer in that loop and there is no
-                rebuild.
-              </p>
-              <p>
-                The shape is four levels deep and it is the same everywhere in the game. A dialogue
-                set belongs to one speaker and holds every beat that speaker has. A beat is keyed
-                by a trigger, so an intro and a victory line advance independently. Inside a beat,
-                encounters rotate, so the first time you meet someone you get the first encounter
-                and the fourth time you get whatever the writer put there for the fourth time.
-              </p>
-              <p class="dim">
-                The rotation persists in the save file, keyed to the dialogue id. That is why a
-                boss can open with something different on your second run, and it is a content
-                decision rather than a code change.
-              </p>
-              <p class="dim">
-                The writing for this game has not been done yet. What sits beside this paragraph is
-                the surface it will arrive through, with the fields left empty and the keys already
-                in place. The importer, the save binding and the rotation are finished and covered
-                by the test suite. The words are the part that is missing, and nothing in the
-                engineering is waiting on them.
-              </p>
-            </div>
-
-            <div class="reveal" style="--reveal-delay: 120ms">
-              <figure class="codefig">
-                <figcaption>Dialogue/Boss_Example.ini</figcaption>
-                <pre><code><span class="c-cm">; A set belongs to one speaker.</span>
-<span class="c-sec">[Dialogue:boss-example]</span>
-<span class="c-key">speaker</span>  =
-<span class="c-key">portrait</span> =
-
-<span class="c-cm">; Beats are keyed by trigger.</span>
-<span class="c-sec">[Beat:boss-example/intro]</span>
-<span class="c-cm">; Encounter 1, first meeting.</span>
-<span class="c-key">line.1</span>   =
-<span class="c-key">line.2</span>   =
-<span class="c-cm">; Encounter 2, and so on.</span>
-<span class="c-key">line.1</span>   =
-
-<span class="c-sec">[Beat:boss-example/defeat]</span>
-<span class="c-key">line.1</span>   =</code></pre>
-              </figure>
-              <p class="dim" style="margin-top: 1rem; font-size: var(--step--1)">
-                Every key on that file is one the game already reads. Dialogue is also tier three
-                of the five modding tiers, so a translator works through the same surface the
-                writers do, with no Unity and no compiler.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== UNDER THE HOOD ===================== -->
-      <section class="section section-sunk">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Under the hood</p>
-            <h2>Tuned as data</h2>
-          </div>
-
-          <div class="split split-wide-left reveal">
-            <div class="stack">
-              <p>
-                Every enemy is a finite state machine authored as data: states, transitions,
-                conditions, attack phases, armour budgets and reactions, all as ScriptableObject
-                sub-assets. Most of the shipped roster needed no new engine code, because a new
-                enemy is usually a new arrangement of parts that already exist.
-              </p>
-              <p>
-                The run web, all ten biomes, every boss and their tunables live in a single text
-                file that an editor command imports and validates. A typo raises an error and
-                leaves the field alone rather than silently wiping the wiring.
-              </p>
-              <p>
-                Levels are a pure function of your seed, so a suspended run regenerates instead of
-                serialising geometry. And before a layout ships, a reachability auditor floods it
-                using the shipped controller's real movement numbers. It sweeps the same collider
-                box and the same jump arc the player has, so generation cannot strand you behind a
-                gap you are unable to clear.
-              </p>
-            </div>
-
-            <div class="stat-stack">
-              <div class="stat"><span class="stat-num">657</span><span class="stat-label">PlayMode tests passing</span></div>
-              <div class="stat"><span class="stat-num">9</span><span class="stat-label">Enemy definitions</span></div>
-              <div class="stat"><span class="stat-num">5</span><span class="stat-label">Modding tiers</span></div>
-              <div class="stat"><span class="stat-num">2</span><span class="stat-label">Validators, one a build gate</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== MODDING ===================== -->
-      <section class="section section-sunk">
-        <div class="shell">
-          <div class="split">
-            <div class="reveal">
-              <p class="eyebrow">Modding</p>
-              <h2>Rebuild the whole run without opening Unity</h2>
-              <p class="stack">
-                Five override tiers, all plain text sitting next to the executable. Retune an enemy
-                or declare a brand-new behaviour graph. Clone a weapon and rewrite its combo. Translate
-                every line of dialogue. Reskin the player. Or re-web the entire game, choosing which
-                biomes appear, in what order, where it branches and where it ends.
-              </p>
-              <p class="dim">
-                A mod is a campaign, and a save slot is bound to one the moment it's created, so
-                a save from one campaign cannot be opened by another. Every template ships generated
-                from the live build and carries the real current values, so the templates stay in
-                step with the game.
-              </p>
-            </div>
-
-            <div class="reveal" style="--reveal-delay: 120ms">
-              <figure class="codefig">
-                <figcaption>Mods/mycampaign/RunWeb.ini</figcaption>
-                <pre><code><span class="c-sec">[Plan]</span>
-<span class="c-key">entry</span> = start
-
-<span class="c-sec">[Node:start]</span>
-<span class="c-key">biome</span>  = emberfall
-<span class="c-key">rest</span>   = Rest_EmberTrail
-<span class="c-key">next</span>   = t2-a, t2-b, t2-c
-
-<span class="c-sec">[Node:t2-b]</span>
-<span class="c-key">biome</span>  = ashen-vaults
-<span class="c-key">rest</span>   = Rest_EmberTrail
-<span class="c-key">next</span>   = t3-b, t3-c
-<span class="c-cm">; skip the fight, and the reward with it</span>
-<span class="c-key">bypass</span> = t3-a</code></pre>
-              </figure>
-            </div>
-          </div>
+          <p class="lede reveal">
+            What is in the build today is a placeholder, and it will be replaced by people who
+            write for a living. That is a deliberate order of work rather than a gap we are hoping
+            to fill later.
+          </p>
+          <p class="dim measure reveal" style="margin-top: 1rem">
+            Dialogue and story in Gleamwood are content, not code. A writer opens a file, types the
+            lines, and the game reads them the next time it launches, with no programmer in the
+            loop and no rebuild. Building that surface first is why the writing can arrive whenever
+            it is ready without holding anything else up.
+          </p>
         </div>
       </section>
 
