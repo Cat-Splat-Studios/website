@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Playground · Cat Splat Studios</title>
+    <meta
+      name="description"
+      content="The generators and tools we build games with, running live in the browser. A wave function collapse solver, a lock and key world generator with its validator, and a platformer built on both." />
+    <link rel="canonical" href="https://catsplatstudios.com/playground/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cat Splat Studios" />
+    <meta property="og:title" content="Playground · Cat Splat Studios" />
+    <meta
+      property="og:description"
+      content="Our level generators and debug tooling, running live in the browser. No download, no plugin." />
+    <meta property="og:url" content="https://catsplatstudios.com/playground/" />
+    <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sentinels of Gleamwood, a controller-first 2D action roguelite from Cat Splat Studios" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#100d14" />
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/img/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" />
+
+    <link rel="preload" href="../assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="../assets/css/site.css" />
+    <link rel="stylesheet" href="../assets/css/playground.css" />
+
+    <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
+         until site.js marks it in view. Drop no-js here rather than in site.js:
+         site.js is deferred, so doing it there lets above-the-fold content paint
+         visible, snap to invisible, then fade back in. The timeout puts the
+         class back if site.js never runs at all, because content must never be
+         permanently invisible just because a script failed to load. -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      window.__csFailsafe = setTimeout(function () {
+        if (!window.__csReady) document.documentElement.classList.add("no-js");
+      }, 2500);
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="../index.html" aria-label="Cat Splat Studios, home">
+          <img src="../assets/img/cat-logo-small.webp" alt="Cat Splat Studios" width="954" height="130" />
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="../index.html">Home</a>
+          <a href="../games/index.html">Games</a>
+          <a href="../playground/index.html" aria-current="page">Playground</a>
+          <a href="../services/index.html">Services</a>
+          <a href="../about/index.html">About</a>
+        </nav>
+
+        <a class="btn btn-primary nav-cta" href="../services/index.html">Work with us</a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Primary">
+        <div>
+          <ul role="list">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../games/index.html">Games</a></li>
+            <li><a href="../playground/index.html" aria-current="page">Playground</a></li>
+            <li><a href="../services/index.html">Services</a></li>
+            <li><a href="../about/index.html">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- ===================== PAGE HERO ===================== -->
+      <section class="hero hero-sub">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+        <div class="shell">
+          <div class="hero-inner">
+            <p class="eyebrow">Playground</p>
+            <h1>The tools, running<br />in your browser</h1>
+            <p class="lede">
+              Three of the things we build games with, ported to JavaScript and put on the page
+              where you can drive them. No download, no plugin, no engine runtime. Change a number
+              and watch what it does.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== WHY ===================== -->
+      <section class="section">
+        <div class="shell shell-narrow">
+          <p class="lede reveal">
+            A studio site can describe its level generator or it can hand you one. These are the
+            second thing. The solvers are the same algorithms that run in our Unity projects,
+            rewritten in plain JavaScript rather than filmed, and all three together come to
+            36 KB over the wire.
+          </p>
+          <p class="dim measure reveal" style="margin-top: 1rem">
+            That size is the point as much as the content is. The whole site is hand written flat
+            files with no build step and no dependencies, and a playable page had to arrive without
+            breaking that promise. Everything here loads with the page and works on a phone.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===================== WFC ===================== -->
+      <section class="section section-sunk" id="wfc">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Procedural generation</p>
+            <h2 class="ember-text">Wave function collapse</h2>
+            <p class="lede">
+              Every cell starts able to be any tile. Collapse the most constrained one, propagate
+              what that rules out, repeat. When propagation empties a cell the solver has painted
+              itself into a corner, and it walks the decision back rather than starting over.
+            </p>
+          </div>
+
+          <div class="demo reveal" data-demo="wfc">
+            <div class="demo-stage" hidden></div>
+            <p class="demo-fallback">
+              This is an interactive wave function collapse solver. It needs JavaScript, which is
+              currently blocked or still loading.
+            </p>
+          </div>
+
+          <div class="grid grid-3" style="margin-top: 2rem">
+            <article class="panel reveal">
+              <h3 class="panel-title">The rules are data</h3>
+              <p>
+                A tile declares four edge sockets and a weight. Two tiles may sit next to each
+                other when the sockets they present to each other match, and that is the entire
+                constraint system. Switch the tileset and the same solver produces circuitry or
+                dungeons, because neither is written into it.
+              </p>
+            </article>
+
+            <article class="panel reveal" style="--reveal-delay: 80ms">
+              <h3 class="panel-title">Backtracking, visibly</h3>
+              <p>
+                Most demonstrations restart on a contradiction and hope. This one snapshots the
+                wave before each decision, and on failure restores it and forbids the tile that led
+                nowhere, so the search takes a genuinely different branch. Turn backtracking off in
+                the panel and watch how quickly a tight grid becomes unsolvable.
+              </p>
+            </article>
+
+            <article class="panel reveal" style="--reveal-delay: 160ms">
+              <h3 class="panel-title">Seeds mean something</h3>
+              <p>
+                The generator draws from a seeded pseudorandom stream, not from
+                <code>Math.random</code>. The same seed and the same settings give the same board
+                every time, on any machine. That is what makes a generated level something you can
+                file a bug against.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== METROIDVANIA ===================== -->
+      <section class="section" id="world">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Progression</p>
+            <h2>Lock and key worlds</h2>
+            <p class="lede">
+              A metroidvania is a promise that everything you can see, you can eventually reach.
+              The generator below builds a world that keeps that promise by construction, and then
+              a separate validator that knows nothing about how it was built tries to break it.
+            </p>
+          </div>
+
+          <div class="demo reveal" data-demo="world">
+            <div class="demo-stage" hidden></div>
+            <p class="demo-fallback">
+              This is an interactive world generator and progression validator. It needs
+              JavaScript, which is currently blocked or still loading.
+            </p>
+          </div>
+
+          <div class="split split-wide-left reveal" style="margin-top: 2rem">
+            <div class="stack">
+              <h3 class="panel-title">Two halves that do not trust each other</h3>
+              <p>
+                The generator orders rooms by distance from the spawn, cuts that order into
+                regions, and locks the way into each region behind the ability sitting in the one
+                before it. Solvability follows by induction.
+              </p>
+              <p>
+                The validator ignores all of that. It starts at the spawn holding nothing, walks
+                only the doors it can actually open, picks up whatever it finds, and goes again
+                until it stops making progress. Then it reports what it reached and in what order.
+              </p>
+              <p class="dim">
+                A generator that grades its own homework always passes. Separating the two is what
+                turns "should be reachable" into "was reached, in this order, from a cold start".
+              </p>
+            </div>
+
+            <div class="stack">
+              <h3 class="panel-title">What the colours mean</h3>
+              <p>
+                Rooms are tinted by region. Coloured bars across a doorway are ability gates, and
+                they clear as the validator picks the ability up. The circle is where an ability
+                lives, the triangle is the boss, and <strong>S</strong> is the spawn.
+              </p>
+              <p class="dim">
+                Anything the validator could not reach gets outlined in red. On a world built the
+                way this one is, that outline should never appear, which is exactly why it is worth
+                drawing. Our own 404 page makes a joke about this. The generator really does refuse
+                to build a room the player cannot reach.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== THE GAME ===================== -->
+      <section class="section section-sunk" id="game">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Playable</p>
+            <h2 class="ember-text">Ember Run</h2>
+            <p class="lede">
+              A small platformer whose level is carved out of a collapsed wave. It is not a
+              screenshot of the solver above, it is running the solver above. Change the seed and
+              you are somewhere else.
+            </p>
+          </div>
+
+          <div class="demo reveal" data-demo="game">
+            <div class="demo-stage" hidden></div>
+            <p class="demo-fallback">
+              This is a playable platformer. It needs JavaScript, which is currently blocked or
+              still loading.
+            </p>
+          </div>
+
+          <div class="grid grid-3" style="margin-top: 2rem">
+            <article class="panel reveal">
+              <h3 class="panel-title">Controls</h3>
+              <p>
+                Click the game to give it focus, then arrows or <strong>WASD</strong> to move,
+                <strong>Z</strong> to jump, <strong>X</strong> to attack and <strong>Shift</strong>
+                to dash. A gamepad works too. Nothing is captured until you click, so the page
+                still scrolls normally.
+              </p>
+            </article>
+
+            <article class="panel reveal" style="--reveal-delay: 80ms">
+              <h3 class="panel-title">The air is the point</h3>
+              <p>
+                A grounded hit launches. A hit on something already airborne keeps it up, for
+                slightly less height. Strings only count while you or the target are off the
+                ground, which is the one Gleamwood mechanic small enough to fit here honestly.
+              </p>
+            </article>
+
+            <article class="panel reveal" style="--reveal-delay: 160ms">
+              <h3 class="panel-title">The level is proved, not hoped</h3>
+              <p>
+                Connected open space is a claim about tiles, not about the player, and a level can
+                pass it while hiding a ledge nobody can reach. So a reachability model walks the
+                level using walking and jumping only, assuming no wall jump and no dash, and the
+                exit is placed at the furthest point it proved. A seed that cannot show most of
+                itself reachable is thrown away rather than served.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== THE PANEL ===================== -->
+      <section class="section" id="debug-ui">
+        <div class="shell shell-narrow">
+          <div class="section-head reveal">
+            <p class="eyebrow">Tooling</p>
+            <h2>The panel beside every demo</h2>
+          </div>
+          <p class="lede reveal">
+            None of the three demos above has a control panel of its own. They all declare their
+            tunable values and one shared component builds the interface, which is a port of our
+            Unity package
+            <a class="link-out" href="https://github.com/hisham-CSS/unity-runtimedebugui" target="_blank" rel="noopener">
+              Runtime Debug UI<span class="sr-only">, on GitHub</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </p>
+          <p class="dim measure reveal" style="margin-top: 1rem">
+            The claim the package makes is that you should declare a tunable field and have the
+            panel follow, with no interface code written anywhere. Letting you tune three unrelated
+            programs through the same panel is a more convincing demonstration of that than a
+            paragraph would be. Values persist in local storage, saving is debounced so dragging a
+            slider does not thrash it, and Reset puts everything back.
+          </p>
+          <p class="dim measure reveal" style="margin-top: 1rem">
+            The game's panel uses the declarative path and the solver's uses explicit control
+            configuration, because the solver wants live readouts and ranges that depend on other
+            controls. Both are the same component. That split is deliberate, and porting it here
+            is how the button control type and a fix for a panel that swallowed clicks got proved
+            out before going back into the C# package.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===================== THE SHELF ===================== -->
+      <section class="section section-sunk" id="tools">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">Also on the shelf</p>
+            <h2>Things that do not fit in a browser</h2>
+            <p class="lede">
+              The rest of what we build for ourselves. These are real packages with real consumers,
+              which in a couple of cases means us.
+            </p>
+          </div>
+
+          <div class="grid grid-3">
+            <article class="panel panel-hover reveal">
+              <p class="badge badge-dim">Unity package</p>
+              <h3 class="panel-title" style="margin-top: 1rem">Runtime Debug UI</h3>
+              <p>
+                Data driven debug panels for Unity. Tabs, sliders, toggles and readouts declared as
+                configuration rather than built by hand, with values that persist between runs.
+                Installable by package manager git URL. The panels on this page are its port.
+              </p>
+              <a class="link-out" href="https://github.com/hisham-CSS/unity-runtimedebugui" target="_blank" rel="noopener">
+                View on GitHub<span class="sr-only">, Runtime Debug UI</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </a>
+            </article>
+
+            <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
+              <p class="badge badge-dim">Unity package</p>
+              <h3 class="panel-title" style="margin-top: 1rem">Enhanced Logging</h3>
+              <p>
+                Logging for Unity that compiles out entirely in a release build. Console, file and
+                on screen targets, with the scripting define symbols managed automatically per
+                build type so nobody has to remember to turn it off before shipping.
+              </p>
+              <a class="link-out" href="https://github.com/hisham-CSS/unity-enhancedlogging" target="_blank" rel="noopener">
+                View on GitHub<span class="sr-only">, Enhanced Logging</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </a>
+            </article>
+
+            <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
+              <p class="badge badge-dim">C++ engine</p>
+              <h3 class="panel-title" style="margin-top: 1rem">Cat Splat Engine</h3>
+              <p>
+                A C++17 runtime on OpenGL 3.3 with a dockable editor, a standalone player and an
+                asset cooker. Cascaded shadows, physically based rendering, swappable physics and
+                scripting backends. There is more about it on the
+                <a href="../services/index.html#engine">services page</a>.
+              </p>
+              <a class="link-out" href="https://github.com/hisham-CSS/GameEngineFramework" target="_blank" rel="noopener">
+                View on GitHub<span class="sr-only">, Cat Splat Engine</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CTA ===================== -->
+      <section class="section section-cta">
+        <div class="hearth" aria-hidden="true"></div>
+        <div class="embers" aria-hidden="true"></div>
+        <div class="shell shell-narrow center">
+          <h2 class="reveal">Want this kind of thing built</h2>
+          <p class="lede reveal">
+            Procedural generation, tooling and the unglamorous systems work that makes a team
+            faster. That is most of what we do when we are not making our own games.
+          </p>
+          <div class="btn-row reveal">
+            <a class="btn btn-primary btn-lg" href="../services/index.html">
+              What we do
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="mailto:info@catsplatstudios.com?subject=Playground">Email us</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-head">Cat Splat Studios</p>
+            <p class="dim" style="font-size: var(--step--1)">
+              An independent game studio in Toronto, making games since 2015.
+            </p>
+          </div>
+
+          <nav aria-label="Footer">
+            <p class="footer-head">Explore</p>
+            <a href="../index.html">Home</a>
+            <a href="../games/index.html">Games</a>
+            <a href="../playground/index.html">Playground</a>
+            <a href="../services/index.html">Services</a>
+            <a href="../about/index.html">About</a>
+          </nav>
+
+          <div>
+            <p class="footer-head">Contact</p>
+            <a href="mailto:info@catsplatstudios.com">info@catsplatstudios.com</a>
+            <a href="https://github.com/Cat-Splat-Studios" target="_blank" rel="noopener">github.com/Cat-Splat-Studios</a>
+          </div>
+
+          <div>
+            <p class="footer-head">Find us</p>
+            <div class="social-row">
+              <a href="https://facebook.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+              </a>
+              <a href="https://instagram.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://twitter.com/catsplatstudios" target="_blank" rel="noopener" aria-label="X, formerly Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2H21l-6.4 7.3L22 22h-5.9l-4.6-6-5.3 6H3.4l6.9-7.8L2.3 2h6l4.2 5.5L18.2 2Zm-1 18h1.6L7.9 3.7H6.2L17.2 20Z"/></svg>
+              </a>
+              <a href="mailto:info@catsplatstudios.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-base">
+          <p>&copy; 2015&ndash;<span data-year>2026</span> Cat Splat Studios Inc.</p>
+          <p class="dim">Built as flat files. No frameworks were harmed.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/site.js" defer></script>
+    <script src="../assets/js/playground/debug-ui.js" defer></script>
+    <script src="../assets/js/playground/wfc.js" defer></script>
+    <script src="../assets/js/playground/metroidvania.js" defer></script>
+    <script src="../assets/js/playground/game.js" defer></script>
+    <script src="../assets/js/playground/playground.js" defer></script>
+  </body>
+</html>

@@ -23,9 +23,24 @@ SITE = ROOT / "site"
 PAGES = [
     SITE / "index.html",
     SITE / "games" / "index.html",
+    SITE / "playground" / "index.html",
     SITE / "services" / "index.html",
     SITE / "about" / "index.html",
     SITE / "404.html",
+]
+
+# Scripts and stylesheets the pages load. Kept next to PAGES because the em dash
+# rule and the external-subresource rule apply to everything that ships, and the
+# playground added five files that would otherwise never be looked at.
+ASSETS = [
+    SITE / "assets" / "css" / "site.css",
+    SITE / "assets" / "css" / "playground.css",
+    SITE / "assets" / "js" / "site.js",
+    SITE / "assets" / "js" / "playground" / "debug-ui.js",
+    SITE / "assets" / "js" / "playground" / "wfc.js",
+    SITE / "assets" / "js" / "playground" / "metroidvania.js",
+    SITE / "assets" / "js" / "playground" / "game.js",
+    SITE / "assets" / "js" / "playground" / "playground.js",
 ]
 
 problems: list[str] = []
@@ -97,6 +112,7 @@ for name, tag, cls, skip in [
 EXPECTED_CURRENT = {
     SITE / "index.html": "index.html",
     SITE / "games" / "index.html": "../games/index.html",
+    SITE / "playground" / "index.html": "../playground/index.html",
     SITE / "services" / "index.html": "../services/index.html",
     SITE / "about" / "index.html": "../about/index.html",
     SITE / "404.html": None,  # not a nav destination
@@ -311,11 +327,15 @@ for page, html in sources.items():
             fail(f'{rel(page)}:{line}: {label} in "…{excerpt}…"')
             start = idx + 1
 
-for path in [SITE / "assets" / "css" / "site.css", SITE / "assets" / "js" / "site.js"]:
+for path in ASSETS:
+    if not path.exists():
+        fail(f"{rel(path)}: listed in ASSETS but missing from the repo")
+        continue
     text = path.read_text(encoding="utf-8")
-    if "—" in text:
-        line = text.count("\n", 0, text.index("—")) + 1
-        fail(f"{rel(path)}:{line}: em dash")
+    start = 0
+    while (idx := text.find("—", start)) != -1:
+        fail(f"{rel(path)}:{text.count(chr(10), 0, idx) + 1}: em dash")
+        start = idx + 1
 
 # --------------------------------------------------------------------------
 # 3h. Figures the pages state as fact. If the game changes, these fail loudly
@@ -329,6 +349,7 @@ CLAIMS = [
     ("742", "GoogleTest cases"),
     ("11", "render passes"),
     ("7", "engine backends"),
+    ("36 KB", "gzipped playground payload"),
 ]
 all_html = "\n".join(sources.values())
 for value, what in CLAIMS:
@@ -339,17 +360,19 @@ for value, what in CLAIMS:
 # 4. Assets referenced from CSS exist.
 # --------------------------------------------------------------------------
 
-css_path = SITE / "assets" / "css" / "site.css"
-css = css_path.read_text(encoding="utf-8")
-for url in re.findall(r'url\("([^"]+)"\)', css):
-    if url.startswith(("http", "data:")):
-        continue
-    # url() resolves against the stylesheet's own directory.
-    target = (
-        SITE / url.lstrip("/") if url.startswith("/") else css_path.parent / url
-    ).resolve()
-    if not target.exists():
-        fail(f"{rel(css_path)}: url({url}) -> missing {rel(target)}")
+STYLESHEETS = [p for p in ASSETS if p.suffix == ".css" and p.exists()]
+
+for css_path in STYLESHEETS:
+    css = css_path.read_text(encoding="utf-8")
+    for url in re.findall(r'url\("([^"]+)"\)', css):
+        if url.startswith(("http", "data:")):
+            continue
+        # url() resolves against the stylesheet's own directory.
+        target = (
+            SITE / url.lstrip("/") if url.startswith("/") else css_path.parent / url
+        ).resolve()
+        if not target.exists():
+            fail(f"{rel(css_path)}: url({url}) -> missing {rel(target)}")
 
 # --------------------------------------------------------------------------
 # 5. The zero-dependency promise: nothing may be *loaded* from another origin.
@@ -363,8 +386,9 @@ for page, html in sources.items():
         if res and not (m.group(1).lower() == "link" and 'rel="canonical"' in tag):
             fail(f"{rel(page)}: external subresource {res.group(1)}")
 
-for url in re.findall(r"url\((https?://[^)]+)\)", css):
-    fail(f"{rel(css_path)}: external subresource {url}")
+for css_path in STYLESHEETS:
+    for url in re.findall(r"url\((https?://[^)]+)\)", css_path.read_text(encoding="utf-8")):
+        fail(f"{rel(css_path)}: external subresource {url}")
 
 # --------------------------------------------------------------------------
 # 6. Deploy-critical files must be inside the published directory.

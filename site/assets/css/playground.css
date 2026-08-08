@@ -1,0 +1,473 @@
+/* Playground styles.
+ *
+ * A second stylesheet, which is a deliberate exception to the one file rule in
+ * the README. These rules serve exactly one page and none of the other four
+ * would ever use them, so shipping them to every visitor to save an HTTP
+ * request is the wrong trade. Tokens all come from :root in site.css, which
+ * loads first.
+ */
+
+/* ---------------------------------------------------------------------
+ * Demo frame
+ * ------------------------------------------------------------------- */
+
+.demo {
+  margin-top: 2rem;
+}
+
+.demo-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 1rem;
+  align-items: start;
+  background: var(--bg-sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+}
+
+.demo-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.demo-canvas {
+  grid-column: 1;
+  display: block;
+  max-width: 100%;
+  margin-inline: auto;
+  background: var(--bg-sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  image-rendering: pixelated;
+}
+
+.demo-canvas-game {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 460 / 258;
+  cursor: pointer;
+}
+
+.demo-canvas-game:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.demo-panel {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  min-width: 0;
+}
+
+.demo-report {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.demo-fallback {
+  color: var(--text-dim);
+  font-size: var(--step--1);
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+@media (max-width: 940px) {
+  .demo-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .demo-canvas,
+  .demo-panel,
+  .demo-report {
+    grid-column: 1;
+  }
+  .demo-panel {
+    grid-row: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Toolbar controls
+ * ------------------------------------------------------------------- */
+
+.demo-btn,
+.demo-seg-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--text-bright);
+  background: var(--bg-raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.42rem 0.7rem;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.demo-btn:hover,
+.demo-seg-btn:hover {
+  border-color: var(--ember);
+  color: var(--ember-hot);
+}
+
+.demo-btn:focus-visible,
+.demo-seg-btn:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 1px;
+}
+
+.demo-btn[aria-pressed="true"],
+.demo-seg-btn[aria-pressed="true"] {
+  border-color: var(--ember);
+  color: var(--ember-hot);
+  background: var(--ember-veil);
+}
+
+.demo-seg {
+  display: inline-flex;
+}
+
+.demo-seg-btn {
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.demo-seg-btn:first-child {
+  border-radius: var(--radius) 0 0 var(--radius);
+  margin-left: 0;
+}
+
+.demo-seg-btn:last-child {
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.demo-seed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.demo-seed-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.demo-seed-input {
+  font-family: var(--font-numeric), var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ember-hot);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.38rem 0.5rem;
+  width: 9ch;
+}
+
+.demo-seed-input:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 1px;
+}
+
+/* ---------------------------------------------------------------------
+ * Validator report
+ * ------------------------------------------------------------------- */
+
+.demo-verdict {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  margin: 0.9rem 0 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--rule);
+}
+
+.demo-verdict.is-pass {
+  color: var(--perfect);
+  border-left-color: var(--perfect);
+}
+
+.demo-verdict.is-fail {
+  color: #ff6b6b;
+  border-left-color: #ff6b6b;
+}
+
+.demo-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--text-dim);
+  font-size: var(--step--1);
+}
+
+.demo-steps li {
+  margin-bottom: 0.35rem;
+}
+
+.demo-step-reach {
+  font-family: var(--font-mono);
+}
+
+.demo-chip {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--chip, var(--ember));
+  border: 1px solid color-mix(in srgb, var(--chip, var(--ember)) 45%, transparent);
+  background: color-mix(in srgb, var(--chip, var(--ember)) 12%, transparent);
+}
+
+/* ---------------------------------------------------------------------
+ * The ported debug panel
+ * ------------------------------------------------------------------- */
+
+.dbg {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  overflow: hidden;
+}
+
+.dbg-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-raise);
+}
+
+.dbg-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--text-bright);
+  letter-spacing: 0.03em;
+}
+
+.dbg-status {
+  margin-left: auto;
+  font-size: 0.68rem;
+  color: var(--perfect);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+
+.dbg-status.is-on {
+  opacity: 1;
+}
+
+.dbg-reset {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.15rem 0.4rem;
+  cursor: pointer;
+}
+
+.dbg-reset:hover {
+  color: var(--ember-hot);
+  border-color: var(--ember);
+}
+
+.dbg-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-sunk);
+}
+
+.dbg-tab {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+}
+
+.dbg-tab:hover {
+  color: var(--text);
+}
+
+.dbg-tab.is-active {
+  color: var(--ember-hot);
+  border-bottom-color: var(--ember);
+}
+
+.dbg-tab:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: -2px;
+}
+
+.dbg-body {
+  max-height: 26rem;
+  overflow-y: auto;
+}
+
+.dbg-pane {
+  padding: 0.6rem 0.65rem 0.8rem;
+}
+
+.dbg-section {
+  margin-bottom: 0.7rem;
+}
+
+.dbg-section-title {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin: 0.5rem 0 0.35rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.dbg-row {
+  margin-bottom: 0.55rem;
+}
+
+.dbg-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.dbg-label-text {
+  position: relative;
+}
+
+.dbg-value {
+  font-family: var(--font-numeric), var(--font-mono);
+  color: var(--ember-hot);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.dbg-value-info {
+  color: var(--juggle);
+}
+
+.dbg-range {
+  width: 100%;
+  accent-color: var(--ember);
+  height: 1.1rem;
+  cursor: pointer;
+}
+
+.dbg-range:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.dbg-check {
+  accent-color: var(--ember);
+  width: 0.95rem;
+  height: 0.95rem;
+  cursor: pointer;
+}
+
+.dbg-vec {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dbg-vec-field {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.dbg-vec-axis {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.dbg-num {
+  width: 100%;
+  min-width: 0;
+  font-family: var(--font-numeric), var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ember-hot);
+  background: var(--bg-sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.2rem 0.3rem;
+}
+
+.dbg-btn {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-bright);
+  background: var(--bg-raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.35rem 0.5rem;
+  cursor: pointer;
+}
+
+.dbg-btn:hover {
+  border-color: var(--ember);
+  color: var(--ember-hot);
+}
+
+/* Runtime tooltips. The Unity package makes a point of these working in a
+ * build and not only in the editor, so the port shows them on hover and on
+ * keyboard focus rather than relying on the title attribute. */
+.dbg-has-tip {
+  cursor: help;
+  border-bottom: 1px dotted var(--text-dim);
+}
+
+.dbg-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  z-index: 5;
+  width: max-content;
+  max-width: 16rem;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--text);
+  background: var(--bg-raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.14s var(--ease);
+}
+
+.dbg-has-tip:hover .dbg-tip,
+.dbg-has-tip:focus-visible .dbg-tip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dbg-status,
+  .dbg-tip,
+  .demo-btn,
+  .demo-seg-btn {
+    transition: none;
+  }
+}
