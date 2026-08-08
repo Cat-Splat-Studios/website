@@ -94,9 +94,10 @@
             <p class="eyebrow">Playground</p>
             <h1>The tools, running<br />in your browser</h1>
             <p class="lede">
-              Three of the things we build games with, ported to JavaScript and put on the page
-              where you can drive them. No download, no plugin, no engine runtime. Change a number
-              and watch what it does.
+              A level generator, a world builder that proves its worlds can be finished, and a
+              small game built on the first two. These are the real tools we make games with,
+              rewritten to run in a browser tab. No download, no plugin. Change a number and watch
+              what it does.
             </p>
           </div>
         </div>
@@ -107,9 +108,9 @@
         <div class="shell shell-narrow">
           <p class="lede reveal">
             A studio site can describe its level generator or it can hand you one. These are the
-            second thing. The solvers are the same algorithms that run in our Unity projects,
-            rewritten in plain JavaScript rather than filmed, and all three together come to
-            36 KB over the wire.
+            second thing. They are the same algorithms that run in our Unity projects, rewritten
+            in plain JavaScript rather than filmed, and all three together are a 36 KB download,
+            about a tenth of one photograph.
           </p>
           <p class="dim measure reveal" style="margin-top: 1rem">
             That size is the point as much as the content is. The whole site is hand written flat
@@ -126,9 +127,11 @@
             <p class="eyebrow">Procedural generation</p>
             <h2 class="ember-text">Wave function collapse</h2>
             <p class="lede">
-              Every cell starts able to be any tile. Collapse the most constrained one, propagate
-              what that rules out, repeat. When propagation empties a cell the solver has painted
-              itself into a corner, and it walks the decision back rather than starting over.
+              Start with a grid where every square could still be any tile. Pick the square with
+              the fewest options left and commit it to one of them, rule out whatever that choice
+              makes impossible for its neighbours, and repeat. If a square ends up with no options
+              at all, the solver has painted itself into a corner, so it walks the last decision
+              back and takes a different one rather than starting over.
             </p>
           </div>
 
@@ -182,8 +185,9 @@
             <h2>Lock and key worlds</h2>
             <p class="lede">
               A metroidvania is a promise that everything you can see, you can eventually reach.
-              The generator below builds a world that keeps that promise by construction, and then
-              a separate validator that knows nothing about how it was built tries to break it.
+              The generator below builds its worlds so that the promise cannot be broken, and then
+              a separate checker, which knows nothing about how the world was built, starts at the
+              entrance with nothing and tries to break it anyway.
             </p>
           </div>
 
@@ -199,9 +203,10 @@
             <div class="stack">
               <h3 class="panel-title">Two halves that do not trust each other</h3>
               <p>
-                The generator orders rooms by distance from the spawn, cuts that order into
-                regions, and locks the way into each region behind the ability sitting in the one
-                before it. Solvability follows by induction.
+                The generator sorts rooms by how far they are from the start, cuts that order into
+                regions, and locks the way into each region behind the ability that sits in the
+                region before it. So each region can only be opened once you have cleared the one
+                before it, all the way back to the start.
               </p>
               <p>
                 The validator ignores all of that. It starts at the spawn holding nothing, walks
@@ -267,20 +272,22 @@
             <article class="panel reveal" style="--reveal-delay: 80ms">
               <h3 class="panel-title">The air is the point</h3>
               <p>
-                A grounded hit launches. A hit on something already airborne keeps it up, for
-                slightly less height. Strings only count while you or the target are off the
-                ground, which is the one Gleamwood mechanic small enough to fit here honestly.
+                Hit an enemy standing on the ground and it launches into the air. Hit one already
+                up there and it stays up, a little lower each time. Combos only count while you or
+                your target are off the ground. It is a mechanic from our own game, Sentinels of
+                Gleamwood, and the one small enough to rebuild here properly.
               </p>
             </article>
 
             <article class="panel reveal" style="--reveal-delay: 160ms">
               <h3 class="panel-title">The level is proved, not hoped</h3>
               <p>
-                Connected open space is a claim about tiles, not about the player, and a level can
-                pass it while hiding a ledge nobody can reach. So a reachability model walks the
-                level using walking and jumping only, assuming no wall jump and no dash, and the
-                exit is placed at the furthest point it proved. A seed that cannot show most of
-                itself reachable is thrown away rather than served.
+                Knowing every empty space joins up says something about the map, not about the
+                player, and a level can pass that test while hiding a ledge nobody can jump to.
+                So before a level is handed to you, a checker walks it using only running and
+                jumping, pretending the wall jump and the dash do not exist. The exit goes at the
+                furthest point it could prove you can reach, and a level it cannot mostly get
+                around is thrown away rather than served.
               </p>
             </article>
           </div>
@@ -327,8 +334,9 @@
             <p class="eyebrow">Also on the shelf</p>
             <h2>Things that do not fit in a browser</h2>
             <p class="lede">
-              The rest of what we build for ourselves. These are real packages with real consumers,
-              which in a couple of cases means us.
+              The rest of what we build for ourselves. Two published Unity packages and an engine.
+              Both packages install straight from a package manager git URL, and we run them in our
+              own projects every day.
             </p>
           </div>
 

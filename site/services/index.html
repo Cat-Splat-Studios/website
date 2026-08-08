@@ -94,9 +94,11 @@
             <h1>We build our own game properly.<br />We'll build yours the same way.</h1>
             <p class="lede">
               Cat Splat Studios is a game studio in Toronto. Our flagship is Sentinels of
-              Gleamwood, a Unity 6 action roguelite heading to Steam. It runs on data-driven state
-              machines, a level generator that proves its own levels are walkable, 657 automated
-              tests, and content validators wired in as build gates.
+              Gleamwood, a Unity 6 action roguelite heading to Steam. Its enemy behaviour is
+              authored as data rather than written as code, its level generator proves every level
+              it makes can actually be walked, and 657 automated tests plus a set of content checks
+              run on every build. A broken level or a mis-authored enemy stops the build rather
+              than reaching a player.
             </p>
             <p class="lede dim">All of that is running today, and we are happy to walk you through any part of it.</p>
 
@@ -184,15 +186,16 @@
               </p>
               <p class="proof">
                 <span class="proof-tag">Proof</span>
-                A level's layout is a pure function of seed and node, so a suspended run
-                regenerates rather than serialising geometry, and the generator unit-tests with no
-                scene loaded. The reachability auditor floods a state space of position,
-                vertical velocity and dash cooldown, sweeping the shipped collider box and reading
-                every constant from the live player settings asset rather than from code defaults.
-                Two separate gates: every shipped room is proved traversable under that model, and
-                a 200-seed sweep over a four-path layout built from the shipped room pool returns
-                four distinct paths every seed, zero overlapping rooms, and a room count inside the
-                designed 28&ndash;41 band on better than nine seeds in ten.
+                A level is rebuilt from its seed rather than saved, so a suspended run costs
+                nothing to store and the generator can be tested with no scene open at all.
+                A checker then simulates the player's real movement through every room, tracking
+                position, vertical speed and dash cooldown, and sweeping the same collision box the
+                shipped player uses. It reads the movement numbers from the settings asset a
+                designer actually edits, so it tests the game as tuned rather than as coded.
+                Two gates have to pass. Every room that ships is proved walkable under that model.
+                And a sweep of 200 seeds over a four-path layout returns four distinct routes every
+                time, never puts two rooms in the same place, and lands inside the designed
+                28&ndash;41 room count on better than nine seeds in ten.
               </p>
             </article>
 
@@ -518,19 +521,20 @@
             </article>
 
             <article class="panel claim reveal" style="--reveal-delay: 180ms">
-              <h3 class="panel-title">The game you're looking at is greybox</h3>
+              <h3 class="panel-title">The art in our game is placeholder</h3>
               <p>
                 The art you can see in Gleamwood is placeholder, from the enemies to the levels.
-                We do systems, tools and engineering, so if a project needs art you will want to
-                bring an artist alongside us.
+                We do systems, tools and engineering. We can art direct, but we have no production
+                artist, so if a project needs art made you will want to bring one alongside us.
               </p>
             </article>
 
             <article class="panel claim reveal" style="--reveal-delay: 240ms">
               <h3 class="panel-title">We are three people</h3>
               <p>
-                Two developers and Vader, who is a cat. That is worth knowing before you scope
-                anything large with us, and it is also why we are careful about what we take on.
+                One engineer, one designer who also art directs and runs the projects, and Vader,
+                who is a cat. That is worth knowing before you scope anything large with us, and
+                it is also why we are careful about what we take on.
               </p>
             </article>
 
