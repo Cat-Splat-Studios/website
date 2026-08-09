@@ -176,6 +176,228 @@
 }
 
 /* ---------------------------------------------------------------------
+ * The game stage, touch pad and fullscreen mode
+ * ------------------------------------------------------------------- */
+
+.game-stage {
+  grid-column: 1;
+  position: relative;
+  min-width: 0;
+}
+
+/* Fullscreen: centre a 16 by 9 canvas on black and let the overlay sit on it.
+   The prefixed selectors are separate rules on purpose. A selector list is
+   discarded whole if any selector in it is unknown, so combining them would
+   silently break the unprefixed rule in browsers that support it. */
+.game-stage:fullscreen {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.game-stage:-webkit-full-screen {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+/* Sized rather than clamped: fill the width unless that would overflow the
+   height, in which case the height decides. Leaving width and height auto lets
+   the canvas fall back to its attribute size, which is the wrong size. */
+.game-stage:fullscreen .demo-canvas-game {
+  width: min(100vw, calc(100vh * 460 / 258));
+  height: auto;
+  aspect-ratio: 460 / 258;
+  border: 0;
+  border-radius: 0;
+}
+
+.game-stage:-webkit-full-screen .demo-canvas-game {
+  width: min(100vw, calc(100vh * 460 / 258));
+  height: auto;
+  aspect-ratio: 460 / 258;
+  border: 0;
+  border-radius: 0;
+}
+
+/* In fullscreen the canvas and the overlay are stacked into the same grid cell
+   rather than the overlay being absolutely positioned. An absolute child with
+   inset auto lands at its static position, which inside a centring grid is not
+   where the canvas ended up. Sharing one cell makes them centre together by
+   construction. */
+.game-stage:fullscreen .demo-canvas-game,
+.game-stage:fullscreen .touch-overlay {
+  grid-area: 1 / 1;
+}
+
+.game-stage:-webkit-full-screen .demo-canvas-game,
+.game-stage:-webkit-full-screen .touch-overlay {
+  grid-area: 1 / 1;
+}
+
+.game-stage:fullscreen .touch-overlay {
+  position: relative;
+  inset: auto;
+  width: min(100vw, calc(100vh * 460 / 258));
+  aspect-ratio: 460 / 258;
+}
+
+.game-stage:-webkit-full-screen .touch-overlay {
+  position: relative;
+  inset: auto;
+  width: min(100vw, calc(100vh * 460 / 258));
+  aspect-ratio: 460 / 258;
+}
+
+.touch-overlay {
+  position: absolute;
+  inset: 0;
+  /* Only this element opts out of browser gestures. The page still scrolls
+     past the game, which is what most visitors are doing. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Every control below is sized in cqh, so the pad shrinks to fit the small
+     inline canvas on a phone and grows in fullscreen without a second layout.
+     Fixed pixel sizes overflowed a 302 by 169 canvas. */
+  container-type: size;
+}
+
+.touch-overlay[hidden] {
+  display: none;
+}
+
+/* The stick region is the left half. The ring is drawn wherever the thumb
+   lands inside it rather than pinned to a corner no hand reaches. */
+.touch-stick {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+}
+
+.touch-hint {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(207 198 220 / 0.35);
+}
+
+.touch-ring {
+  position: absolute;
+  width: clamp(76px, 46cqh, 118px);
+  height: clamp(76px, 46cqh, 118px);
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 2px solid rgb(255 106 42 / 0.5);
+  background: rgb(10 8 13 / 0.35);
+  pointer-events: none;
+}
+
+.touch-ring[hidden] {
+  display: none;
+}
+
+.touch-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(34px, 20cqh, 52px);
+  height: clamp(34px, 20cqh, 52px);
+  border-radius: 50%;
+  background: rgb(255 106 42 / 0.75);
+  transform: translate(-50%, -50%);
+}
+
+.touch-buttons {
+  position: absolute;
+  right: 4cqh;
+  bottom: 4cqh;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 3cqh;
+  align-items: end;
+}
+
+.touch-btn {
+  width: clamp(44px, 26cqh, 76px);
+  height: clamp(44px, 26cqh, 76px);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 5cqh, 0.8rem);
+  letter-spacing: 0.06em;
+  color: var(--text-bright);
+  background: rgb(23 19 32 / 0.72);
+  border: 2px solid rgb(207 198 220 / 0.35);
+  cursor: pointer;
+}
+
+.touch-btn.is-held {
+  background: rgb(255 106 42 / 0.8);
+  border-color: var(--ember-hot);
+  color: #14100c;
+}
+
+.touch-btn-jump {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: clamp(52px, 32cqh, 92px);
+  height: clamp(52px, 32cqh, 92px);
+  border-color: rgb(255 106 42 / 0.55);
+}
+
+.touch-exit {
+  position: absolute;
+  top: 3cqh;
+  right: 3cqh;
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 5cqh, 0.85rem);
+  letter-spacing: 0.08em;
+  color: var(--text-bright);
+  background: rgb(10 8 13 / 0.85);
+  border: 1px solid rgb(207 198 220 / 0.5);
+  border-radius: var(--radius);
+  /* Never below the 44px comfortable touch target. A small exit button is the
+     same as no exit button, and being stuck is the worst outcome here. */
+  padding: 0.5rem 1rem;
+  min-width: 72px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.touch-exit:active {
+  background: var(--ember);
+  color: #14100c;
+}
+
+.touch-rotate {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--text-bright);
+  background: rgb(10 8 13 / 0.92);
+}
+
+.touch-rotate[hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------
  * Validator report
  * ------------------------------------------------------------------- */
 

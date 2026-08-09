@@ -702,17 +702,75 @@
    * Demo 3: the game
    * ==================================================================== */
 
+  /* The on-screen pad. Built here rather than in the HTML because it is useless
+   * without scripting, and a page with JavaScript off should not show a set of
+   * dead buttons. */
+  function buildTouchOverlay() {
+    var overlay = el("div", "touch-overlay");
+    overlay.hidden = true;
+
+    var stick = el("div", "touch-stick");
+    stick.setAttribute("data-touch", "stick");
+    var ring = el("div", "touch-ring");
+    ring.setAttribute("data-touch", "ring");
+    ring.hidden = true;
+    var knob = el("div", "touch-knob");
+    knob.setAttribute("data-touch", "knob");
+    ring.appendChild(knob);
+    stick.appendChild(el("span", "touch-hint", "Move"));
+    overlay.appendChild(stick);
+    overlay.appendChild(ring);
+
+    var pad = el("div", "touch-buttons");
+    [
+      { action: "attack", label: "Hit" },
+      { action: "dash", label: "Dash" },
+      { action: "jump", label: "Jump" },
+    ].forEach(function (b) {
+      var btn = el("button", "touch-btn touch-btn-" + b.action, b.label);
+      btn.type = "button";
+      btn.setAttribute("data-action", b.action);
+      btn.setAttribute("aria-label", b.label);
+      pad.appendChild(btn);
+    });
+    overlay.appendChild(pad);
+
+    /* Always visible, always on top, and deliberately not styled like the game
+     * buttons. Being trapped in a fullscreen game on a phone with no obvious
+     * way out is the worst thing this page could do to someone. */
+    var exit = el("button", "touch-exit", "Exit");
+    exit.type = "button";
+    exit.setAttribute("data-touch", "exit");
+    exit.setAttribute("aria-label", "Exit the game and return to the page");
+    overlay.appendChild(exit);
+
+    var rotate = el("p", "touch-rotate", "Turn your phone sideways to play.");
+    rotate.setAttribute("data-touch", "rotate");
+    overlay.appendChild(rotate);
+
+    return overlay;
+  }
+
   function initGame(root) {
     var G = global.csGame;
     var host = stage(root);
 
+    /* The canvas lives inside a stage wrapper, because fullscreen has to take
+     * the canvas and the touch overlay together. Making the canvas itself
+     * fullscreen would leave the controls behind on the page underneath. */
+    /* Not named `stage`: that is the module-level helper that unhides a demo,
+     * and a local of the same name shadows it through var hoisting, so the
+     * `stage(root)` call at the top of this function throws. */
+    var gameStage = el("div", "game-stage");
     var canvas = el("canvas", "demo-canvas demo-canvas-game");
     canvas.tabIndex = 0;
     canvas.setAttribute("aria-label", "Ember Run, a small platformer. Click to focus, then use the arrow keys.");
     var toolbar = el("div", "demo-bar");
     var panelHost = el("div", "demo-panel");
+    gameStage.appendChild(canvas);
+    gameStage.appendChild(buildTouchOverlay());
     host.appendChild(toolbar);
-    host.appendChild(canvas);
+    host.appendChild(gameStage);
     host.appendChild(panelHost);
 
     var tuning = G.defaultTuning();
@@ -764,6 +822,119 @@
         canvas.focus();
       })
     );
+
+    /* ---- Touch and fullscreen ------------------------------------------
+     *
+     * On a phone the game is unplayable without this: there is no keyboard, and
+     * the page is portrait while the game is 16 by 9. So playing means going
+     * fullscreen and turning sideways.
+     *
+     * Orientation lock only works from inside fullscreen, and Safari on iOS
+     * does not implement it at all, so the rotate prompt is the fallback rather
+     * than an error. Nothing here assumes it succeeded.
+     * ------------------------------------------------------------------ */
+
+    var overlay = gameStage.querySelector(".touch-overlay");
+    var touch = G.attachTouchControls(runner.input, overlay);
+    var isTouch = G.prefersTouch();
+
+    function orientationIsPortrait() {
+      return global.matchMedia && global.matchMedia("(orientation: portrait)").matches;
+    }
+
+    function playing() {
+      return gameStage.classList.contains("is-playing");
+    }
+
+    function syncRotateHint() {
+      var hint = overlay.querySelector('[data-touch="rotate"]');
+      hint.hidden = !(playing() && orientationIsPortrait());
+    }
+
+    function enterPlay() {
+      gameStage.classList.add("is-playing");
+      overlay.hidden = !isTouch;
+      /* Touch counts as focus. Without this the canvas shows its click-to-play
+       * banner over a game the player is already controlling. */
+      if (isTouch) runner.input.focused = true;
+      else canvas.focus();
+
+      var req = gameStage.requestFullscreen || gameStage.webkitRequestFullscreen;
+      if (req) {
+        var maybe = req.call(gameStage);
+        if (maybe && maybe.then) {
+          maybe.then(lockLandscape, function () {
+            /* Fullscreen refused. Still playable inline, so say nothing. */
+          });
+        } else {
+          lockLandscape();
+        }
+      }
+      syncRotateHint();
+    }
+
+    function lockLandscape() {
+      var o = global.screen && global.screen.orientation;
+      if (o && o.lock) {
+        var p = o.lock("landscape");
+        if (p && p.catch) p.catch(function () {});
+      }
+      syncRotateHint();
+    }
+
+    function exitPlay() {
+      gameStage.classList.remove("is-playing");
+      overlay.hidden = true;
+      touch.reset();
+      runner.input.focused = false;
+
+      var o = global.screen && global.screen.orientation;
+      if (o && o.unlock) {
+        try {
+          o.unlock();
+        } catch (e) {
+          /* Not supported here, which is fine: nothing was locked. */
+        }
+      }
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        var exit = document.exitFullscreen || document.webkitExitFullscreen;
+        if (exit) exit.call(document);
+      }
+      syncRotateHint();
+    }
+
+    /* Three ways out, because being stuck in a fullscreen game on a phone with
+     * no visible exit is the worst thing this page could do to a visitor. The
+     * on-screen button is the one a phone can actually use: Escape needs a
+     * keyboard, and the browser's own gesture is not discoverable. */
+    overlay.querySelector('[data-touch="exit"]').addEventListener("click", exitPlay);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.code === "Escape" && playing()) exitPlay();
+    });
+
+    /* And if the exit came from the browser rather than from us, whether that
+     * is the Escape key, a swipe, or the back gesture, tear down to match
+     * instead of leaving the overlay stranded over an inline canvas. */
+    ["fullscreenchange", "webkitfullscreenchange"].forEach(function (evt) {
+      document.addEventListener(evt, function () {
+        var full = document.fullscreenElement || document.webkitFullscreenElement;
+        if (!full && playing()) exitPlay();
+      });
+    });
+
+    if (global.matchMedia) {
+      var mq = global.matchMedia("(orientation: portrait)");
+      if (mq.addEventListener) mq.addEventListener("change", syncRotateHint);
+    }
+
+    if (isTouch) {
+      runner.hint = "Tap Play to go fullscreen.";
+      toolbar.appendChild(button("Play", "Go fullscreen with touch controls", enterPlay));
+      canvas.addEventListener("click", enterPlay);
+    } else {
+      toolbar.appendChild(button("Fullscreen", "Play fullscreen", enterPlay));
+    }
 
     if (!load()) throw new Error("no level passed the reachability check");
 

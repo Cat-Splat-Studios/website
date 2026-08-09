@@ -520,17 +520,26 @@
 
   function Input(target) {
     var self = this;
-    this.down = {};
     this.pressed = {};
     this.focused = false;
     this.target = target;
+
+    /* One held map per source, and down() is their union.
+     *
+     * These used to share a single object, which meant the gamepad poll cleared
+     * anything the keyboard was holding: connect a pad, leave it idle, and the
+     * keyboard stopped working. Touch would have been a third writer to the
+     * same object and made it worse. Keeping the sources apart means holding
+     * right on a stick and pressing jump on a keyboard both work, and neither
+     * can switch the other off. */
+    this.held = { key: {}, pad: {}, touch: {} };
 
     target.addEventListener("focus", function () {
       self.focused = true;
     });
     target.addEventListener("blur", function () {
       self.focused = false;
-      self.down = {};
+      self.held.key = {};
     });
 
     this._onKey = function (e, isDown) {
@@ -541,8 +550,7 @@
       });
       if (!action) return;
       e.preventDefault();
-      if (isDown && !self.down[action]) self.pressed[action] = true;
-      self.down[action] = isDown;
+      self.set("key", action, isDown);
     };
 
     this._kd = function (e) {
@@ -555,6 +563,20 @@
     global.addEventListener("keyup", this._ku);
   }
 
+  Input.prototype.down = function (action) {
+    var h = this.held;
+    return !!(h.key[action] || h.pad[action] || h.touch[action]);
+  };
+
+  /* Set a source's state, raising a press only on a rising edge of the union,
+   * so holding right on the stick and then pressing right on the keyboard does
+   * not fire a second press. */
+  Input.prototype.set = function (source, action, on) {
+    var was = this.down(action);
+    this.held[source][action] = !!on;
+    if (on && !was) this.pressed[action] = true;
+  };
+
   Input.prototype.poll = function () {
     /* Gamepads are polled rather than evented, and Gleamwood is controller
      * first, so this is a first-class path and not a courtesy. */
@@ -563,7 +585,7 @@
       var p = pads[i];
       if (!p) continue;
       var ax = p.axes[0] || 0;
-      var set = {
+      var state = {
         left: ax < -0.35 || (p.buttons[14] && p.buttons[14].pressed),
         right: ax > 0.35 || (p.buttons[15] && p.buttons[15].pressed),
         jump: p.buttons[0] && p.buttons[0].pressed,
@@ -571,17 +593,11 @@
         dash: (p.buttons[1] && p.buttons[1].pressed) || (p.buttons[7] && p.buttons[7].value > 0.4),
       };
       var self = this;
-      Object.keys(set).forEach(function (a) {
-        if (set[a] && !self.down[a]) self.pressed[a] = true;
-        if (set[a]) self.down[a] = true;
-        else if (!self._keyHeld(a)) self.down[a] = false;
+      Object.keys(state).forEach(function (a) {
+        self.set("pad", a, state[a]);
       });
       break;
     }
-  };
-
-  Input.prototype._keyHeld = function () {
-    return false;
   };
 
   Input.prototype.consume = function (action) {
@@ -600,6 +616,141 @@
     global.removeEventListener("keydown", this._kd);
     global.removeEventListener("keyup", this._ku);
   };
+
+  /* ----------------------------------------------------------------------
+   * Touch controls.
+   *
+   * A phone has no keyboard, so without this the game is a picture. The layout
+   * is the one that works on a small screen: a floating stick under the left
+   * thumb, which appears wherever that thumb lands rather than at a fixed spot
+   * nobody's hand reaches, and three buttons under the right.
+   *
+   * Every pointer is tracked by id, because a real player is holding the stick
+   * while pressing jump, and a handler that assumes one touch at a time makes
+   * the game feel broken in exactly the moments that matter.
+   *
+   * The overlay owns touch-action: none, and only the overlay. The page still
+   * scrolls past the game normally, which matters because most visitors are
+   * scrolling past it rather than playing.
+   * -------------------------------------------------------------------- */
+
+  function attachTouchControls(input, overlay) {
+    var stick = overlay.querySelector('[data-touch="stick"]');
+    var ring = overlay.querySelector('[data-touch="ring"]');
+    var knob = overlay.querySelector('[data-touch="knob"]');
+
+    var DEAD = 8; /* px of slop before a lean counts as a direction */
+    var RANGE = 42; /* px from origin at which the knob is fully over */
+    var stickPointer = null;
+    var originX = 0;
+    var originY = 0;
+
+    /* Capturing keeps a drag alive when the thumb slides outside the element it
+     * started on. It throws if the pointer is already gone, which is a race
+     * worth surviving rather than a reason to drop the input. */
+    function capture(node, id) {
+      try {
+        node.setPointerCapture(id);
+      } catch (e) {
+        /* Nothing to capture. The pointerup handler still fires. */
+      }
+    }
+
+    function showRing(x, y) {
+      var box = overlay.getBoundingClientRect();
+      ring.style.left = x - box.left + "px";
+      ring.style.top = y - box.top + "px";
+      ring.hidden = false;
+      moveKnob(0, 0);
+    }
+
+    function moveKnob(dx, dy) {
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist > RANGE) {
+        dx = (dx / dist) * RANGE;
+        dy = (dy / dist) * RANGE;
+      }
+      knob.style.transform = "translate(-50%, -50%) translate(" + dx + "px," + dy + "px)";
+    }
+
+    function clearStick() {
+      stickPointer = null;
+      ring.hidden = true;
+      input.set("touch", "left", false);
+      input.set("touch", "right", false);
+      input.set("touch", "up", false);
+      input.set("touch", "down", false);
+    }
+
+    stick.addEventListener("pointerdown", function (e) {
+      if (stickPointer !== null) return;
+      stickPointer = e.pointerId;
+      originX = e.clientX;
+      originY = e.clientY;
+      capture(stick, e.pointerId);
+      showRing(originX, originY);
+      e.preventDefault();
+    });
+
+    stick.addEventListener("pointermove", function (e) {
+      if (e.pointerId !== stickPointer) return;
+      var dx = e.clientX - originX;
+      var dy = e.clientY - originY;
+      moveKnob(dx, dy);
+      input.set("touch", "left", dx < -DEAD);
+      input.set("touch", "right", dx > DEAD);
+      input.set("touch", "down", dy > DEAD * 2);
+      e.preventDefault();
+    });
+
+    function endStick(e) {
+      if (e.pointerId !== stickPointer) return;
+      clearStick();
+      e.preventDefault();
+    }
+    stick.addEventListener("pointerup", endStick);
+    stick.addEventListener("pointercancel", endStick);
+
+    /* Buttons. Each remembers which pointer pressed it, so sliding a thumb off
+     * one and onto another does not leave the first stuck down. */
+    Array.prototype.forEach.call(overlay.querySelectorAll("[data-action]"), function (btn) {
+      var action = btn.getAttribute("data-action");
+      var owner = null;
+
+      btn.addEventListener("pointerdown", function (e) {
+        owner = e.pointerId;
+        capture(btn, e.pointerId);
+        btn.classList.add("is-held");
+        input.set("touch", action, true);
+        e.preventDefault();
+      });
+
+      function release(e) {
+        if (e.pointerId !== owner) return;
+        owner = null;
+        btn.classList.remove("is-held");
+        input.set("touch", action, false);
+        e.preventDefault();
+      }
+      btn.addEventListener("pointerup", release);
+      btn.addEventListener("pointercancel", release);
+    });
+
+    return {
+      reset: function () {
+        clearStick();
+        input.held.touch = {};
+      },
+    };
+  }
+
+  /* True for phones and tablets, false for a desktop that merely has a
+   * touchscreen, because that machine still has a keyboard and the keyboard is
+   * the better control. */
+  function prefersTouch() {
+    if (!global.matchMedia) return false;
+    return global.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  }
 
   /* ----------------------------------------------------------------------
    * The runner: player state machine, enemies, camera, particles, drawing.
@@ -714,7 +865,7 @@
     var t = this.t;
     var inp = this.input;
 
-    var moveX = (inp.down.right ? 1 : 0) - (inp.down.left ? 1 : 0);
+    var moveX = (inp.down("right") ? 1 : 0) - (inp.down("left") ? 1 : 0);
     if (moveX !== 0 && p.dashTimer <= 0) p.facing = moveX;
 
     if (p.invuln > 0) p.invuln -= dt;
@@ -806,7 +957,7 @@
         this.puff(p.x + p.wallDir * 5, p.y - p.h / 2, 7, "#86b4ff");
       }
     }
-    if (!inp.down.jump && p.vy < 0 && p.dashTimer <= 0) p.vy *= 1 - t.jumpCutoff * (dt * 60) * 0.1;
+    if (!inp.down("jump") && p.vy < 0 && p.dashTimer <= 0) p.vy *= 1 - t.jumpCutoff * (dt * 60) * 0.1;
 
     if (inp.consume("attack") && p.attackTimer <= 0) {
       p.attackTimer = t.attackTime;
@@ -1200,7 +1351,7 @@
       ctx.textAlign = "center";
       ctx.fillStyle = "#cfc6dc";
       ctx.font = "11px ui-monospace, monospace";
-      ctx.fillText("Click to play. Arrows or WASD, Z jump, X attack, Shift dash.", VIEW_W / 2, VIEW_H / 2 - 5);
+      ctx.fillText(this.hint || "Click to play. Arrows or WASD, Z jump, X attack, Shift dash.", VIEW_W / 2, VIEW_H / 2 - 5);
     }
   };
 
@@ -1216,6 +1367,8 @@
     VIEW_H: VIEW_H,
     Runner: Runner,
     Input: Input,
+    attachTouchControls: attachTouchControls,
+    prefersTouch: prefersTouch,
     buildWorld: buildWorld,
     carveLevel: carveLevel,
     largestRegion: largestRegion,
