@@ -76,7 +76,7 @@
 
   /* Fluid scale, via clamp(min, preferred, max) */
   --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.86rem);
-  --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1.05rem);
+  --step-0: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);
   --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
   --step-2: clamp(1.45rem, 1.25rem + 1vw, 2rem);
   --step-3: clamp(1.9rem, 1.5rem + 2vw, 3rem);
@@ -1545,7 +1545,7 @@ code {
 
 @media (min-width: 68rem) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

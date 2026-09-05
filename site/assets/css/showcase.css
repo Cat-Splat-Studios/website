@@ -1,0 +1,37 @@
+/* Editorial project layouts. Existing game fonts remain self-hosted. */
+h1, h2, h3 { font-family: var(--font-body); letter-spacing: -0.035em; }
+.game-display, .title-lockup { font-family: var(--font-display); letter-spacing: 0; }
+.studio-hero { padding-block: clamp(8rem, 14vw, 12rem) 5rem; }
+.studio-hero h1 { font-size: clamp(2.6rem, 6.4vw, 6.4rem); max-width: 24ch; line-height: 1.06; }
+.studio-intro { margin-top: 2rem; max-width: 48rem; }
+.studio-intro .btn-row { margin-top: 2rem; }
+.page-hero { padding-bottom: 3rem; }
+.work-feature { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: 3rem; border-top: 1px solid var(--rule); }
+.project-lockup { background: linear-gradient(135deg, var(--bg-raise), var(--bg-sunk)); padding: clamp(1.5rem, 4vw, 3.5rem); border-left: 3px solid var(--ember); }
+.project-lockup .game-display { font-size: clamp(2rem, 4vw, 4rem); margin-block: 2rem; line-height: 1.1; overflow-wrap: anywhere; }
+.work-copy h3 { font-size: var(--step-3); margin-bottom: 1rem; }
+.work-copy p + p { margin-top: 1rem; }
+.work-copy .btn { margin-top: 1.5rem; }
+.project-image { margin: 0; background: var(--bg-raise); }
+.project-image img { display: block; width: 100%; height: auto; object-fit: contain; }
+.project-image figcaption { padding: 1rem; font-size: .875rem; color: var(--text-dim); }
+.work-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+.work-links > a { display: block; padding: 2rem; text-decoration: none; color: var(--text); }
+.work-links > a + a { border-left: 1px solid var(--rule); }
+.work-links h3 { margin-block: .75rem; font-size: var(--step-2); color: var(--text-bright); }
+.work-links a:hover, .work-links a:focus-visible { background: var(--bg-raise); }
+.text-link { display: inline-block; margin-top: 1rem; color: var(--ember-hot); }
+.case-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin-top: 2rem; }
+.case-notes h3 { font-size: var(--step-1); margin-bottom: .75rem; }
+.engine-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-block: 2rem; padding: 0; list-style: none; }
+.engine-flow li { border-top: 2px solid var(--ember); padding: 1.5rem; background: var(--bg-raise); }
+.engine-flow strong { display: block; color: var(--text-bright); margin-bottom: .5rem; }
+.roadmap-compact { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+.roadmap-compact li { margin-block: .75rem; }
+.btn, .nav a { letter-spacing: .04em; }
+@media (max-width: 52rem) {
+  .work-feature, .case-notes, .engine-flow, .work-links { grid-template-columns: minmax(0, 1fr); }
+  .work-links > a { padding-inline: 0; }
+  .work-links > a + a { border-left: 0; border-top: 1px solid var(--rule); }
+  .studio-hero { padding-top: 8rem; }
+}

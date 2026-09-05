@@ -7,7 +7,7 @@
     <title>Games · Cat Splat Studios</title>
     <meta
       name="description"
-      content="Sentinels of Gleamwood, a controller-first 2D action roguelite in development for Steam. Plus Codename: Shifter and the prototypes that got us here." />
+      content="Explore Sentinels of Gleamwood, Codename: Shifter and the games and experiments from Cat Splat Studios." />
     <link rel="canonical" href="https://catsplatstudios.com/games/" />
 
     <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
     <meta property="og:title" content="Games · Cat Splat Studios" />
     <meta
       property="og:description"
-      content="Sentinels of Gleamwood, a controller-first 2D action roguelite in development for Steam." />
+      content="Explore Sentinels of Gleamwood, Codename: Shifter and the games and experiments from Cat Splat Studios." />
     <meta property="og:url" content="https://catsplatstudios.com/games/" />
     <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
     <meta property="og:image:width" content="1200" />
@@ -30,6 +30,7 @@
 
     <link rel="preload" href="../assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="stylesheet" href="../assets/css/site.css" />
+    <link rel="stylesheet" href="../assets/css/showcase.css" />
 
     <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
          until site.js marks it in view. Drop no-js here rather than in site.js:
@@ -84,258 +85,29 @@
     </header>
 
     <main id="main" tabindex="-1">
-      <!-- ===================== PAGE HERO ===================== -->
-      <section class="hero hero-sub">
-        <div class="hearth" aria-hidden="true"></div>
-        <div class="embers" aria-hidden="true"></div>
-        <div class="shell">
-          <div class="hero-inner">
-            <p class="eyebrow">Our games</p>
-            <h1>What we're building,<br />and what we built</h1>
-            <p class="lede">
-              One game in active development, one shelved for now, and a shelf of prototypes that
-              taught us how to make the first two.
-            </p>
-            <p class="hero-note" style="margin-top: 1.5rem">
-              <span class="badge chip-empty">No footage yet</span>
-              <span class="dim">
-                Gleamwood's art is still placeholder, so there is nothing worth filming. There is
-                a <a href="../playground/index.html#game">small browser prototype</a> built on the
-                same movement and the same air combat, if you would rather play something than
-                read about it.
-              </span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== GLEAMWOOD ===================== -->
-      <section class="section section-sunk" id="gleamwood">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow"><span class="badge badge-live">In development</span></p>
-            <h2 class="ember-text title-lockup">Sentinels of Gleamwood</h2>
-            <p class="lede">
-              A controller-first 2D action roguelite in the Dead Cells and Hades lineage. Built in
-              Unity 6 for Windows, coming to Steam.
-            </p>
-            <p class="hero-note" style="margin-top: 1.5rem">
-              <span class="badge chip-empty">Steam page not open yet</span>
-              <span class="dim">Wishlisting opens when the store page goes live.</span>
-            </p>
-          </div>
-
-          <div class="grid grid-2 reveal">
-            <article class="panel">
-              <h3 class="panel-title">A blade and a bow</h3>
-              <p>
-                You carry two weapons at a time and they do different jobs. The blade opens enemies
-                up and puts them in the air. The bow is instant, so it is about timing a clean
-                release rather than leading a shot.
-              </p>
-            </article>
-
-            <article class="panel">
-              <h3 class="panel-title">The air is the point</h3>
-              <p>
-                Grounded hits build toward a launch, and once an enemy is up you have a fixed window
-                to work with. The window never changes length, so the game rewards knowing exactly
-                what you can fit inside it.
-              </p>
-            </article>
-
-            <article class="panel">
-              <h3 class="panel-title">Finishers you have to set up</h3>
-              <p>
-                Every execution needs a specific kind of hit landed on an enemy in a specific
-                condition, stunned or airborne for instance. Which ones you can reach depends on
-                the two weapons you happen to be carrying, so a loadout is a set of options rather
-                than a stat line.
-              </p>
-            </article>
-
-            <article class="panel">
-              <h3 class="panel-title">Runs that carry forward</h3>
-              <p>
-                Dying ends the run but not the progress. You bank currency either way and spend it
-                on movement and permanent upgrades, and the game builds levels around what you have
-                bought.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== THE RUN ===================== -->
-      <section class="section">
-        <div class="shell shell-narrow">
-          <div class="section-head reveal">
-            <p class="eyebrow">The run</p>
-            <h2>Ten biomes, and you will not see them all</h2>
-          </div>
-          <p class="lede reveal">
-            A run is a handful of levels long. The first and the last never change, and everything
-            between them is a web you route through yourself, picking a destination each time you
-            leave a level.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            One of the ways out skips the boss, its reward and the rest that follows, all at once.
-            It is a trade rather than a shortcut, and it is usually the decision that shapes how a
-            run ends.
-          </p>
-        </div>
-      </section>
-
-      <!-- ===================== BOSSES ===================== -->
-      <section class="section section-sunk">
-        <div class="shell shell-narrow">
-          <div class="section-head reveal">
-            <p class="eyebrow">Bosses</p>
-            <h2>Three of them exist so far</h2>
-          </div>
-          <p class="lede reveal">
-            Every biome ends in an arena and every arena is built, but only three of the fights are
-            written. The rest are the next content job, along with the art.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            The ones that do exist each teach something different: reading a wind-up, dealing with a
-            room that keeps refilling, and a straight duel that changes its terms halfway through.
-          </p>
-        </div>
-      </section>
-
-      <!-- ===================== THE AUTHORING ===================== -->
-      <section class="section" id="authoring">
-        <div class="shell shell-narrow">
-          <div class="section-head reveal">
-            <p class="eyebrow">The writing</p>
-            <h2>The story is not written yet</h2>
-          </div>
-          <p class="lede reveal">
-            What is in the build today is a placeholder, and it will be replaced by people who
-            write for a living. That is a deliberate order of work rather than a gap we are hoping
-            to fill later.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            Dialogue and story in Gleamwood are content, not code. A writer opens a file, types the
-            lines, and the game reads them the next time it launches, with no programmer in the
-            loop and no rebuild. Building that surface first is why the writing can arrive whenever
-            it is ready without holding anything else up.
-          </p>
-        </div>
-      </section>
-
-      <!-- ===================== SHIFTER ===================== -->
-      <section class="section" id="shifter">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Also from the studio</p>
-            <h2 class="lockup-img">
-              <img
-                src="../assets/img/shifter-logo.webp"
-                alt="Codename: Shifter"
-                width="1100" height="481" loading="lazy" decoding="async" />
-            </h2>
-          </div>
-
-          <div class="split split-wide-left reveal">
-            <div class="stack">
-              <p>
-                A top-down arcade shooter built in Unreal Engine 4. Waves of enemies that read
-                clearly enough to fight, behaviour-tree AI that coordinates rather than swarming
-                blindly, and a director deciding what shows up and when.
-              </p>
-              <p class="dim">
-                Development is paused while Gleamwood has our attention.
-              </p>
-            </div>
-
-            <div>
-              <img
-                class="framed"
-                src="../assets/img/shifter-hero.webp"
-                alt="The Shifter fighter craft: a blue and navy armoured hull with a light-blue canopy, copper trim and glowing magenta thruster rings."
-                width="859" height="706" loading="lazy" decoding="async" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== PAST WORK ===================== -->
-      <section class="section section-sunk">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Earlier work</p>
-            <h2>One game we shipped, and the prototypes before it</h2>
-            <p class="lede">
-              Rocket Recover went out on mobile. The other two are jam and prototype work. All
-              three are open source, so you can read what we actually wrote.
-            </p>
-          </div>
-
-          <div class="grid grid-3">
-            <article class="panel panel-hover reveal">
-              <p class="badge badge-dim">Game jam, 2018</p>
-              <h3 class="panel-title" style="margin-top: 1rem">Infected</h3>
-              <p>
-                Built start to finish in the 48 hours of Global Game Jam 2018. Small, fast, and
-                finished on time, which at a jam is most of the job.
-              </p>
-              <a class="link-out" href="https://github.com/AnagramMC/Infected" target="_blank" rel="noopener">
-                View on GitHub<span class="sr-only">, Infected</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
-              <p class="badge badge-dim">Prototype</p>
-              <h3 class="panel-title" style="margin-top: 1rem">Bathrobe Samurai</h3>
-              <p>
-                A hack and slash prototype, built to work out how melee combat and movement should
-                feel before either mattered to a real project. The title is the entire pitch.
-              </p>
-              <a class="link-out" href="https://github.com/AnagramMC/BS2.0" target="_blank" rel="noopener">
-                View on GitHub<span class="sr-only">, Bathrobe Samurai</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
-              <p class="badge badge-dim">Shipped on mobile</p>
-              <h3 class="panel-title" style="margin-top: 1rem">Rocket Recover</h3>
-              <p>
-                Our first published game, released on mobile under the working name Project
-                ShipJump. It is no longer maintained and the source has not been opened in years,
-                but it went out and people played it.
-              </p>
-              <a class="link-out" href="https://github.com/Cat-Splat-Studios/Project_ShipJump" target="_blank" rel="noopener">
-                View on GitHub<span class="sr-only">, Rocket Recover</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== CTA ===================== -->
-      <section class="section section-cta">
-        <div class="hearth" aria-hidden="true"></div>
-        <div class="embers" aria-hidden="true"></div>
-        <div class="shell shell-narrow center">
-          <h2 class="reveal">Follow the build</h2>
-          <p class="lede reveal">
-            Gleamwood ships when it is ready. The Steam page is not open yet, so for now the best
-            way to hear about it is to say hello.
-          </p>
-          <div class="btn-row reveal">
-            <a class="btn btn-primary btn-lg" href="mailto:info@catsplatstudios.com?subject=Sentinels%20of%20Gleamwood">
-              Email us
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <a class="btn btn-ghost btn-lg" href="https://github.com/Cat-Splat-Studios" target="_blank" rel="noopener">Our GitHub</a>
-          </div>
-        </div>
-      </section>
+      <section class="studio-hero"><div class="shell"><p class="eyebrow">Our work</p><h1>Made to be played.<br /><span class="ember-text">Built to be explored.</span></h1><div class="studio-intro"><p class="lede">Original games, studio-led projects and experiments in how games feel.</p><div class="btn-row"><a class="btn btn-primary" href="../playground/index.html#game">Play Ember Run</a><a class="btn btn-ghost" href="#gleamwood">Explore Gleamwood</a></div></div></div></section>
+      <section class="section section-sunk" id="gleamwood"><div class="shell">
+        <article class="work-feature">
+          <div class="project-lockup"><p class="eyebrow">Unity · In development</p><h2 class="game-display">Sentinels of<br /><span class="ember-text">Gleamwood</span></h2><p>2D action roguelite · Windows</p></div>
+          <div class="work-copy"><h3>Find your rhythm. Choose your route.</h3><p>Take enemies off the ground, combine blade and bow, and turn a good opening into a decisive finish. Between fights, choose where the run takes you next.</p><p class="dim">Art, story and content are evolving. The Steam page is not public yet.</p></div>
+        </article>
+        <div class="case-notes"><article><h3>Expressive combat</h3><p>Airborne encounters, weapon combinations and finishers reward timing and experimentation.</p></article><article><h3>Branching adventures</h3><p>Changing layouts and choices along the way give each run a different shape.</p></article><article><h3>Room to grow</h3><p>Movement upgrades open up new possibilities as you find your way through the game.</p></article></div>
+        <div class="roadmap-compact"><h3>Try a related experiment</h3><p>Ember Run is a small JavaScript browser prototype inspired by Gleamwood's movement and aerial combat. It is separate from the Unity game and is not its demo.</p><a class="btn btn-ghost" href="../playground/index.html#game">Play Ember Run</a></div>
+      </div></section>
+      <section class="section" id="shifter"><div class="shell"><div class="section-head"><p class="eyebrow">Studio-led project · Unreal Engine 4</p><h2>Codename: Shifter</h2><p class="lede">Responsive flight, coordinated enemies and the momentum of an arcade shooter.</p></div>
+        <article class="work-feature"><figure class="project-image"><img src="../assets/img/shifter-hero.webp" alt="Shifter's blue fighter craft with glowing magenta thrusters." width="859" height="706" loading="lazy" /><figcaption>Project artwork · Codename: Shifter</figcaption></figure>
+        <div class="work-copy"><h3>From specification to implementation.</h3><p>A Cat Splat Studios-led Unreal project, developed to our gameplay and technical specifications. The programming spans player control, enemy behaviour and encounter systems.</p><p>Behaviour-tree AI and a combat director support encounters that respond to the action. Custom movement systems connect how the craft handles with how enemies engage it.</p><p class="dim">Development is paused while we focus on Gleamwood.</p><a class="text-link" href="../services/index.html#contact">Discuss an Unreal project →</a></div></article>
+      </div></section>
+      <section class="section section-sunk"><div class="shell"><p class="eyebrow">Technology and experiments</p><h2>The work behind the games.</h2><div class="work-links">
+        <a href="../services/index.html#engine"><h3>Cat Splat Engine</h3><p>Our C++ runtime, editor and asset tools. Explore the current foundations and future direction.</p><span class="text-link">Engine case study →</span></a>
+        <a href="../playground/index.html"><h3>The Playground</h3><p>Procedural generators and tuning tools you can explore directly in a browser.</p><span class="text-link">Try the experiments →</span></a>
+      </div></div></section>
+      <section class="section"><div class="shell"><p class="eyebrow">Earlier work</p><h2>Where we started.</h2><div class="case-notes">
+        <article><h3>Rocket Recover</h3><p>Our first published mobile game, now archived.</p><a class="text-link" href="https://github.com/Cat-Splat-Studios/Project_ShipJump" target="_blank" rel="noopener">Explore the source →</a></article>
+        <article><h3>Infected</h3><p>A game made during Global Game Jam 2018.</p><a class="text-link" href="https://github.com/AnagramMC/Infected" target="_blank" rel="noopener">Explore the source →</a></article>
+        <article><h3>Bathrobe Samurai</h3><p>A prototype exploring melee combat and movement.</p><a class="text-link" href="https://github.com/AnagramMC/BS2.0" target="_blank" rel="noopener">Explore the source →</a></article>
+      </div></div></section>
+      <section class="section section-cta"><div class="shell shell-narrow center"><h2>Have a project in mind?</h2><p class="lede">We also build gameplay and tools for other teams.</p><div class="btn-row"><a class="btn btn-primary" href="../services/index.html">Work with us</a></div></div></section>
     </main>
 
     <footer class="site-footer">

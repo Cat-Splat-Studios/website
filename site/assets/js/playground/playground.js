@@ -766,12 +766,18 @@
     canvas.tabIndex = 0;
     canvas.setAttribute("aria-label", "Ember Run, a small platformer. Click to focus, then use the arrow keys.");
     var toolbar = el("div", "demo-bar");
+    var playbar = el("div", "demo-bar");
+    var developerTools = el("details", "game-developer-tools");
+    developerTools.appendChild(el("summary", "", "Developer tools"));
+    developerTools.appendChild(toolbar);
     var panelHost = el("div", "demo-panel");
+    canvas.setAttribute("aria-describedby", "game-controls");
     gameStage.appendChild(canvas);
     gameStage.appendChild(buildTouchOverlay());
-    host.appendChild(toolbar);
+    host.appendChild(playbar);
     host.appendChild(gameStage);
-    host.appendChild(panelHost);
+    developerTools.appendChild(panelHost);
+    host.appendChild(developerTools);
 
     var tuning = G.defaultTuning();
     var runner = new G.Runner(canvas, tuning);
@@ -930,11 +936,16 @@
 
     if (isTouch) {
       runner.hint = "Tap Play to go fullscreen.";
-      toolbar.appendChild(button("Play", "Go fullscreen with touch controls", enterPlay));
+      playbar.appendChild(button("Play", "Go fullscreen with touch controls", enterPlay));
       canvas.addEventListener("click", enterPlay);
     } else {
-      toolbar.appendChild(button("Fullscreen", "Play fullscreen", enterPlay));
+      playbar.appendChild(button("Play", "Focus the game and play", function () { canvas.focus(); }));
+      playbar.appendChild(button("Fullscreen", "Play fullscreen", enterPlay));
     }
+    playbar.appendChild(button("Retry", "Restart this level", function () {
+      load();
+      canvas.focus();
+    }));
 
     if (!load()) throw new Error("no level passed the reachability check");
 

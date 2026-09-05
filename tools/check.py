@@ -35,6 +35,7 @@ PAGES = [
 ASSETS = [
     SITE / "assets" / "css" / "site.css",
     SITE / "assets" / "css" / "playground.css",
+    SITE / "assets" / "css" / "showcase.css",
     SITE / "assets" / "js" / "site.js",
     SITE / "assets" / "js" / "playground" / "debug-ui.js",
     SITE / "assets" / "js" / "playground" / "wfc.js",
@@ -338,23 +339,15 @@ for path in ASSETS:
         start = idx + 1
 
 # --------------------------------------------------------------------------
-# 3h. Figures the pages state as fact. If the game changes, these fail loudly
-#     rather than the site quietly going stale.
+# 3h. Editorial regressions. Technical counts belong in dated case studies,
+# not mandatory marketing assertions. The old presence-only check did not
+# verify any of the numbers against a source.
 # --------------------------------------------------------------------------
-
-CLAIMS = [
-    ("657", "play-mode tests"),
-    ("408", "C# files"),
-    ("21", "versioned Steam builds"),
-    ("742", "GoogleTest cases"),
-    ("11", "render passes"),
-    ("7", "engine backends"),
-    ("36 KB", "gzipped playground payload"),
-]
-all_html = "\n".join(sources.values())
-for value, what in CLAIMS:
-    if value not in all_html:
-        fail(f"the figure {value} ({what}) has vanished from the site; check it is still true")
+for page, html in sources.items():
+    for phrase in ("nothing worth filming", "junior engineers implementing",
+                   "Come back for the wishlist", "Studios our size tend to round up"):
+        if phrase in html:
+            fail(f"{rel(page)}: retired copy returned: {phrase}")
 
 # --------------------------------------------------------------------------
 # 4. Assets referenced from CSS exist.

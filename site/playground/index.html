@@ -7,7 +7,7 @@
     <title>Playground · Cat Splat Studios</title>
     <meta
       name="description"
-      content="The generators and tools we build games with, running live in the browser. A wave function collapse solver, a lock and key world generator with its validator, and a platformer built on both." />
+      content="Play Ember Run and explore hands-on experiments in procedural generation and game development tools." />
     <link rel="canonical" href="https://catsplatstudios.com/playground/" />
 
     <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
     <meta property="og:title" content="Playground · Cat Splat Studios" />
     <meta
       property="og:description"
-      content="Our level generators and debug tooling, running live in the browser. No download, no plugin." />
+      content="Play Ember Run and explore hands-on experiments in procedural generation and game development tools." />
     <meta property="og:url" content="https://catsplatstudios.com/playground/" />
     <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
     <meta property="og:image:width" content="1200" />
@@ -30,6 +30,7 @@
 
     <link rel="preload" href="../assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="stylesheet" href="../assets/css/site.css" />
+    <link rel="stylesheet" href="../assets/css/showcase.css" />
     <link rel="stylesheet" href="../assets/css/playground.css" />
 
     <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
@@ -85,327 +86,26 @@
     </header>
 
     <main id="main" tabindex="-1">
-      <!-- ===================== PAGE HERO ===================== -->
-      <section class="hero hero-sub">
-        <div class="hearth" aria-hidden="true"></div>
-        <div class="embers" aria-hidden="true"></div>
-        <div class="shell">
-          <div class="hero-inner">
-            <p class="eyebrow">Playground</p>
-            <h1>The tools, running<br />in your browser</h1>
-            <p class="lede">
-              A level generator, a world builder that proves its worlds can be finished, and a
-              small game built on the first two. These are the real tools we make games with,
-              rewritten to run in a browser tab. No download, no plugin. Change a number and watch
-              what it does.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== WHY ===================== -->
-      <section class="section">
-        <div class="shell shell-narrow">
-          <p class="lede reveal">
-            A studio site can describe its level generator or it can hand you one. These are the
-            second thing. They are the same algorithms that run in our Unity projects, rewritten
-            in plain JavaScript rather than filmed, and all three together are a 36 KB download,
-            about a tenth of one photograph.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            That size is the point as much as the content is. The whole site is hand written flat
-            files with no build step and no dependencies, and a playable page had to arrive without
-            breaking that promise. Everything here loads with the page and works on a phone.
-          </p>
-        </div>
-      </section>
-
-      <!-- ===================== WFC ===================== -->
-      <section class="section section-sunk" id="wfc">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Procedural generation</p>
-            <h2 class="ember-text">Wave function collapse</h2>
-            <p class="lede">
-              Start with a grid where every square could still be any tile. Pick the square with
-              the fewest options left and commit it to one of them, rule out whatever that choice
-              makes impossible for its neighbours, and repeat. If a square ends up with no options
-              at all, the solver has painted itself into a corner, so it walks the last decision
-              back and takes a different one rather than starting over.
-            </p>
-          </div>
-
-          <div class="demo reveal" data-demo="wfc">
-            <div class="demo-stage" hidden></div>
-            <p class="demo-fallback">
-              This is an interactive wave function collapse solver. It needs JavaScript, which is
-              currently blocked or still loading.
-            </p>
-          </div>
-
-          <div class="grid grid-3" style="margin-top: 2rem">
-            <article class="panel reveal">
-              <h3 class="panel-title">The rules are data</h3>
-              <p>
-                A tile declares four edge sockets and a weight. Two tiles may sit next to each
-                other when the sockets they present to each other match, and that is the entire
-                constraint system. Switch the tileset and the same solver produces circuitry or
-                dungeons, because neither is written into it.
-              </p>
-            </article>
-
-            <article class="panel reveal" style="--reveal-delay: 80ms">
-              <h3 class="panel-title">Backtracking, visibly</h3>
-              <p>
-                Most demonstrations restart on a contradiction and hope. This one snapshots the
-                wave before each decision, and on failure restores it and forbids the tile that led
-                nowhere, so the search takes a genuinely different branch. Turn backtracking off in
-                the panel and watch how quickly a tight grid becomes unsolvable.
-              </p>
-            </article>
-
-            <article class="panel reveal" style="--reveal-delay: 160ms">
-              <h3 class="panel-title">Seeds mean something</h3>
-              <p>
-                The generator draws from a seeded pseudorandom stream, not from
-                <code>Math.random</code>. The same seed and the same settings give the same board
-                every time, on any machine. That is what makes a generated level something you can
-                file a bug against.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== METROIDVANIA ===================== -->
-      <section class="section" id="world">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Progression</p>
-            <h2>Lock and key worlds</h2>
-            <p class="lede">
-              A metroidvania is a promise that everything you can see, you can eventually reach.
-              The generator below builds its worlds so that the promise cannot be broken, and then
-              a separate checker, which knows nothing about how the world was built, starts at the
-              entrance with nothing and tries to break it anyway.
-            </p>
-          </div>
-
-          <div class="demo reveal" data-demo="world">
-            <div class="demo-stage" hidden></div>
-            <p class="demo-fallback">
-              This is an interactive world generator and progression validator. It needs
-              JavaScript, which is currently blocked or still loading.
-            </p>
-          </div>
-
-          <div class="split split-wide-left reveal" style="margin-top: 2rem">
-            <div class="stack">
-              <h3 class="panel-title">Two halves that do not trust each other</h3>
-              <p>
-                The generator sorts rooms by how far they are from the start, cuts that order into
-                regions, and locks the way into each region behind the ability that sits in the
-                region before it. So each region can only be opened once you have cleared the one
-                before it, all the way back to the start.
-              </p>
-              <p>
-                The validator ignores all of that. It starts at the spawn holding nothing, walks
-                only the doors it can actually open, picks up whatever it finds, and goes again
-                until it stops making progress. Then it reports what it reached and in what order.
-              </p>
-              <p class="dim">
-                A generator that grades its own homework always passes. Separating the two is what
-                turns "should be reachable" into "was reached, in this order, from a cold start".
-              </p>
-            </div>
-
-            <div class="stack">
-              <h3 class="panel-title">What the colours mean</h3>
-              <p>
-                Rooms are tinted by region. Coloured bars across a doorway are ability gates, and
-                they clear as the validator picks the ability up. The circle is where an ability
-                lives, the triangle is the boss, and <strong>S</strong> is the spawn.
-              </p>
-              <p class="dim">
-                Anything the validator could not reach gets outlined in red. On a world built the
-                way this one is, that outline should never appear, which is exactly why it is worth
-                drawing. Our own 404 page makes a joke about this. The generator really does refuse
-                to build a room the player cannot reach.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== THE GAME ===================== -->
-      <section class="section section-sunk" id="game">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Playable</p>
-            <h2 class="ember-text">Ember Run</h2>
-            <p class="lede">
-              A small platformer whose level is carved out of a collapsed wave. It is not a
-              screenshot of the solver above, it is running the solver above. Change the seed and
-              you are somewhere else.
-            </p>
-          </div>
-
-          <div class="demo reveal" data-demo="game">
-            <div class="demo-stage" hidden></div>
-            <p class="demo-fallback">
-              This is a playable platformer. It needs JavaScript, which is currently blocked or
-              still loading.
-            </p>
-          </div>
-
-          <div class="grid grid-3" style="margin-top: 2rem">
-            <article class="panel reveal">
-              <h3 class="panel-title">Controls</h3>
-              <p>
-                Click the game to give it focus, then arrows or <strong>WASD</strong> to move,
-                <strong>Z</strong> to jump, <strong>X</strong> to attack and <strong>Shift</strong>
-                to dash. A gamepad works too. Nothing is captured until you click, so the page
-                still scrolls normally.
-              </p>
-            </article>
-
-            <article class="panel reveal" style="--reveal-delay: 80ms">
-              <h3 class="panel-title">The air is the point</h3>
-              <p>
-                Hit an enemy standing on the ground and it launches into the air. Hit one already
-                up there and it stays up, a little lower each time. Combos only count while you or
-                your target are off the ground. It is a mechanic from our own game, Sentinels of
-                Gleamwood, and the one small enough to rebuild here properly.
-              </p>
-            </article>
-
-            <article class="panel reveal" style="--reveal-delay: 160ms">
-              <h3 class="panel-title">The level is proved, not hoped</h3>
-              <p>
-                Knowing every empty space joins up says something about the map, not about the
-                player, and a level can pass that test while hiding a ledge nobody can jump to.
-                So before a level is handed to you, a checker walks it using only running and
-                jumping, pretending the wall jump and the dash do not exist. The exit goes at the
-                furthest point it could prove you can reach, and a level it cannot mostly get
-                around is thrown away rather than served.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== THE PANEL ===================== -->
-      <section class="section" id="debug-ui">
-        <div class="shell shell-narrow">
-          <div class="section-head reveal">
-            <p class="eyebrow">Tooling</p>
-            <h2>The panel beside every demo</h2>
-          </div>
-          <p class="lede reveal">
-            None of the three demos above has a control panel of its own. They all declare their
-            tunable values and one shared component builds the interface, which is a port of our
-            Unity package
-            <a class="link-out" href="https://github.com/hisham-CSS/unity-runtimedebugui" target="_blank" rel="noopener">
-              Runtime Debug UI<span class="sr-only">, on GitHub</span>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </a>
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            The claim the package makes is that you should declare a tunable field and have the
-            panel follow, with no interface code written anywhere. Letting you tune three unrelated
-            programs through the same panel is a more convincing demonstration of that than a
-            paragraph would be. Values persist in local storage, saving is debounced so dragging a
-            slider does not thrash it, and Reset puts everything back.
-          </p>
-          <p class="dim measure reveal" style="margin-top: 1rem">
-            The game's panel uses the declarative path and the solver's uses explicit control
-            configuration, because the solver wants live readouts and ranges that depend on other
-            controls. Both are the same component. That split is deliberate, and porting it here
-            is how the button control type and a fix for a panel that swallowed clicks got proved
-            out before going back into the C# package.
-          </p>
-        </div>
-      </section>
-
-      <!-- ===================== THE SHELF ===================== -->
-      <section class="section section-sunk" id="tools">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Also on the shelf</p>
-            <h2>Things that do not fit in a browser</h2>
-            <p class="lede">
-              The rest of what we build for ourselves. Two published Unity packages and an engine.
-              Both packages install straight from a package manager git URL, and we run them in our
-              own projects every day.
-            </p>
-          </div>
-
-          <div class="grid grid-3">
-            <article class="panel panel-hover reveal">
-              <p class="badge badge-dim">Unity package</p>
-              <h3 class="panel-title" style="margin-top: 1rem">Runtime Debug UI</h3>
-              <p>
-                Data driven debug panels for Unity. Tabs, sliders, toggles and readouts declared as
-                configuration rather than built by hand, with values that persist between runs.
-                Installable by package manager git URL. The panels on this page are its port.
-              </p>
-              <a class="link-out" href="https://github.com/hisham-CSS/unity-runtimedebugui" target="_blank" rel="noopener">
-                View on GitHub<span class="sr-only">, Runtime Debug UI</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
-              <p class="badge badge-dim">Unity package</p>
-              <h3 class="panel-title" style="margin-top: 1rem">Enhanced Logging</h3>
-              <p>
-                Logging for Unity that compiles out entirely in a release build. Console, file and
-                on screen targets, with the scripting define symbols managed automatically per
-                build type so nobody has to remember to turn it off before shipping.
-              </p>
-              <a class="link-out" href="https://github.com/hisham-CSS/unity-enhancedlogging" target="_blank" rel="noopener">
-                View on GitHub<span class="sr-only">, Enhanced Logging</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
-              <p class="badge badge-dim">C++ engine</p>
-              <h3 class="panel-title" style="margin-top: 1rem">Cat Splat Engine</h3>
-              <p>
-                A C++17 runtime on OpenGL 3.3 with a dockable editor, a standalone player and an
-                asset cooker. Cascaded shadows, physically based rendering, swappable physics and
-                scripting backends. There is more about it on the
-                <a href="../services/index.html#engine">services page</a>.
-              </p>
-              <a class="link-out" href="https://github.com/hisham-CSS/GameEngineFramework" target="_blank" rel="noopener">
-                View on GitHub<span class="sr-only">, Cat Splat Engine</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== CTA ===================== -->
-      <section class="section section-cta">
-        <div class="hearth" aria-hidden="true"></div>
-        <div class="embers" aria-hidden="true"></div>
-        <div class="shell shell-narrow center">
-          <h2 class="reveal">Want this kind of thing built</h2>
-          <p class="lede reveal">
-            Procedural generation, tooling and the unglamorous systems work that makes a team
-            faster. That is most of what we do when we are not making our own games.
-          </p>
-          <div class="btn-row reveal">
-            <a class="btn btn-primary btn-lg" href="../services/index.html">
-              What we do
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <a class="btn btn-ghost btn-lg" href="mailto:info@catsplatstudios.com?subject=Playground">Email us</a>
-          </div>
-        </div>
-      </section>
+      <section class="section playground-intro"><div class="shell"><p class="eyebrow">The Playground</p><h1>Play a little.<br /><span class="ember-text">Explore the machinery.</span></h1><p class="lede">A browser game and hands-on experiments from Cat Splat Studios.</p><nav class="btn-row" aria-label="Playground sections"><a class="btn btn-ghost" href="#game">Ember Run</a><a class="btn btn-ghost" href="#wfc">Tile generator</a><a class="btn btn-ghost" href="#world">World builder</a></nav></div></section>
+      <section class="section section-sunk" id="game"><div class="shell"><p class="eyebrow">Browser experiment</p><h2 class="game-display">Ember Run</h2><p class="lede">Jump, dash and take the fight into the air. Find the exit in a generated platforming level.</p><p class="dim">Inspired by Gleamwood, but built separately in JavaScript. This is not the Unity game's demo.</p>
+        <p class="play-instructions" id="game-controls"><strong>Controls:</strong> arrows or WASD to move, Z to jump, X to attack, Shift to dash. Choose Play to focus the game. On a phone, use fullscreen and turn sideways for touch controls.</p>
+        <div class="demo" data-demo="game"><div class="demo-stage" hidden></div><p class="demo-fallback">Ember Run needs JavaScript. Enable it or try again when the page has finished loading.</p></div>
+        <p class="dim">Want to experiment? Open Developer tools to change the seed, movement or combat settings. Reset in the Player panel restores the default tuning.</p>
+      </div></section>
+      <section class="section" id="wfc"><div class="shell"><p class="eyebrow">Procedural generation</p><h2>Build a pattern, one tile at a time.</h2><p class="lede">Watch a wave function collapse solver fit compatible tiles together. Switch between circuits and dungeons, try a new seed, or step through each decision.</p>
+        <div class="demo" data-demo="wfc"><div class="demo-stage" hidden></div><p class="demo-fallback">The tile generator needs JavaScript. Enable it to try this experiment.</p></div>
+        <details class="experiment-notes"><summary>How the tile generator works</summary><p>Each tile declares which edges can connect and how often it should appear. The solver chooses a tile, narrows its neighbours' options and continues. Backtracking lets it revisit a decision when the constraints conflict.</p><p>A seed makes a result reproducible with the same settings. The panel lets you explore how grid size, weights and the search budget affect the result.</p></details>
+      </div></section>
+      <section class="section section-sunk" id="world"><div class="shell"><p class="eyebrow">World building</p><h2>A path through a locked world.</h2><p class="lede">Generate rooms connected by ability gates, then watch a checker explore what becomes reachable as abilities are collected.</p>
+        <div class="demo" data-demo="world"><div class="demo-stage" hidden></div><p class="demo-fallback">The world builder needs JavaScript. Enable it to try this experiment.</p></div>
+        <details class="experiment-notes"><summary>How the world checker works</summary><p>The generator places rooms, gates and abilities. A separate checker starts at the entrance and follows the connections it can use, collecting abilities and checking again until it can go no further.</p><p>The result reports which rooms it reached. Colours show regions, bars indicate gates, and the triangle marks the boss.</p></details>
+      </div></section>
+      <section class="section" id="tools"><div class="shell"><p class="eyebrow" id="debug-ui">Tools behind the experiments</p><h2>Explore the source.</h2><div class="case-notes">
+        <article><h3>Runtime Debug UI</h3><p>Configurable Unity tuning panels. The controls on this page are a browser adaptation.</p><a class="text-link" href="https://github.com/hisham-CSS/unity-runtimedebugui" target="_blank" rel="noopener">View the package →</a></article>
+        <article><h3>Enhanced Logging</h3><p>Unity logging tools with console, file and on-screen output.</p><a class="text-link" href="https://github.com/hisham-CSS/unity-enhancedlogging" target="_blank" rel="noopener">View the package →</a></article>
+        <article><h3>Cat Splat Engine</h3><p>Our C++ runtime, scene editor and asset tools.</p><a class="text-link" href="../services/index.html#engine">Explore the engine →</a></article>
+      </div></div></section>
+      <section class="section section-cta"><div class="shell shell-narrow center"><h2>Need tools like these?</h2><p class="lede">We build procedural systems, gameplay and production tools for other teams.</p><div class="btn-row"><a class="btn btn-primary" href="../services/index.html">Work with us</a></div></div></section>
     </main>
 
     <footer class="site-footer">

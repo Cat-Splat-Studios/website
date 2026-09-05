@@ -193,6 +193,8 @@
     if (this.mount) this.mount.appendChild(root);
   };
 
+  DebugUI.nextId = 0;
+
   /* Mirrors AddTab(DebugTabConfig). */
   DebugUI.prototype.addTab = function (config) {
     var self = this;
@@ -202,6 +204,19 @@
     btn.type = "button";
     btn.setAttribute("role", "tab");
     btn.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    btn.tabIndex = index === 0 ? 0 : -1;
+    btn.id = "dbg-tab-" + DebugUI.nextId++;
+    btn.addEventListener("keydown", function (event) {
+      var target = index;
+      if (event.key === "ArrowRight") target = (index + 1) % self.tabs.length;
+      else if (event.key === "ArrowLeft") target = (index + self.tabs.length - 1) % self.tabs.length;
+      else if (event.key === "Home") target = 0;
+      else if (event.key === "End") target = self.tabs.length - 1;
+      else return;
+      event.preventDefault();
+      self.selectTab(target);
+      self.tabs[target].button.focus();
+    });
     btn.addEventListener("click", function () {
       self.selectTab(index);
     });
@@ -209,6 +224,9 @@
 
     var pane = el("div", "dbg-pane");
     pane.setAttribute("role", "tabpanel");
+    pane.id = btn.id + "-panel";
+    pane.setAttribute("aria-labelledby", btn.id);
+    btn.setAttribute("aria-controls", pane.id);
     if (index !== 0) pane.hidden = true;
     this.body.appendChild(pane);
 
@@ -251,6 +269,7 @@
     this.tabs.forEach(function (t, i) {
       var on = i === index;
       t.button.setAttribute("aria-selected", on ? "true" : "false");
+      t.button.tabIndex = on ? 0 : -1;
       t.button.classList.toggle("is-active", on);
       t.pane.hidden = !on;
     });
@@ -363,6 +382,7 @@
       var range = el("input");
       range.type = "range";
       range.className = "dbg-range";
+      range.setAttribute("aria-label", control.displayName || control.name);
       var whole = !!control.wholeNumbers;
 
       var applyRange = function () {

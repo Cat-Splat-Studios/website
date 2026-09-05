@@ -7,6 +7,23 @@
  * loads first.
  */
 
+.playground-intro { padding-top: 8rem; padding-bottom: 2rem; }
+.playground-intro h1 { font-size: var(--step-4); }
+[data-demo="game"] .demo-stage { grid-template-columns: minmax(0, 1fr); }
+.game-developer-tools { grid-column: 1 / -1; min-width: 0; }
+.game-developer-tools > summary, .experiment-notes > summary {
+  cursor: pointer;
+  padding: 1rem;
+  min-height: 44px;
+  color: var(--text-bright);
+  border: 1px solid var(--rule);
+}
+.game-developer-tools > .demo-bar { margin-block: 1rem; }
+.game-developer-tools .demo-panel { margin-top: 1rem; }
+.experiment-notes { margin-top: 1.5rem; }
+.experiment-notes p { margin: 1rem; max-width: 70ch; }
+.play-instructions { margin-block: 1rem; max-width: 70ch; }
+
 /* ---------------------------------------------------------------------
  * Demo frame
  * ------------------------------------------------------------------- */

@@ -7,7 +7,7 @@
     <title>Cat Splat Studios · Toronto game studio</title>
     <meta
       name="description"
-      content="Cat Splat Studios is an independent game studio in Toronto. We're building Sentinels of Gleamwood, a controller-first 2D action roguelite, and we build games for other studios too." />
+      content="Cat Splat Studios is an independent Toronto game studio building original games, Unity and Unreal gameplay, tools and engine technology." />
     <link rel="canonical" href="https://catsplatstudios.com/" />
 
     <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
     <meta property="og:title" content="Cat Splat Studios · Toronto game studio" />
     <meta
       property="og:description"
-      content="Building Sentinels of Gleamwood, a controller-first 2D action roguelite. And building games for other studios." />
+      content="Cat Splat Studios is an independent Toronto game studio building original games, Unity and Unreal gameplay, tools and engine technology." />
     <meta property="og:url" content="https://catsplatstudios.com/" />
     <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
     <meta property="og:image:width" content="1200" />
@@ -30,6 +30,7 @@
 
     <link rel="preload" href="assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="stylesheet" href="assets/css/site.css" />
+    <link rel="stylesheet" href="assets/css/showcase.css" />
 
     <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
          until site.js marks it in view. Drop no-js here rather than in site.js:
@@ -85,202 +86,38 @@
     </header>
 
     <main id="main" tabindex="-1">
-      <!-- ===================== HERO ===================== -->
-      <section class="hero">
-        <div class="hearth" aria-hidden="true"></div>
-        <div class="ember-bed" aria-hidden="true"></div>
-        <div class="embers" aria-hidden="true"></div>
-
-        <!-- Layered treeline silhouette. Pure SVG, scales to any width, and
-             aria-hidden because it carries no information. -->
-        <div class="grove" aria-hidden="true">
-          <svg viewBox="0 0 1600 400" preserveAspectRatio="none" focusable="false">
-            <!-- Far ridge -->
-            <path class="grove-far" d="M0 400V246L100 231L200 211L300 213L400 207L500 204L600 217L700 217L800 224L900 233L1000 262L1100 269L1200 284L1300 274L1400 280L1500 293L1600 266L1600 400Z"/>
-            <!-- Mid treeline -->
-            <path class="grove-mid" d="M0 400V352L40 169L80 342L120 256L161 354L208 239L256 346L293 216L330 356L361 204L392 361L437 154L483 345L516 275L550 355L581 279L613 362L657 239L702 343L739 157L777 360L819 192L862 361L899 240L937 360L979 294L1022 351L1063 294L1104 344L1150 193L1196 364L1242 262L1288 363L1324 194L1360 347L1408 230L1456 363L1503 198L1551 360L1585 169L1600 345L1600 400Z"/>
-            <!-- Near trunks -->
-            <g class="grove-near">
-              <path d="M120 400V250l-22-38 22 24V196l-18-30 18 16v-40l14 34 16-28-16 34v44l24-30-24 42v152Z"/>
-              <path d="M395 400V276l-26-42 26 26v-52l-20-34 20 18v-34l12 30 20-34-20 42v40l28-36-28 48v152Z"/>
-              <path d="M690 400V232l-18-32 18 18v-46l-22-36 22 20v-38l14 32 18-30-18 36v46l26-32-26 46v184Z"/>
-              <path d="M1010 400V264l-24-40 24 24v-48l-18-30 18 16v-36l12 28 22-36-22 44v38l26-32-26 46v162Z"/>
-              <path d="M1320 400V244l-20-34 20 20v-44l-24-38 24 22v-36l14 32 20-34-20 42v42l26-32-26 46v170Z"/>
-              <path d="M1520 400V286l-18-30 18 18v-40l-16-26 16 14v-30l10 26 18-30-18 38v34l22-28-22 40v114Z"/>
-            </g>
-          </svg>
-        </div>
-
+      <section class="studio-hero">
         <div class="shell">
-          <div class="hero-grid">
-          <div class="hero-inner">
-            <p class="eyebrow">Cat Splat Studios · Toronto</p>
-
-            <h1 class="hero-title">
-              <span class="hero-title-sm">Sentinels of</span>
-              <span class="hero-title-lg ember-text">Gleamwood</span>
-            </h1>
-
-            <p class="lede">
-              A 2D action game, built for a gamepad, where dying sends you back to the start with
-              a new layout and a little more to spend. Knock an enemy into the air, keep it there,
-              and finish it with a move you only get once. Every level branches into as many as
-              four routes, and one of them ends at the boss.
-            </p>
-
-            <div class="btn-row">
-              <a class="btn btn-primary btn-lg" href="playground/index.html#game">
-                Play a browser prototype
-                <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-              <a class="btn btn-ghost btn-lg" href="games/index.html">
-                How the combat works
-                <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-              <a class="btn btn-ghost btn-lg" href="services/index.html">
-                Work with us
-                <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-            </div>
-
-            <p class="hero-note">
-              <span class="badge badge-live">In development</span>
-              <span class="dim">Unity 6 · Windows via Steam · Store page not open yet</span>
-            </p>
-          </div>
-
+          <p class="eyebrow">Cat Splat Studios · Toronto</p>
+          <h1>Independent games.<br /><span class="ember-text">Thoughtful engineering.</span></h1>
+          <div class="studio-intro">
+            <p class="lede">We develop original games and help other teams build theirs. Gameplay, tools and engine technology, with the people doing the work involved from the first conversation.</p>
+            <div class="btn-row"><a class="btn btn-primary" href="games/index.html">Explore our work</a><a class="btn btn-ghost" href="services/index.html#contact">Discuss a project</a></div>
           </div>
         </div>
       </section>
-
-      <!-- ===================== THE GAME ===================== -->
-      <section class="section" id="game">
+      <section class="section section-sunk" id="game">
         <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">The game</p>
-            <h2>A roguelite about the air, and the way out</h2>
-            <p class="lede">
-              Sentinels of Gleamwood is a 2D action roguelite for a controller. It is about getting
-              enemies off the ground and finishing them before they land, and about deciding for
-              yourself how a run goes.
-            </p>
-          </div>
-
-          <div class="grid grid-2">
-            <article class="panel panel-hover reveal">
-              <h3 class="panel-title">Fight upward</h3>
-              <p>
-                Hits on a grounded enemy build toward a launch. Once it is airborne you have a
-                short window to do something with it, and the game is built so that window is
-                always the same length. Learning what fits inside it is most of the skill.
-              </p>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
-              <h3 class="panel-title">Finishers you set up</h3>
-              <p>
-                Executions are not a button you press when a bar is full. Each one needs a
-                particular kind of hit landed on an enemy in a particular condition, stunned or
-                airborne for instance, so the two weapons you are carrying decide which finishers
-                you can reach at all.
-              </p>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
-              <h3 class="panel-title">Pick your way out</h3>
-              <p>
-                Levels branch, and every exit is a door you walk up to and read before you take it.
-                One of them leads to the boss. Another skips the fight, the reward and the rest that
-                follows, and you carry on with the health you have.
-              </p>
-            </article>
-
-            <article class="panel panel-hover reveal" style="--reveal-delay: 240ms">
-              <h3 class="panel-title">Movement you earn</h3>
-              <p>
-                The dash and the wall jump are bought, not given. The game knows what you own and
-                only builds levels you can actually clear, so buying one visibly opens the game up.
-              </p>
-            </article>
-          </div>
-
-          <div class="center" style="margin-top: 2.75rem">
-            <a class="btn btn-ghost btn-lg reveal" href="games/index.html">
-              More about the game
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
+          <div class="section-head"><p class="eyebrow">Selected work</p><h2>Games to play. Tools to build with.</h2></div>
+          <article class="work-feature">
+            <div class="project-lockup"><p class="eyebrow">Original game · In development</p><h3 class="game-display">Sentinels of<br /><span class="ember-text">Gleamwood</span></h3><p>Unity · 2D action roguelite</p></div>
+            <div class="work-copy"><h3>Take the fight into the air.</h3><p>Launch enemies, combine blade and bow, and find your own route through a changing world. Gleamwood brings expressive combat and branching runs together in a game built around the feel of a controller.</p><p class="dim">Art, story and content are evolving. The Steam page is not public yet.</p><a class="btn btn-ghost" href="games/index.html#gleamwood">Explore Gleamwood</a></div>
+          </article>
+          <article class="work-feature work-feature-reverse">
+            <figure class="project-image"><img src="assets/img/shifter-hero.webp" alt="Shifter's blue fighter craft with glowing magenta thrusters." width="859" height="706" loading="lazy" /><figcaption>Codename: Shifter · Project artwork</figcaption></figure>
+            <div class="work-copy"><p class="eyebrow">Unreal Engine · Studio project</p><h3>Codename: Shifter</h3><p>A top-down arcade shooter built around responsive flight and coordinated enemies. A Cat Splat Studios-led project, from gameplay specifications to programming and implementation.</p><a class="btn btn-ghost" href="games/index.html#shifter">View the project</a></div>
+          </article>
+          <div class="work-links">
+            <a href="services/index.html#engine"><span class="eyebrow">C++ technology</span><h3>Cat Splat Engine</h3><p>A runtime, editor and tools built together.</p><span class="text-link">Explore the engine →</span></a>
+            <a href="playground/index.html#game"><span class="eyebrow">Play in your browser</span><h3>Ember Run &amp; the Playground</h3><p>A small platformer and hands-on experiments in procedural generation.</p><span class="text-link">Open the Playground →</span></a>
           </div>
         </div>
       </section>
-
-      <!-- ===================== THE SAME STANDARD, FOR HIRE ===================== -->
-      <section class="section section-sunk" id="services">
-        <div class="shell">
-          <div class="section-head reveal">
-            <p class="eyebrow">Work with us</p>
-            <h2>The same standard, for hire</h2>
-            <p class="lede">
-              Everything above is one codebase. It has 657 automated tests, all of them passing,
-              and two checks that read the game's content and refuse to build if a designer has
-              authored something broken. It has been through 21 numbered builds on the Steam
-              pipeline. We take that way of working into other people's projects.
-            </p>
-          </div>
-
-          <div class="grid grid-3">
-            <article class="panel panel-hover reveal">
-              <h3 class="panel-title">Unity gameplay engineering</h3>
-              <p>
-                Character controllers, combat with real hit windows and hitstop, enemy AI authored
-                as data, and procedural generation that proves its own output is walkable.
-              </p>
-            </article>
-            <article class="panel panel-hover reveal" style="--reveal-delay: 80ms">
-              <h3 class="panel-title">Tools your designers will open</h3>
-              <p>
-                Runtime debug panels, content workbenches, and scene-view tuners that share their
-                maths with the gameplay code, so the preview cannot drift from the game.
-              </p>
-            </article>
-            <article class="panel panel-hover reveal" style="--reveal-delay: 160ms">
-              <h3 class="panel-title">Engine and graphics work</h3>
-              <p>
-                We wrote our own C++17 and OpenGL engine. It has an eleven-pass renderer, cascaded
-                shadow maps, an ECS and a dockable editor. No game has shipped on it, and it is
-                evidence that we are comfortable this far down the stack.
-              </p>
-            </article>
-          </div>
-
-          <div class="center" style="margin-top: 2.75rem">
-            <a class="btn btn-ghost btn-lg reveal" href="services/index.html">
-              What we offer
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== CTA ===================== -->
-      <section class="section section-cta">
-        <div class="hearth" aria-hidden="true"></div>
-        <div class="embers" aria-hidden="true"></div>
-        <div class="shell shell-narrow center">
-          <h2 class="reveal">Come back for the wishlist</h2>
-          <p class="lede reveal">
-            The Steam page is not open yet. When it is, wishlisting will be the single most useful
-            thing you can do for the game, because it costs nothing and it decides how many people
-            ever see it.
-          </p>
-          <div class="btn-row reveal">
-            <a class="btn btn-primary btn-lg" href="games/index.html">
-              How the combat works
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <a class="btn btn-ghost btn-lg" href="about/index.html">Meet the studio</a>
-          </div>
-        </div>
-      </section>
+      <section class="section" id="services"><div class="shell split">
+        <div><p class="eyebrow">Work with us</p><h2>A development partner,<br />not another handoff.</h2></div>
+        <div><p class="lede">From a first playable prototype to a difficult subsystem, we help teams turn an idea into something they can run, tune and build on.</p><p>Unity and Unreal C++ gameplay, designer-facing tools, procedural generation, and engine development.</p><div class="btn-row"><a class="btn btn-primary" href="services/index.html">Our services</a></div></div>
+      </div></section>
+      <section class="section section-cta"><div class="shell shell-narrow center"><h2>Meet the people behind the work.</h2><p class="lede">Two people and a cat, making games in Toronto since 2015.</p><div class="btn-row"><a class="btn btn-ghost" href="about/index.html">Meet the studio</a></div></div></section>
     </main>
 
     <!-- ===================== FOOTER ===================== -->
