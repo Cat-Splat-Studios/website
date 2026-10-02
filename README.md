@@ -5,13 +5,13 @@ and JavaScript.
 
 **No dependencies. No build step. No `node_modules`.** There is nothing to install and
 nothing to compile. The `site/` directory *is* the website, byte for byte, exactly as it
-gets served. That is deliberate: a six page site does not need a toolchain, and a repo
+gets served. That is deliberate: a seven page site does not need a toolchain, and a repo
 with no package manifest has nothing for Dependabot to raise alerts about.
 
 That still holds with the playground on it. The three demos there are hand written
 JavaScript: 120 KB of source, 36 KB gzipped, which is less than the team photo on the
-about page. That figure is stated on the page itself and guarded by `CLAIMS` in the
-checker, so re-measure before changing it.
+about page. That figure is not stated on any page and nothing checks it, so re-measure
+before quoting it.
 
 ## Layout
 
@@ -19,6 +19,7 @@ checker, so re-measure before changing it.
 site/                        everything in here is published, as-is
 ├── index.html               Home
 ├── games/index.html         Games
+├── games/neon-keys/         NEON KEYS: index.html is the page, play/ is the game build
 ├── playground/index.html    Playground, the interactive demos
 ├── services/index.html      Services, including the engine and its roadmap
 ├── about/index.html         About
@@ -32,6 +33,7 @@ site/                        everything in here is published, as-is
     ├── css/site.css         the stylesheet every page loads
     ├── css/playground.css   loaded only by /playground/
     ├── js/site.js           progressive enhancement only
+    ├── js/game-frame.js     the Play button on a game page, loaded only there
     ├── js/playground/       the demos, loaded only by /playground/
     │   ├── debug-ui.js      a port of our Unity runtime debug UI package
     │   ├── wfc.js           wave function collapse
@@ -77,10 +79,17 @@ root-absolute paths, that the canonical and `og:url` name the page's own served 
 the sitemap lists exactly the public pages, that the deploy-critical files exist, and that
 no em dash has crept back in.
 
-It also guards the figures the pages state as fact, the play-mode test count and the rest,
-by failing if one of them disappears from the markup. The failure mode of a
-hand-maintained number is silent staleness, and that check is what turns it into a loud
-one. When a figure genuinely changes, update `CLAIMS` in the same commit.
+It also measures the one figure a page states that the repo can prove: a game page's
+download size. The number sits in an element marked `data-download-size`, and the checker
+adds up the files in the game's folder and fails if the page disagrees. The failure mode of
+a hand-maintained number is silent staleness, and measuring it is what turns that into a
+loud one. (The older `CLAIMS` list only checked that a number was still present, not that
+it was true, and was retired.)
+
+HTML that ships but is not a site page, such as a game build's own `index.html`, is listed
+in `EMBEDS` instead of `PAGES`. Embeds skip the header, footer, nav, `h1`, canonical and
+sitemap rules, and keep the rest. Any HTML file under `site/` that is in neither list
+fails the check, so nothing ships unlooked at.
 
 The em dash sweep and the external-subresource rule cover everything in the `ASSETS` list,
 not just `site.css` and `site.js`. Add new stylesheets and scripts there when you add
@@ -113,11 +122,11 @@ DNS, for reference. The apex `A` records point at GitHub Pages:
 reason above, and the checker enforces the split in both directions.
 
 **The header and footer are copied into each page.** There is no templating layer, so a
-nav change is a six file edit, and the footer nav makes it seventeen individual insertions.
-That is the honest cost of having no build step, and at six pages it is still cheaper than
+nav change is a seven file edit, and the footer nav makes it twenty individual insertions.
+That is the honest cost of having no build step, and at seven pages it is still cheaper than
 the alternative. Search for `<header class="site-header"` to find every copy, then run the
 checker, which fails if they have drifted apart. If the site ever outgrows this, that is
-the moment to reconsider, and not before. Six is close to the line.
+the moment to reconsider, and not before. Seven is close to the line.
 
 **No em dashes.** A house rule, enforced by the checker across the HTML, the CSS and the
 JavaScript. Every construction that wants one reads better as a comma, a colon, a full
@@ -141,9 +150,9 @@ Those five accents have fixed meanings and there is no sixth. Display type is **
 Sans**, body is **Space Mono**, numerals are **Pixel Operator Mono**, which are the three
 faces the game uses.
 
-**JavaScript is optional, on five of the six pages.** `site.js` adds the ember field,
+**JavaScript is optional, on six of the seven pages.** `site.js` adds the ember field,
 scroll reveals, the sticky header, the mobile menu and the section rail. With it blocked,
-those five pages still render and every link still works. Keep it that way: nothing that
+those six pages still render and every link still works. Keep it that way: nothing that
 produces content belongs in `site.js`.
 
 `/playground/` is the exception, and it is scoped so it stays one. Its demos genuinely
@@ -159,7 +168,7 @@ counts and screen shake. Test new animation against it.
 
 **One stylesheet, with one exception.** `site.css` loads everywhere. `playground.css` is
 loaded only by `/playground/`, because roughly ten kilobytes of rules that exactly one
-page uses should not be paid for by the other five. Do not grow that into a habit: a
+page uses should not be paid for by the other six. Do not grow that into a habit: a
 second page wanting its own sheet is a sign the rules belong in `site.css` instead.
 
 ## The playground
@@ -183,12 +192,45 @@ still owes upstream to the Unity package.
 All three are gated on an `IntersectionObserver` and do no work off screen. All three take
 a seed and are reproducible from it.
 
+## Game builds
+
+`/games/neon-keys/` hosts NEON KEYS, a Unity 6 WebGL build. `index.html` there is an
+ordinary site page about the game. The game itself is in `play/`, exactly as Unity built
+it: the build's own `index.html`, `favicon.ico` and `Build/`.
+
+- **Nothing downloads until Play.** `game-frame.js` swaps the start panel for an iframe of
+  `play/index.html`. Without scripts, Play is a plain link to that page, which is the same
+  game filling the window.
+- **Tab leaves the game.** Unity swallows the Tab key, so `game-frame.js` listens inside
+  the frame and moves focus to the link after it (Shift+Tab: the section heading).
+  Otherwise a keyboard user could never get out. Keep the motion warning above the Play
+  button, so it is read and reached first.
+- **`Build/` is engine output.** Do not edit or rename its files, and do not add them to
+  `ASSETS`. To update the game, replace `play/` with the new build as a whole, run the
+  checker, and correct the download size on the page if it says the figure is off. Check
+  that the credits quoted on the page still match the ones the new build shows.
+- **Check a rebuild in a private window,** or with DevTools' "Disable cache" on. GitHub
+  Pages lets browsers reuse files for 10 minutes, and the build's file names never change,
+  so a browser that loaded the old game shortly before the push can mix old code with new
+  data until that runs out. Unity's "Name Files As Hashes" option would avoid it in future
+  builds.
+- **`robots.txt` keeps `play/` out of search results,** so searchers land on the page with
+  the warning and the credits, not on the bare game.
+- **No server settings needed.** The `.unityweb` files are gzip compressed and the build
+  has Unity's decompression fallback on, so GitHub Pages serves them as plain files and the
+  loader unpacks them in JavaScript. `.gitattributes` marks them binary.
+- **It will not start off disk.** Browsers refuse the requests the game makes to load its
+  own files from `file://`. To try it before pushing, run the `python -m http.server` line
+  above and open `http://localhost:8000/games/neon-keys/`.
+- **Every rebuild adds the full build to the git history**, since the files are binary and
+  change completely. Fine at this size, but worth knowing before shipping many builds.
+
 ## Editing content
 
 It is HTML. Open the page and change the words.
 
 - **Add a nav item.** Edit the `.nav` list, the `.mobile-nav` list and the footer's
-  Explore list, in all six pages, then run the checker. Remember that `404.html` keeps
+  Explore list, in all seven pages, then run the checker. Remember that `404.html` keeps
   root-absolute paths and that its footer is deliberately stripped.
 - **Add a page.** Copy an existing one, replace the `<main>`, update the `<title>`, the
   meta description, the canonical and the `og:url`, add it to the nav and to

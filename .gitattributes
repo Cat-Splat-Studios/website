@@ -20,6 +20,18 @@
 *.woff2  binary
 *.zip    binary
 
+# Unity WebGL builds, under site/games/*/play/. The .unityweb files are already
+# gzip compressed and the game's loader reads them byte for byte. Bare .wasm
+# and .data are what a build made without compression ships instead.
+*.unityweb  binary
+*.wasm      binary
+*.data      binary
+
 # GitHub language stats: this is a website, not a Python project. The one
 # script in tools/ is a checker, not the product.
 tools/*  linguist-vendored
+
+# The same goes for a game's Build/ folder: it is engine output, replaced whole
+# on every rebuild and never edited by hand, so keep it out of the stats and
+# collapsed in diffs.
+site/games/*/play/Build/**  linguist-generated

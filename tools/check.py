@@ -19,14 +19,29 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
+BASE = "https://catsplatstudios.com"
 
 PAGES = [
     SITE / "index.html",
     SITE / "games" / "index.html",
+    SITE / "games" / "neon-keys" / "index.html",
     SITE / "playground" / "index.html",
     SITE / "services" / "index.html",
     SITE / "about" / "index.html",
     SITE / "404.html",
+]
+
+# HTML documents that ship inside site/ but are not site pages. A Unity WebGL
+# build's own index.html is the case this exists for: the engine's web template
+# writes it, it fills the window with the game, and it has no site header or
+# footer, because the site page beside it frames it. Embeds get every rule that
+# applies to anything the site serves (tags nest, references resolve, paths
+# stay relative, nothing loads from another origin, no em dashes) and skip the
+# ones that only make sense for a site page (shared header and footer, nav
+# state, one h1, canonical, sitemap). The build's Build/ folder is engine
+# output and is not in ASSETS: nobody edits it, and a rebuild replaces it whole.
+EMBEDS = [
+    SITE / "games" / "neon-keys" / "play" / "index.html",
 ]
 
 # Scripts and stylesheets the pages load. Kept next to PAGES because the em dash
@@ -37,6 +52,7 @@ ASSETS = [
     SITE / "assets" / "css" / "playground.css",
     SITE / "assets" / "css" / "showcase.css",
     SITE / "assets" / "js" / "site.js",
+    SITE / "assets" / "js" / "game-frame.js",
     SITE / "assets" / "js" / "playground" / "debug-ui.js",
     SITE / "assets" / "js" / "playground" / "wfc.js",
     SITE / "assets" / "js" / "playground" / "metroidvania.js",
@@ -51,6 +67,16 @@ def rel(p: Path) -> str:
     return p.relative_to(ROOT).as_posix()
 
 
+def depth(page: Path) -> int:
+    """Directories between site/ and the page: 0 at the root, 2 for games/x/."""
+    return len(page.parent.relative_to(SITE).parts)
+
+
+def served_url(page: Path) -> str:
+    """The URL GitHub Pages serves a directory index at, trailing slash included."""
+    return BASE + "/" + "".join(part + "/" for part in page.parent.relative_to(SITE).parts)
+
+
 def fail(msg: str) -> None:
     problems.append(msg)
 
@@ -61,7 +87,7 @@ def block(html: str, tag: str, cls: str) -> str | None:
     return m.group(1) if m else None
 
 
-def normalise(s: str) -> str:
+def normalise(s: str, levels: int) -> str:
     """Collapse whitespace and drop the bits that are *supposed* to differ.
 
     Two things legitimately vary per page: which nav item is aria-current, and
@@ -72,18 +98,38 @@ def normalise(s: str) -> str:
     s = re.sub(r'\s+aria-current="page"', "", s)
     s = re.sub(r'<a class="btn btn-primary nav-cta".*?</a>', "<!--cta-->", s, flags=re.S)
     # Paths are relative so the site works from file://, which means a depth-1
-    # page writes ../assets where the root writes assets. Fold that away, or
-    # every page would look like it had drifted.
-    s = s.replace('="../', '="').replace('="/', '="')
+    # page writes ../assets where the root writes assets, and a depth-2 page
+    # writes ../../assets. Fold away exactly the page's own depth, or every
+    # page would look like it had drifted.
+    if levels:
+        s = s.replace('="' + "../" * levels, '="')
+    s = s.replace('="/', '="')
     s = re.sub(r"\s+", " ", s)
     return s.strip()
 
 
+sources = {p: p.read_text(encoding="utf-8") for p in PAGES}
+embeds = {p: p.read_text(encoding="utf-8") for p in EMBEDS if p.exists()}
+# Rules for anything the site serves run over `shipped`; rules that only make
+# sense for a page with the shared header and footer run over `sources`.
+shipped = {**sources, **embeds}
+
+for p in EMBEDS:
+    if p not in embeds:
+        fail(f"{rel(p)}: listed in EMBEDS but missing from the repo")
+
+# --------------------------------------------------------------------------
+# 0. Every HTML file under site/ is registered, as a page or as an embed, so
+#    nothing ships without this script having looked at it.
+# --------------------------------------------------------------------------
+
+for path in sorted(SITE.rglob("*.html")):
+    if path not in shipped:
+        fail(f"{rel(path)}: in neither PAGES nor EMBEDS, so nothing checks it")
+
 # --------------------------------------------------------------------------
 # 1. The header and footer are copy-pasted across pages. Catch drift.
 # --------------------------------------------------------------------------
-
-sources = {p: p.read_text(encoding="utf-8") for p in PAGES}
 
 for name, tag, cls, skip in [
     ("header", "header", "site-header", set()),
@@ -98,7 +144,7 @@ for name, tag, cls, skip in [
         if found is None:
             fail(f"{rel(page)}: no <{tag} class=\"{cls}\"> block found")
             continue
-        seen.setdefault(normalise(found), []).append(page)
+        seen.setdefault(normalise(found, depth(page)), []).append(page)
 
     if len(seen) > 1:
         groups = " | ".join(
@@ -113,6 +159,8 @@ for name, tag, cls, skip in [
 EXPECTED_CURRENT = {
     SITE / "index.html": "index.html",
     SITE / "games" / "index.html": "../games/index.html",
+    # A game's own page sits inside Games, so Games stays the current section.
+    SITE / "games" / "neon-keys" / "index.html": "../../games/index.html",
     SITE / "playground" / "index.html": "../playground/index.html",
     SITE / "services" / "index.html": "../services/index.html",
     SITE / "about" / "index.html": "../about/index.html",
@@ -172,7 +220,7 @@ class NestingCheck(HTMLParser):
         self.stack.pop()
 
 
-for page, html in sources.items():
+for page, html in shipped.items():
     parser = NestingCheck()
     parser.feed(html)
     for err in parser.errors:
@@ -206,7 +254,7 @@ for page, html in sources.items():
     elif page.name == "404.html":
         want = "/services/index.html"  # 404 stays root-absolute; see resolve()
     else:
-        want = ("../" if page.parent != SITE else "") + "services/index.html"
+        want = "../" * depth(page) + "services/index.html"
     if m.group(1) != want:
         fail(f"{rel(page)}: header CTA points at {m.group(1)!r}, expected {want!r}")
 
@@ -233,7 +281,7 @@ def resolve(href: str, page: Path) -> Path | None:
     return target
 
 
-for page, html in sources.items():
+for page, html in shipped.items():
     for href in re.findall(r'(?:href|src)="([^"]+)"', html):
         if href.startswith(("http://", "https://", "mailto:", "#", "data:")):
             continue
@@ -258,7 +306,7 @@ for page, html in sources.items():
 #     canonical disagree with the URL that actually gets served.
 # --------------------------------------------------------------------------
 
-for page, html in sources.items():
+for page, html in shipped.items():
     for href in re.findall(r'href="(/[^"]*)"', html):
         path = href.split("#", 1)[0]
         if not path or path == "/" or "." in path.rsplit("/", 1)[-1]:
@@ -269,7 +317,7 @@ for page, html in sources.items():
 # 3f. Only 404.html may use root-absolute paths, because only it is served
 #     from URLs it does not control. Everywhere else must stay relative so the
 #     site also works when opened straight off disk.
-for page, html in sources.items():
+for page, html in shipped.items():
     if page.name == "404.html":
         continue
     for href in re.findall(r'(?:href|src)="(/[^/][^"]*)"', html):
@@ -279,13 +327,10 @@ for page, html in sources.items():
 # 3c. Canonical and og:url must name the page's own served URL.
 # --------------------------------------------------------------------------
 
-BASE = "https://catsplatstudios.com"
 for page, html in sources.items():
     if page.name == "404.html":
         continue
-    want = BASE + "/" + (
-        "" if page.parent == SITE else page.parent.name + "/"
-    )
+    want = served_url(page)
     for prop, pattern in [
         ("canonical", r'<link rel="canonical" href="([^"]+)"'),
         ("og:url", r'<meta property="og:url" content="([^"]+)"'),
@@ -302,11 +347,7 @@ for page, html in sources.items():
 
 sitemap = (SITE / "sitemap.xml").read_text(encoding="utf-8")
 listed = set(re.findall(r"<loc>([^<]+)</loc>", sitemap))
-expected = {
-    BASE + "/" + ("" if p.parent == SITE else p.parent.name + "/")
-    for p in PAGES
-    if p.name != "404.html"
-}
+expected = {served_url(p) for p in PAGES if p.name != "404.html"}
 for missing in sorted(expected - listed):
     fail(f"site/sitemap.xml: missing {missing}")
 for extra in sorted(listed - expected):
@@ -319,7 +360,7 @@ for extra in sorted(listed - expected):
 #     the HTML entity, in markup and in comments alike.
 # --------------------------------------------------------------------------
 
-for page, html in sources.items():
+for page, html in shipped.items():
     for pattern, label in [("—", "em dash"), ("&mdash;", "&mdash; entity")]:
         start = 0
         while (idx := html.find(pattern, start)) != -1:
@@ -350,6 +391,32 @@ for page, html in sources.items():
             fail(f"{rel(page)}: retired copy returned: {phrase}")
 
 # --------------------------------------------------------------------------
+# 3i. Download sizes, measured rather than remembered. A page that hosts a
+#     game says how much pressing Play will download, in an element marked
+#     data-download-size. This adds up the files in the game's folder and
+#     compares, so a rebuilt game cannot leave a stale figure behind. Megabytes
+#     are decimal, as browsers report them, rounded to a whole number.
+# --------------------------------------------------------------------------
+
+DOWNLOADS = [
+    # (page that states the size, folder the visitor downloads to play)
+    (SITE / "games" / "neon-keys" / "index.html", SITE / "games" / "neon-keys" / "play"),
+]
+
+for page, folder in DOWNLOADS:
+    total = sum(f.stat().st_size for f in folder.rglob("*") if f.is_file())
+    want = f"{round(total / 1_000_000)} MB"
+    stated = re.findall(r"<[^>]*\bdata-download-size\b[^>]*>([^<]*)<", sources[page])
+    if not stated:
+        fail(f"{rel(page)}: no data-download-size figure for {rel(folder)}/")
+    for figure in stated:
+        if figure.strip() != want:
+            fail(
+                f"{rel(page)}: says {figure.strip()!r}, but {rel(folder)}/ is "
+                f"{total:,} bytes, which is {want}"
+            )
+
+# --------------------------------------------------------------------------
 # 4. Assets referenced from CSS exist.
 # --------------------------------------------------------------------------
 
@@ -372,7 +439,7 @@ for css_path in STYLESHEETS:
 #    Outbound links the user clicks are fine; subresources are not.
 # --------------------------------------------------------------------------
 
-for page, html in sources.items():
+for page, html in shipped.items():
     for m in re.finditer(r'<(script|link|img|iframe)\b[^>]*>', html, re.I):
         tag = m.group(0)
         res = re.search(r'(?:src|href)="(https?://[^"]+)"', tag)
@@ -408,4 +475,4 @@ if problems:
         print(f"  - {p}", file=sys.stderr)
     sys.exit(1)
 
-print(f"OK: {len(PAGES)} pages checked, no problems found.")
+print(f"OK: {len(PAGES)} pages and {len(embeds)} embedded game page(s) checked, no problems found.")

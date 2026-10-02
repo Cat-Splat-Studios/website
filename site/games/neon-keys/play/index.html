@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <!-- NEON KEYS WebGL template: Unity's Minimal template, restyled (KIT-WORK 12). No external files. -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+    <title>Neon Keys | Catsplat Studios</title>
+    <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030308'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2300E5FF'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%238A5CFF' stroke-width='2'/%3E%3C/svg%3E">
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #030308; }
+      body { display: flex; align-items: center; justify-content: center;
+             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #cfe9ff; }
+      #frame { position: relative; width: min(100vw, calc(100vh * 16 / 9)); height: min(100vh, calc(100vw * 9 / 16)); }
+      #unity-canvas { width: 100%; height: 100%; display: block; background: #030308; outline: none; }
+      #loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
+      #brand { letter-spacing: 0.45em; font-size: clamp(11px, 1.6vw, 18px); color: #9fb6ff; text-shadow: 0 0 12px rgba(138, 92, 255, 0.8); }
+      #bar { width: min(60%, 520px); height: 6px; border-radius: 3px; background: #0d1020; box-shadow: inset 0 0 0 1px #1b2240; overflow: hidden; }
+      #fill { width: 0%; height: 100%; background: #00E5FF; box-shadow: 0 0 12px #00E5FF, 0 0 28px rgba(0, 229, 255, 0.6); transition: width 0.15s; }
+      #fullscreen { position: absolute; right: 12px; bottom: 12px; padding: 6px 12px; border-radius: 4px; cursor: pointer;
+                    background: rgba(3, 3, 8, 0.6); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.5);
+                    font: inherit; font-size: 12px; letter-spacing: 0.15em; box-shadow: 0 0 10px rgba(0, 229, 255, 0.25); display: none; }
+      #fullscreen:hover { background: rgba(0, 229, 255, 0.15); }
+      #warning { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); padding: 8px 14px; border-radius: 4px;
+                 background: rgba(255, 45, 85, 0.15); border: 1px solid rgba(255, 45, 85, 0.6); color: #ffd0da; font-size: 13px; display: none; }
+    </style>
+  </head>
+  <body>
+    <div id="frame">
+      <canvas id="unity-canvas" width=1280 height=720 tabindex="-1"></canvas>
+      <div id="loader">
+        <div id="brand">CATSPLAT STUDIOS · NEON KEYS</div>
+        <div id="bar"><div id="fill"></div></div>
+      </div>
+      <button id="fullscreen" title="Fullscreen">FULLSCREEN</button>
+      <div id="warning"></div>
+    </div>
+    <script src="Build/webgl.loader.js"></script>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+      // The game never captures the mouse (a fixed top-down camera). The level kit's mover still asks
+      // for pointer lock once per level; without a user gesture the browser rejects that request, and
+      // Unity would report the rejection as a fatal error. Make the request a quiet no-op instead.
+      canvas.requestPointerLock = function () { return Promise.resolve(); };
+      window.addEventListener("unhandledrejection", function (e) {
+        var r = e.reason;
+        if (r && /pointer ?lock/i.test(String(r.message || r))) e.preventDefault();
+      });
+      var fill = document.querySelector("#fill");
+      var loader = document.querySelector("#loader");
+      var fullscreen = document.querySelector("#fullscreen");
+      var warning = document.querySelector("#warning");
+      function showBanner(msg, type) {
+        if (type === "error" || type === "warning") {
+          warning.textContent = msg;
+          warning.style.display = "block";
+          if (type === "warning") setTimeout(function () { warning.style.display = "none"; }, 6000);
+        }
+      }
+      createUnityInstance(canvas, {
+        arguments: [],
+        dataUrl: "Build/webgl.data.unityweb",
+        frameworkUrl: "Build/webgl.framework.js.unityweb",
+        codeUrl: "Build/webgl.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        autoSyncPersistentDataPath: true, // best times are saved with PlayerPrefs; no manual sync call needed
+        companyName: "Catsplat Studios",
+        productName: "Neon Keys",
+        productVersion: "1.0.0",
+        showBanner: showBanner,
+        errorHandler: function (message) {
+          return /pointer ?lock/i.test(String(message)); // handled: never alert for a pointer-lock refusal
+        },
+      }, function (progress) {
+        fill.style.width = (100 * progress) + "%";
+      }).then(function (unityInstance) {
+        loader.style.display = "none";
+        fullscreen.style.display = "block";
+        fullscreen.onclick = function () { unityInstance.SetFullscreen(1); };
+        canvas.focus();
+      }).catch(function (message) {
+        showBanner(String(message), "error");
+      });
+      canvas.addEventListener("click", function () { canvas.focus(); });
+    </script>
+  </body>
+</html>

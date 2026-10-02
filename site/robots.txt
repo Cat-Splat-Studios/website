@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+# A game build's own page is the bare game, with no warning, credits or way
+# back. Search results should send people to the page about the game instead.
+Disallow: /games/neon-keys/play/
 
 Sitemap: https://catsplatstudios.com/sitemap.xml

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NEON KEYS · Cat Splat Studios</title>
+    <meta
+      name="description"
+      content="Play NEON KEYS, a short neon maze game for desktop browsers. A local AI agent on one gaming PC, with no cloud service, designed its five levels, and every level was proven finishable." />
+    <link rel="canonical" href="https://catsplatstudios.com/games/neon-keys/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cat Splat Studios" />
+    <meta property="og:title" content="NEON KEYS · Cat Splat Studios" />
+    <meta
+      property="og:description"
+      content="A short neon maze game for desktop browsers. A local AI agent on one gaming PC, with no cloud service, designed its five levels. Frontier AI built most of the game around them." />
+    <meta property="og:url" content="https://catsplatstudios.com/games/neon-keys/" />
+    <meta property="og:image" content="https://catsplatstudios.com/assets/img/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sentinels of Gleamwood, a controller-first 2D action roguelite from Cat Splat Studios" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#100d14" />
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../assets/img/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" />
+
+    <link rel="preload" href="../../assets/fonts/PixelifySans-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/showcase.css" />
+
+    <!-- Reveal-on-scroll is JS-driven, so the CSS keeps .reveal at opacity 0
+         until site.js marks it in view. Drop no-js here rather than in site.js:
+         site.js is deferred, so doing it there lets above-the-fold content paint
+         visible, snap to invisible, then fade back in. The timeout puts the
+         class back if site.js never runs at all, because content must never be
+         permanently invisible just because a script failed to load. -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      window.__csFailsafe = setTimeout(function () {
+        if (!window.__csReady) document.documentElement.classList.add("no-js");
+      }, 2500);
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="../../index.html" aria-label="Cat Splat Studios, home">
+          <img src="../../assets/img/cat-logo-small.webp" alt="Cat Splat Studios" width="954" height="130" />
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="../../index.html">Home</a>
+          <a href="../../games/index.html" aria-current="page">Games</a>
+          <a href="../../playground/index.html">Playground</a>
+          <a href="../../services/index.html">Services</a>
+          <a href="../../about/index.html">About</a>
+        </nav>
+
+        <a class="btn btn-primary nav-cta" href="../../services/index.html">Work with us</a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Primary">
+        <div>
+          <ul role="list">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../games/index.html" aria-current="page">Games</a></li>
+            <li><a href="../../playground/index.html">Playground</a></li>
+            <li><a href="../../services/index.html">Services</a></li>
+            <li><a href="../../about/index.html">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="studio-hero"><div class="shell"><p class="eyebrow">Unity · Desktop browser</p><h1 class="game-display">NEON <span class="ember-text">KEYS</span></h1><div class="studio-intro"><p class="lede">Guide a glowing orb through a dark maze of neon lines. Collect the coloured keys, dissolve the barriers they open, get past laser grids, plasma fields and patrolling sentinels, and reach the beacon.</p><p>Five short levels. A local AI agent on one gaming PC, with no cloud service, designed them. Frontier AI built most of the game around them.</p><div class="btn-row"><a class="btn btn-primary" href="#play">Play in your browser</a><a class="btn btn-ghost" href="#made">How it was made</a></div></div></div></section>
+      <section class="section section-sunk"><div class="shell">
+        <div class="section-head" id="play"><p class="eyebrow">Play</p><h2>Play in your browser.</h2></div>
+        <div class="game-frame" data-game-frame>
+          <div class="game-start">
+            <p class="game-warning"><strong>Motion and flashes.</strong> The game uses screen shake, flashes and strong glow, and has no setting to turn them off.<span class="motion-pref"> Your device is set to reduce motion.</span></p>
+            <p>For a desktop browser with a keyboard. Pressing Play downloads about <span data-download-size>17 MB</span>.</p>
+            <a class="btn btn-primary btn-lg" href="play/index.html" data-game-play data-game-title="NEON KEYS">Play NEON KEYS</a>
+          </div>
+        </div>
+        <div class="game-after"><p class="dim">Once it has loaded, the game has the keyboard. If keys do nothing, click it. Press Tab to move out of the game. The FULLSCREEN button in its corner fills the screen.</p><a class="text-link" href="play/index.html" data-game-next>Open the game on a page of its own →</a></div>
+        <div class="grid grid-2 game-info">
+          <div>
+            <h3>Controls</h3>
+            <dl class="controls">
+              <dt>WASD or arrows</dt><dd>Move</dd>
+              <dt>Hold Space</dt><dd>Pull the camera back for an overview</dd>
+              <dt>R</dt><dd>Restart the level</dd>
+              <dt>Esc or P</dt><dd>Pause</dd>
+              <dt>M</dt><dd>Mute</dd>
+              <dt>Arrows and Enter, or the mouse</dt><dd>Choose PLAY or HOW IT WAS MADE on the title screen</dd>
+            </dl>
+            <p class="dim">The title screen has two choices: PLAY, and HOW IT WAS MADE, which shows the setup and the numbers behind the game. Your first key or click there also starts the sound.</p>
+          </div>
+          <div>
+            <h3>Good to know</h3>
+            <ul class="game-notes">
+              <li>There are no touch controls. On a phone, the title screen says the game is best on a desktop with a keyboard.</li>
+              <li>Your best times are saved in this browser. The game uses no cookies and loads nothing from other sites.</li>
+              <li>So far it has been tested in Chrome on Windows.</li>
+            </ul>
+          </div>
+        </div>
+      </div></section>
+      <section class="section" id="made"><div class="shell">
+        <div class="section-head"><p class="eyebrow">How it was made</p><h2>Who made what.</h2><p class="lede">NEON KEYS shows how much of a game an AI model running on your own computer can make. The game tells the same story on its HOW IT WAS MADE screen.</p></div>
+        <div class="case-notes">
+          <article><h3>The levels</h3><p>A local AI agent designed all five levels. It ran on one gaming PC, with no cloud service, and worked through a level kit that checks every level before it is built. Nobody edited the levels by hand.</p></article>
+          <article><h3>The local setup</h3><ul class="game-notes"><li>One gaming PC, no cloud service.</li><li>An NVIDIA RTX 4060 graphics card with 8 GB, and 32 GB of system memory.</li><li>A 35-billion-parameter open-weights model. It is a mixture of experts, so only 3 billion parameters are active at a time.</li><li>Shrunk to 4 bits and run locally with llama.cpp.</li></ul></article>
+          <article><h3>The numbers</h3><ul class="game-notes"><li>5 levels, each from a short written brief.</li><li>29 design forms filled in by the agent.</li><li>2 min 24 s of model time in all.</li><li>1 automatic repair, 3 designer notes, 0 hand edits.</li><li>Every level proven finishable.</li></ul></article>
+          <article><h3>The checks</h3><p>The agent never placed things freely. It filled in short forms: pick a layout, pick the rooms and which doors lock, then place the keys and hazards. The kit turned the answers into a level and checked it before anything was built. On the last level the agent put a plasma field where a key had to go. The check caught it, and the agent moved the field through a repair form. Unity then built each level and checked that it can be finished.</p></article>
+          <article><h3>The game around them</h3><p>Frontier AI, a large AI model running as a cloud service, built the game shell. The kit supplies the pieces and how they behave: the orb's movement, the keys and barriers, the hazards and the sentinel patrols. Frontier AI added the pause and results screens, the camera, the HUD and the route guide on the floor, the neon look and effects, and the sound and music, which are generated in code.</p><p>The local agent also wrote the code for the title menu and the HOW IT WAS MADE screen, from a written spec, checked by automated tests. Frontier AI changed one line of that screen's layout.</p><p>Frontier AI also acted as the designer. It wrote a brief for each level, approved the results, and wrote three playtest notes, which the agent applied to levels 1 and 4 through the same forms. After a later play test in the browser, two rules were added to the game shell for every level: picking up a key or opening a barrier saves your restart point when no sentinel is near, and a sentinel that catches you shuts down for a moment. The levels did not change for these.</p></article>
+        </div>
+        <div class="credits">
+          <h3>Credits</h3>
+          <p class="dim">As the game shows them on its final screen:</p>
+          <blockquote>
+            <p>Levels designed by a local AI agent</p>
+            <p>Game shell and polish by frontier AI</p>
+            <p>A Catsplat Studios showcase.</p>
+          </blockquote>
+        </div>
+      </div></section>
+      <section class="section section-cta"><div class="shell shell-narrow center"><h2>See what else we make.</h2><p class="lede">Original games, studio-led projects and experiments you can try in a browser.</p><div class="btn-row"><a class="btn btn-ghost" href="../index.html">Explore our games</a></div></div></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-head">Cat Splat Studios</p>
+            <p class="dim" style="font-size: var(--step--1)">
+              An independent game studio in Toronto, making games since 2015.
+            </p>
+          </div>
+
+          <nav aria-label="Footer">
+            <p class="footer-head">Explore</p>
+            <a href="../../index.html">Home</a>
+            <a href="../../games/index.html">Games</a>
+            <a href="../../playground/index.html">Playground</a>
+            <a href="../../services/index.html">Services</a>
+            <a href="../../about/index.html">About</a>
+          </nav>
+
+          <div>
+            <p class="footer-head">Contact</p>
+            <a href="mailto:info@catsplatstudios.com">info@catsplatstudios.com</a>
+            <a href="https://github.com/Cat-Splat-Studios" target="_blank" rel="noopener">github.com/Cat-Splat-Studios</a>
+          </div>
+
+          <div>
+            <p class="footer-head">Find us</p>
+            <div class="social-row">
+              <a href="https://facebook.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+              </a>
+              <a href="https://instagram.com/catsplatstudios" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://twitter.com/catsplatstudios" target="_blank" rel="noopener" aria-label="X, formerly Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2H21l-6.4 7.3L22 22h-5.9l-4.6-6-5.3 6H3.4l6.9-7.8L2.3 2h6l4.2 5.5L18.2 2Zm-1 18h1.6L7.9 3.7H6.2L17.2 20Z"/></svg>
+              </a>
+              <a href="mailto:info@catsplatstudios.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-base">
+          <p>&copy; 2015&ndash;<span data-year>2026</span> Cat Splat Studios Inc.</p>
+          <p class="dim">Built as flat files. No frameworks were harmed.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../assets/js/site.js" defer></script>
+    <script src="../../assets/js/game-frame.js" defer></script>
+  </body>
+</html>
